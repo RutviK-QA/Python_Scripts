@@ -256,12 +256,12 @@ def handle_request1(request, api_urls, api_patterns):
             api_urls.append({'URL': request.url})
 
 
-# Function to handle failed requests
+# Function to handle failed requests if fails
 def handle_response_failure(response):
     if response.status != 200:
         logging.info(f"Request failed: {response.url} - Status: {response.status}")
         
-# Function to handle failed requests
+# Function to handle failed requests for matching api urls if fails
 def handle_response_failure1(response, api_urls, api_pattern):
 
     if api_pattern.match(response.url) and response.status != 200:
@@ -295,8 +295,6 @@ def find_latest_upload(file_type, max_size_mb=5):
             return file_path
     # Return None if no file is found that meets the criteria
     return None
-
-
 
 # Upload Random Files
 def upload_random_files(max_files):
@@ -387,7 +385,7 @@ def phone_number():
 # Coin Toss Random Yes/No
 def coin_toss():
     return random.choice(["Heads", "Tails"])
-Voice_to_text
+
 # Random Priority
 def priority_random(): 
     choices = ["Low", "Medium", "High"]
