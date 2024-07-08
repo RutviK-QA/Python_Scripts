@@ -1,0 +1,87 @@
+[
+  {
+    "name": "SSID",
+    "value": "A9knWoocxiyY6XAan",
+    "domain": ".google.co.in",
+    "path": "/",
+    "expires": 1752901253,
+    "httpOnly": true,
+    "secure": true
+  },
+  {
+    "name": "SSID",
+    "value": "AgCvsCspgKHE0gIMe",
+    "domain": ".google.com",
+    "path": "/",
+    "expires": 1752901253,
+    "httpOnly": true,
+    "secure": true
+  },
+  {
+    "name": "HSID",
+    "value": "ASswhkBknC_QmzOOB",
+    "domain": ".google.co.in",
+    "path": "/",
+    "expires": 1752901253,
+    "httpOnly": true
+  },
+  {
+    "name": "HSID",
+    "value": "ANvw9NbyFb-DumPe6",
+    "domain": ".google.com",
+    "path": "/",
+    "expires": 1752901253,
+    "httpOnly": true
+  },
+  {
+    "name": "APISID",
+    "value": "fHAdZbMsjISm58Fw/A4fSEqhyZL87g7t7R",
+    "domain": ".google.co.in",
+    "path": "/",
+    "expires": 1752901253
+  },
+  {
+    "name": "APISID",
+    "value": "fHAdZbMsjISm58Fw/A4fSEqhyZL87g7t7R",
+    "domain": ".google.com",
+    "path": "/",
+    "expires": 1752901253
+  },
+  {
+    "name": "SID",
+    "value": "g.a000kwji5wOW_eSUwgrgAOul6l8pX3mvhszouSaKl6c7GD0MZm_GltnBqbGhmQusL0ijuOUvPwACgYKAcISARASFQHGX2Mi77d7r2hdtJGkbjJjVXjBTBoVAUF8yKrQ_RajMYXjwFR15-Ui_YJC0076",
+    "domain": ".google.com",
+    "path": "/",
+    "expires": 1752901253
+  },
+  {
+    "name": "SID",
+    "value": "g.a000kwji5wOW_eSUwgrgAOul6l8pX3mvhszouSaKl6c7GD0MZm_GltnBqbGhmQusL0ijuOUvPwACgYKAcISARASFQHGX2Mi77d7r2hdtJGkbjJjVXjBTBoVAUF8yKrQ_RajMYXjwFR15-Ui_YJC0076",
+    "domain": ".google.co.in",
+    "path": "/",
+    "expires": 1752901253
+  },
+  {
+    "name": "SAPISID",
+    "value": "CtAZLlfBj5y8Av7C/AqUtCDoQ60WJUEYco",
+    "domain": ".google.co.in",
+    "path": "/",
+    "expires": 1752901253,
+    "secure": true
+  },
+  {
+    "name": "SAPISID",
+    "value": "CtAZLlfBj5y8Av7C/AqUtCDoQ60WJUEYco",
+    "domain": ".google.com",
+    "path": "/",
+    "expires": 1752901253,
+    "secure": true
+  },
+  {
+    "name": "SIDCC",
+    "value": "AKEyXzUBN7xEhsRCnr1PAdl6z12lUSgOj5Mdo6a0nrzCIUoY_QFhfOIXfiEueUtHCX4UKVwf",
+    "domain": ".google.com",
+    "path": "/",
+    "expires": 1747567382
+  }
+]
