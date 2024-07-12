@@ -81,7 +81,7 @@ def test_forgot_password(page: Page) -> None:
     page.wait_for_timeout(5000)
     page.route('**', handle_request)
     page.click('button:has-text("Reset Password")')
-    page.wait_for_timeout(5000)
+    page.wait_for_timeout(8000)
     logging.info("Entered passwords and pressed reset.")
 
     if intercepted_request:
@@ -107,7 +107,9 @@ def main():
         browser = p.chromium.launch(headless=True)
         page = browser.new_page()
         page.set_viewport_size({"width": 1920, "height": 1080})
+        response_handler, request_handler = utils.start_handler(page, api_urls)
         test_forgot_password(page)
+        utils.stop_handler(page, api_urls, response_handler, request_handler)
         browser.close
 
 if __name__ == '__main__':

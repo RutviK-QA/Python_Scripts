@@ -111,7 +111,6 @@ def overview_buttons(page: Page) -> None:
         page.locator("#apexchartsAge-graph").get_by_text("Download CSV").click()
     download5 = download5_info.value
     log_and_print(f"Downloaded CSV from Age graph: {download5.path()}")
-    page.wait_for_timeout(1000)
 
 def main():
 
@@ -120,7 +119,10 @@ def main():
         context = browser.new_context(storage_state="variables/playwright/.auth/state.json")
         page = context.new_page()
         page.set_viewport_size({"width": 1920, "height": 1080})
+        response_handler, request_handler = utils.start_handler(page, api_urls)
         overview_buttons(page)
+        page.wait_for_timeout(8000)
+        utils.stop_handler(page, api_urls, response_handler, request_handler)
         context.close()
         browser.close()
         

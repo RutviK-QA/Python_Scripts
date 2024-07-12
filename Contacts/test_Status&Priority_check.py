@@ -104,7 +104,6 @@ def click_random_status_button(page):
 # Function to search and process API response
 def status_prio(page):
     page.wait_for_timeout(6000)
-    request_handler = lambda request: utils.handle_request(request, api_urls)
 
     # Randomly select priority
     random_priority, random_choice = utils.select_random_priority(page)
@@ -113,12 +112,10 @@ def status_prio(page):
     if random_priority:
         random_priority.click()
         page.wait_for_timeout(2000)
-        page.on('request', request_handler)
-
         utils.random_prio(page, f"! {random_choice}")
 
     page.wait_for_timeout(5000) 
-    page.remove_listener("request", request_handler)
+
     
     logging.info("Successful APIs in priority change:")
     for url in api_urls:
@@ -127,9 +124,6 @@ def status_prio(page):
     eliminate1=click_random_status_button(page)
     eliminate= ''.join(eliminate1)
     logging.info(f"To be eliminated status: {eliminate}")
-    request_handler1 = lambda request: utils.handle_request1(request, api_urls1, api_patterns)
-
-    page.on('request', request_handler1)
 
     menu_items = ["New", "Move To Prospect", "Nurture", "No Response", "Contacted", "Move To Client", "Do Not Contact", "Unqualified"]
     # menu_items = ["Move To Prospect", "Nurture"]
@@ -326,16 +320,11 @@ def status_prio(page):
             page.get_by_role("button", name="No").click()
         elif random_choice == "Cancel":
             page.get_by_label("close").click()
-        logging.info(f"Move to Client : {random_choice}")
-        page.wait_for_timeout(3000)
-        
+        logging.info(f"Move to Client : {random_choice}")        
     else:
-        page.wait_for_timeout(3000) 
         pass
-    page.wait_for_timeout(5000)
-    page.remove_listener("request", request_handler1)
     logging.info("Success!")
-    page.wait_for_timeout(5000)  
+
 
 def main():
 
@@ -345,7 +334,10 @@ def main():
         page = context.new_page()
         page.set_viewport_size({"width": 1920, "height": 1080})
         page.goto("https://staging.bluemind.app/contacts")
+        response_handler, request_handler = utils.start_handler(page, api_urls)
         status_prio(page)
+        page.wait_for_timeout(8000)
+        utils.stop_handler(page, api_urls, response_handler, request_handler)
         context.close()
         browser.close()
         
@@ -359,6 +351,12 @@ if __name__ == '__main__':
     except Exception as e:
         utils.traceback_error_logging(script_name, e)
         utils.end_report(test_results, script_name) 
+
+
+
+
+
+
 
 
 # from playwright.sync_api import sync_playwright, Playwright, Error

@@ -33,13 +33,6 @@ def overview_filters(page: Page) -> None:
     today_1 = datetime.now()
     tomorrow_1 = today_1 + timedelta(days=1)
 
-    response_handler = lambda response: utils.handle_response_failure1(response, api_urls, api_pattern)
-
-    request_handler = lambda request: utils.handle_request1(request, api_urls, api_pattern)
-
-    page.on('request', request_handler)
-    page.on('response', response_handler)
-
     # Format dates as strings with month without leading zero
     today_click = today_1.strftime("%B %d,")
     today_click = today_click.replace(" 0", " ")
@@ -159,8 +152,6 @@ def overview_filters(page: Page) -> None:
         validate_data(tomorrow_data, today_str, tomorrow_str, "Tomorrow")
     else:
         logging.error("Failed to fetch tasks for tomorrow. Status code: %s", tomorrow_response.status_code)
-    page.remove_listener("request", request_handler)
-    page.remove_listener("response", response_handler)  
 
 def main():
 
@@ -169,7 +160,10 @@ def main():
         context = browser.new_context(storage_state="variables/playwright/.auth/state.json")
         page = context.new_page()
         page.set_viewport_size({"width": 1920, "height": 1080})
+        response_handler, request_handler = utils.start_handler(page, api_urls)
         overview_filters(page)
+        page.wait_for_timeout(8000) 
+        utils.stop_handler(page, api_urls, response_handler, request_handler)
         context.close()
         browser.close()
         

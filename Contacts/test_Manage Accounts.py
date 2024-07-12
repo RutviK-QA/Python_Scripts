@@ -184,7 +184,10 @@ def main():
         context = browser.new_context(storage_state="variables/playwright/.auth/state.json")
         page = context.new_page()
         page.goto("https://staging.bluemind.app/contacts")
+        response_handler, request_handler = utils.start_handler(page, api_urls)
         Contacts(page)
+        page.wait_for_timeout(8000)
+        utils.stop_handler(page, api_urls, response_handler, request_handler)
         context.close()
         browser.close()
 

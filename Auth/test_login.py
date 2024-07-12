@@ -1,5 +1,4 @@
 import re
-import time
 import logging
 from playwright.sync_api import Page
 from playwright.sync_api import sync_playwright
@@ -8,6 +7,7 @@ import requests
 from dotenv import load_dotenv
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from Variables.utils import APIHandler
 import Variables.utils as utils
 
 #Load vars
@@ -28,28 +28,27 @@ api_urls = []
 test_results = []
 
 #Perform API test
-def perform_api_test():
-    payload = {
-        "email": "rutvik@rutvikqa.testinator.com",
-        "password": "Qa@12345678"
-    }
-    headers = {
-        "Origin": "https://staging.bluemind.app",
-        "Content-Type": "application/json"
-    }
-    try:
-        response = requests.post(login_api, json=payload, headers=headers)
-        response.raise_for_status()
-        data = response.json()
-        logging.info(f"API response: {data}")
-        return "API Test: PASS" if response.status_code == 200 else "API Test: FAIL"
-    except Exception as e:
-        logging.error(f"API test failed: {e}")
-        return "API Test: FAIL"
+# def perform_api_test():
+#     payload = {
+#         "email": "rutvik@rutvikqa.testinator.com",
+#         "password": "Qa@12345678"
+#     }
+#     headers = {
+#         "Origin": "https://staging.bluemind.app",
+#         "Content-Type": "application/json"
+#     }
+#     try:
+#         response = requests.post(login_api, json=payload, headers=headers)
+#         response.raise_for_status()
+#         data = response.json()
+#         logging.info(f"API response: {data}")
+#         return "API Test: PASS" if response.status_code == 200 else "API Test: FAIL"
+#     except Exception as e:
+#         logging.error(f"API test failed: {e}")
+#         return "API Test: FAIL"
 
 def login(page: Page) -> None:
     try:
-
         page.goto(loginurl)
         logging.info("Navigated to signin page")
         
@@ -62,7 +61,7 @@ def login(page: Page) -> None:
         page.get_by_placeholder("Password").press("Enter")
         logging.info("Entered password and submitted login form")
 
-        time.sleep(4)
+        page.wait_for_timeout(8000)
 
     except Exception as e:
         logging.info(f"Error in file upload .{e}")
@@ -73,8 +72,9 @@ def main():
         browser = p.chromium.launch(headless=True)
         context = browser.new_context()
         page = context.new_page()
+        response_handler, request_handler = utils.start_handler(page, api_urls)
         login(page)
-        perform_api_test()
+        utils.stop_handler(page, api_urls, response_handler, request_handler)
         browser.close()
 
 

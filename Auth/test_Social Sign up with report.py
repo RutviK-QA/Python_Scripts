@@ -61,8 +61,10 @@ def main():
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
         page = browser.new_page()
+        response_handler, request_handler = utils.start_handler(page, api_urls)
         test_signup(page)
-        time.sleep(7)
+        page.wait_for_timeout(8000)
+        utils.stop_handler(page, api_urls, response_handler, request_handler)
         browser.close()
         
 if __name__ == '__main__':

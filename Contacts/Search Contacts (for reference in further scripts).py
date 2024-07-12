@@ -153,7 +153,7 @@ def search(page):
     time.sleep(4)
 
 with sync_playwright() as p:
-    browser = p.chromium.launch(headless=False)
+    browser = p.chromium.launch(headless=True)
     context = browser.new_context(storage_state="variables/playwright/.auth/state.json")
     page = context.new_page()
     page.set_viewport_size({"width": 1920, "height": 1080})

@@ -50,19 +50,8 @@ def upload_contact(page: Page) -> None:
 
     page.wait_for_timeout(3000) 
     page.get_by_role("button", name="Next").click()
-    
-    response_handler = lambda response: utils.handle_response_failure1(response, api_urls, api_pattern)
-
-    request_handler = lambda request: utils.handle_request1(request, api_urls, api_pattern)
-
-    page.on('request', request_handler)
-    page.on('response', response_handler)
 
     page.get_by_role("button", name="Upload").click() 
-
-    page.wait_for_timeout(6000)
-    page.remove_listener('request', request_handler)
-    page.remove_listener('response', response_handler)
 
     try:
         toast_msg = page.wait_for_selector("div[role='alert']", timeout=5000)
@@ -78,7 +67,10 @@ def main():
         context = browser.new_context(storage_state="variables/playwright/.auth/state.json")
         page = context.new_page()
         page.set_viewport_size({"width": 1920, "height": 1080})
+        response_handler, request_handler = utils.start_handler(page, api_urls)
         upload_contact(page)
+        page.wait_for_timeout(8000)
+        utils.stop_handler(page, api_urls, response_handler, request_handler)
         context.close()
         browser.close()
         

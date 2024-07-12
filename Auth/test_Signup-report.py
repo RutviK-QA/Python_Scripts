@@ -113,8 +113,10 @@ async def execute_main_script():
         logging.info("Successfully logged in.")
         await browser.close()
 
-async def main():
+async def main(page):
+    response_handler, request_handler = utils.start_handler(page, api_urls)
     await execute_main_script()
+    utils.stop_handler(page, api_urls, response_handler, request_handler)
     await utils.fetch_and_click_verification_link(mailinator, token)
 
 if __name__ == '__main__':

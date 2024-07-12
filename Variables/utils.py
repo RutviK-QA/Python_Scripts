@@ -210,17 +210,25 @@ def add_reminder(page, random_choice):
 # Function to add to voice to text and save
 def Voice_to_text(page):
     page.get_by_role("button", name="Start").click()
-    time.sleep(3)   
+    page.wait_for_timeout(3000)
     page.get_by_role("button", name="Stop").click()
     page.get_by_role("button", name="Reset").click()
-    page.get_by_role("button", name="Reset").press("Shift+Tab")
-    page.get_by_role("button", name="Start").press("Shift+Tab")
-    page.keyboard.type(generate_random_string(100))
+    try:
+        page.locator("textarea[name=\"notes\"]").fill(generate_random_string(100))
+    except:
+        try:
+            page.locator(".rich-text-editor-editor").fill(generate_random_string(100))
+        except:
+            page.get_by_role("button", name="Reset").press("Shift+Tab")
+            page.get_by_role("button", name="Start").press("Shift+Tab")
+            page.keyboard.type(generate_random_string(100))
     try:
         page.get_by_role("button", name="Save").click()
     except:
-        page.get_by_role("button", name="Send").click()
-
+        try:
+            page.get_by_role("button", name="Send").click()
+        except:
+            page.get_by_role("button", name="Update").click()
     logging.info("Saved after voice to text success")
 
 # Function to select random priority
@@ -239,14 +247,15 @@ def select_random_priority(page):
     logging.info("Failed to find any elements for all priorities")
     return None, None  # Handle the case where no elements were found
 
+
 # Function to fetch required API requests
-def handle_request(request, api_urls):
+def handle_request2(self, request, api_urls):
     if request.method in ["PUT", "POST", "GET", "DELETE"] and request.resource_type in ["fetch", "xhr"]:
         logging.info(f"Request URL: {request.url}")
         api_urls.append(request.url)
 
 # Pattern matching for single / multiple API requests
-def handle_request1(request, api_urls, api_patterns):
+def handle_request1(self, request, api_urls, api_patterns):
     # Ensure api_patterns is a list
     if not isinstance(api_patterns, list):
         api_patterns = [api_patterns]
@@ -257,12 +266,12 @@ def handle_request1(request, api_urls, api_patterns):
 
 
 # Function to handle failed requests if fails
-def handle_response_failure(response):
+def handle_response_failure(self, response):
     if response.status != 200:
         logging.info(f"Request failed: {response.url} - Status: {response.status}")
         
 # Function to handle failed requests for matching api urls if fails
-def handle_response_failure1(response, api_urls, api_pattern):
+def handle_response_failure1(self, response, api_urls, api_pattern):
 
     if api_pattern.match(response.url) and response.status != 200:
         for api_url in api_urls:
@@ -271,11 +280,47 @@ def handle_response_failure1(response, api_urls, api_pattern):
                 break
         logging.error(f"Request failed: {response.url} - Status: {response.status}")
 
+# Function to handle request and log URL
+def handle_request(request, api_urls):
+    api_url = os.getenv('URL_API')
+    api_pattern = re.compile(fr'^{re.escape(api_url)}')
+    if request.method in ["PUT", "POST", "GET", "DELETE"] and request.resource_type in ["fetch", "xhr"] and api_pattern.match(request.url):
+        # logging.info(f"Request URL: {request.url}")
+        api_urls.append({'url': request.url, 'response': None})
+
+# Function to handle response, log status and data
+def handle_response(response, api_urls):
+    api_url = os.getenv('URL_API')
+    api_pattern = re.compile(fr'^{re.escape(api_url)}')
+    if response.request.method in ["PUT", "POST", "GET", "DELETE"] and response.request.resource_type in ["fetch", "xhr"] and api_pattern.match(response.url):
+        for api_url in api_urls:
+            if api_url['url'] == response.url:
+                api_url['response'] = response
+                break
+        # logging.info(f"Response URL: {response.url} - Status: {response.status} Response Data: {response.json() if 'application/json' in response.headers['content-type'] else response.text()}")
+
+
 # Function to show API response
 def show_api_response(api_urls):
     for url_info in api_urls:
-        response_status = url_info['response'].status if url_info['response'] else 'No response'
-        logging.info(f"URL: {url_info['url']}, Status: {response_status}")
+        # if url_info['response'] and not url_info['response'].ok:
+            response_status = url_info['response'].status if url_info['response'] else 'No response'
+            response_data = url_info['response'].json() if url_info['response'] and 'application/json' in url_info['response'].headers['content-type'] else (url_info['response'].text() if url_info['response'] else 'No response data')
+            logging.info(f"URL: {url_info['url']}, Status: {response_status}, Data: {response_data}\n")
+
+
+def start_handler(page, api_urls):
+    response_handler = lambda response: handle_response(response, api_urls)
+    request_handler = lambda request: handle_request(request, api_urls)
+    page.on('request', request_handler)
+    page.on('response', response_handler)
+    return response_handler, request_handler
+
+def stop_handler(page, api_urls, response_handler, request_handler):
+    page.remove_listener("request", request_handler)
+    page.remove_listener("response", response_handler)
+    show_api_response(api_urls)
+
 
 # Function to find latest file from type defined and 5mb max size
 def find_latest_upload(file_type, max_size_mb=5):
@@ -366,15 +411,18 @@ def find_latest_invest_policy():
 
 # Function to click on calendar and its items
 def click_calendar(page):
-    time.sleep(1)
     tomorrow = datetime.today() + timedelta(days=1)
     day_str = tomorrow.strftime('%d')
+    page.wait_for_timeout(1000) 
     try:
-        page.get_by_role("gridcell", name=day_str, exact=True).click()
+        page.get_by_role("gridcell", name=day_str, exact=True).click(timeout=1000)
     except:
-        page.get_by_label("Next month").click()
-        time.sleep(0.5)
-        page.get_by_role("gridcell", name="1", exact=True).click() 
+            try:
+                page.get_by_role("gridcell", name=day_str).click(timeout=1000)
+            except:
+                page.get_by_label("Next month").click()
+                page.wait_for_timeout(500)
+                page.get_by_role("gridcell", name="1", exact=True).click() 
 
 # Phone Number
 def phone_number():
@@ -404,11 +452,22 @@ def start_report(test_results, script_name):
     current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     test_results.append(f"{current_time} - {script_name}: PASS")  
 
+    # # Generating report content
+    # report_content = "\n".join(test_results)
+
+    # # Writing report content to a log file
+    # with open("test_report.txt", "a") as f:
+    #     f.write(report_content + "\n")
+    
     # Generating report content
     report_content = "\n".join(test_results)
 
-    # Writing report content to a log file
-    with open("test_report.txt", "a") as f:
+    # Determine the path to the report file in the "Run Scripts" folder
+    run_scripts_folder = r'C:\Users\RutviK\Python PlaywrightScripts\Run Scripts'
+    report_file = os.path.join(run_scripts_folder, "test_report.txt")
+
+    # Writing report content to the log file
+    with open(report_file, "a") as f:
         f.write(report_content + "\n")
 
 # Traceback error logging
@@ -428,9 +487,14 @@ def end_report(test_results, script_name):
     # Generating report content
     report_content = "\n".join(test_results)
 
-    # Writing report content to a log file
-    with open("test_report.txt", "a") as f:
+    # Determine the path to the report file in the "Run Scripts" folder
+    run_scripts_folder = r'C:\Users\RutviK\Python PlaywrightScripts\Run Scripts'
+    report_file = os.path.join(run_scripts_folder, "test_report.txt")
+
+    # Writing report content to the log file
+    with open(report_file, "a") as f:
         f.write(report_content + "\n")
+
 
 
 # Fetch OTP from mailinator
@@ -491,7 +555,7 @@ async def fetch_and_click_verification_link(mailinator_url, token):
                         browser = await p.chromium.launch(headless=True)
                         page = await browser.new_page()
                         await page.goto(verify_url)
-                        time.sleep (5)
+                        page.wait_for_timeout(5000)
                         await browser.close()
                     break
                 else:
@@ -533,7 +597,7 @@ def google(popup, google_account, google_password):
 # Intercept API and replace requests
 #intercepted_request = None
 #url_to_intercept= "https://staging-api.bluemind.app/api/..."
-def intercept_api_requests(route, request):
+def intercept_api_requests(route, request, url_to_intercept):
     global intercepted_request
     if request.url == url_to_intercept and request.method == 'POST':
         intercepted_request = request

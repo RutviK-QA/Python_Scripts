@@ -1,3 +1,5 @@
+#Script in progress, do not assume it works
+
 from playwright.sync_api import sync_playwright, Playwright, Error, expect
 from datetime import datetime, timedelta
 import time
@@ -33,12 +35,6 @@ def view_sidebar(page):
     page.get_by_text("All Contacts").click()
     page.wait_for_timeout(5000)
 
-    response_handler = lambda response: utils.handle_response_failure1(response, api_urls, api_pattern)
-    request_handler = lambda request: utils.handle_request1(request, api_urls, api_pattern)
-
-    page.on('request', request_handler)
-    page.on('response', response_handler)
-
     utils.tap_random_view_contact(page)
     page.wait_for_timeout(4000)
     # try:            
@@ -65,18 +61,21 @@ def view_sidebar(page):
     #     logging.info("No email address for contact")
     #     pass
 
-    #Task
+    #Task / task
     page.wait_for_timeout(2000)
     page.wait_for_selector('[data-testid="DateRangeOutlinedIcon"]').click()
 
     prio=utils.priority_random()
     page.get_by_text(f"{prio} *", exact=True).click()
+    logging.info(f"Priority: {prio}")
     cate=utils.category_random()
     page.get_by_text(f"{cate} *", exact=True).click()
+    logging.info(f"Category: {cate}")   
 
-    if cate =="Events *":
-        page.locator("input[name=\"title\"]").fill(utils.generate_random_string(10))
+    if cate =="Events":
+        page.locator("input[name=\"title\"]").fill(utils.generate_alphanumeric(10))
         page.keyboard.press("Tab")
+        page.get_by_role("textbox").nth(1).click(timeout=1000)
     else:
         page.locator("input[name=\"title\"]").click()
         utils.for_x_y(page, "1", "8") 
@@ -85,11 +84,15 @@ def view_sidebar(page):
         if toss == "Heads":
             page.keyboard.type(utils.generate_random_string(10))
         page.keyboard.press("Tab")
-        
+        page.get_by_role("textbox").first.click()
+        utils.click_calendar(page)
+
     utils.Voice_to_text(page)   
+    page.wait_for_timeout(2000)
 
     assert page.get_by_text(cate).is_visible()
-    page.wait_for_timeout(2000)
+    logging.info(f"Category visible after creation of task")
+    page.wait_for_timeout(4000)
     # Note
     page.get_by_test_id("DescriptionOutlinedIcon").first.click()
     page.get_by_role("combobox").click()
@@ -103,12 +106,16 @@ def view_sidebar(page):
 
     page.locator("#swich-swipe-2").check()
     prio=utils.priority_random()
-    page.get_by_text(prio, exact=True).click()
+    page.get_by_label(f"{prio} *", exact=True).click()
     cate=utils.category_random()
-    page.get_by_text(cate, exact=True).click()
+    page.get_by_label(f"{cate} *", exact=True).click()
+    logging.info(f"Task selected: category {cate}, priority {prio}") 
 
-    page.get_by_role("textbox").nth(1).click()
-    utils.click_calendar()
+    try:
+        page.get_by_role("textbox").nth(1).click(timeout=1000)
+    except:
+        page.get_by_role("textbox").nth(2).click(timeout=5000)
+    utils.click_calendar(page)
     
     page.get_by_role("combobox").nth(1).click()
     utils.for_x_y(page, "1", "48")
@@ -217,19 +224,17 @@ def view_sidebar(page):
         utils.for_x_y(page, 1, 48)
         page.get_by_role("button", name="Save").click()
 
-
-    page.wait_for_timeout(5000)
-    page.remove_listener("request", request_handler)
-    page.remove_listener("response", response_handler)
-
 def main():
 
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=False)
+        browser = p.chromium.launch(headless=True)
         context = browser.new_context(storage_state="variables/playwright/.auth/state.json")
         page = context.new_page()
         page.set_viewport_size({"width": 1920, "height": 1080})
+        response_handler, request_handler = utils.start_handler(page, api_urls)
         view_sidebar(page)
+        page.wait_for_timeout(8000)
+        utils.stop_handler(page, api_urls, response_handler, request_handler)
         context.close()
         browser.close()
         

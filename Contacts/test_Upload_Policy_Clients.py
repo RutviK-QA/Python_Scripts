@@ -39,12 +39,6 @@ def download_birthdays(page):
     page.get_by_role("menuitem", name="Policy Upload").click()
     logging.info("Policy Upload clicked")
 
-    response_handler = lambda response: utils.handle_response_failure1(response, api_urls, api_pattern)
-
-    request_handler = lambda request: utils.handle_request1(request, api_urls, api_pattern)
-
-    page.on('request', request_handler)
-    page.on('response', response_handler)
     try:
         try:
             page.get_by_role("button", name="Download sample CSV").click()
@@ -81,9 +75,6 @@ def download_birthdays(page):
         utils.show_api_response(api_urls)
         logging.info(f"Error in file upload .{e}")
 
-    page.remove_listener("request", request_handler)
-    page.remove_listener("response", response_handler)
-
 def main():
 
     with sync_playwright() as p:
@@ -91,7 +82,10 @@ def main():
         context = browser.new_context(storage_state="variables/playwright/.auth/state.json")
         page = context.new_page()
         page.set_viewport_size({"width": 1920, "height": 1080})
+        response_handler, request_handler = utils.start_handler(page, api_urls)
         download_birthdays(page)
+        page.wait_for_timeout(8000)
+        utils.stop_handler(page, api_urls, response_handler, request_handler)   
         context.close() 
         browser.close()
         

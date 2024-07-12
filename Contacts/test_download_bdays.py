@@ -38,10 +38,6 @@ def download_birthdays(page):
     page.get_by_role("button", name="Actions").click()
     page.get_by_role("menuitem", name="Export Birthdays").click()
 
-    request_handler = lambda request: utils.handle_request1(request, api_urls, api_pattern)
-    page.on('request', request_handler)
-    page.on('response', utils.handle_response_failure)
-
     month= ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     try:
         for m in month:
@@ -82,16 +78,17 @@ def download_birthdays(page):
     except Exception as e:
         logging.error(e)
     
-    page.remove_listener("request", request_handler)
-    page.remove_listener("response", utils.handle_response_failure)
-    
 def main():
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=False)
         context = browser.new_context(storage_state="variables/playwright/.auth/state.json")
         page = context.new_page()
         page.set_viewport_size({"width": 1920, "height": 1080})
+        response_handler, request_handler = utils.start_handler(page, api_urls)
         download_birthdays(page)
+        page.wait_for_timeout(8000)
+        utils.stop_handler(page, api_urls, response_handler, request_handler)
+        context.close()
         browser.close()
         
 if __name__ == '__main__':

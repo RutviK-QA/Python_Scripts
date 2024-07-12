@@ -29,12 +29,6 @@ def menu_check(page: Page) -> None:
     page.goto('https://staging.bluemind.app/overview')
     page.wait_for_timeout(5000)
 
-    response_handler = lambda response: utils.handle_response_failure1(response, api_urls, api_pattern)
-
-    request_handler = lambda request: utils.handle_request1(request, api_urls, api_pattern)
-
-    page.on('request', request_handler)
-    page.on('response', response_handler)
     # Clicking sidebar toggle
     sidebar_toggle = page.wait_for_selector(".expand-sidebar-btn")
     sidebar_toggle.click()
@@ -62,10 +56,6 @@ def menu_check(page: Page) -> None:
     page.wait_for_selector('text="Investment Policy"', timeout=5000).click()
 
     logging.info("Clicked Investment Policy.")
-    page.wait_for_timeout(3000) 
-
-    page.remove_listener("request", request_handler)
-    page.remove_listener("response", response_handler)
 
 def main():
     with sync_playwright() as p:
@@ -73,7 +63,10 @@ def main():
         context = browser.new_context(storage_state="variables/playwright/.auth/state.json")
         page = context.new_page()
         page.set_viewport_size({"width": 1920, "height": 1080})
+        response_handler, request_handler = utils.start_handler(page, api_urls)
         menu_check(page)
+        page.wait_for_timeout(8000)     
+        utils.stop_handler(page, api_urls, response_handler, request_handler)
         context.close()
         browser.close()
 
