@@ -1,1059 +1,524 @@
-2024-07-15 19:11:31,523 - Viewing sidebar for contact name: QG 
-2024-07-15 19:11:37,066 - Sidebar input fields saved
-2024-07-15 19:11:41,154 - Priority: Low
-2024-07-15 19:11:41,385 - Category: Sales
-2024-07-15 19:11:48,258 - Saved after voice to text success
-2024-07-15 19:11:53,274 - Asserted task visibility on sidebar
-2024-07-15 19:11:59,734 - In Note, task selected: category Sales, priority High
-2024-07-15 19:12:05,091 - Future exception was never retrieved
-future: <Future finished exception=TargetClosedError('Target page, context or browser has been closed')>
-playwright._impl._errors.TargetClosedError: Target page, context or browser has been closed
-2024-07-15 19:12:27,499 - Viewing sidebar for contact name: rYbp5ruejJ jPfspVDF
-2024-07-15 19:13:03,244 - Sidebar input fields saved
-2024-07-15 19:13:07,318 - Priority: High
-2024-07-15 19:13:07,409 - Category: Follow Ups
-2024-07-15 19:13:13,579 - Saved after voice to text success
-2024-07-15 19:13:18,785 - Asserted 2nd task visibility on sidebar
-2024-07-15 19:13:20,509 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 352, in <module>: main()
-2024-07-15 19:13:20,510 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 341, in main: view_sidebar(page)
-2024-07-15 19:13:20,510 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 314, in view_sidebar: page.wait_for_timeout(4000)
-2024-07-15 19:13:20,510 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\sync_api\_generated.py', line 11094, in wait_for_timeout: self._sync(self._impl_obj.wait_for_timeout(timeout=timeout))
-2024-07-15 19:13:20,510 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_sync_base.py', line 115, in _sync: return task.result()
-2024-07-15 19:13:20,510 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_page.py', line 1018, in wait_for_timeout: await self._main_frame.wait_for_timeout(timeout)
-2024-07-15 19:13:20,510 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_frame.py', line 758, in wait_for_timeout: await self._channel.send("waitForTimeout", locals_to_params(locals()))
-2024-07-15 19:13:20,510 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_connection.py', line 59, in send: return await self._connection.wrap_api_call(
-2024-07-15 19:13:20,510 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_connection.py', line 514, in wrap_api_call: raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
-2024-07-15 19:13:20,510 - Error in test_View_sidebar: Page.wait_for_timeout: Target page, context or browser has been closed
-2024-07-15 19:13:40,554 - Viewing sidebar for contact name: gYjneim4Ly q5KcUZRe
-2024-07-15 19:13:48,250 - Sidebar input fields saved
-2024-07-15 19:13:52,316 - Priority: Low
-2024-07-15 19:13:52,494 - Category: Events
-2024-07-15 19:13:58,018 - Saved after voice to text success
-2024-07-15 19:14:03,144 - Asserted 2nd task visibility on sidebar
-2024-07-15 19:14:08,219 - In Note, task selected: category Sales, priority Low
-2024-07-15 19:14:24,710 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 352, in <module>: main()
-2024-07-15 19:14:24,710 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 341, in main: view_sidebar(page)
-2024-07-15 19:14:24,710 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 322, in view_sidebar: sidebar_note(page)
-2024-07-15 19:14:24,710 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 75, in sidebar_note: utils.Voice_to_text(page)
-2024-07-15 19:14:24,710 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Variables\utils.py', line 242, in Voice_to_text: page.get_by_role("button", name="Reset").press("Shift+Tab")
-2024-07-15 19:14:24,710 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\sync_api\_generated.py', line 16605, in press: self._sync(
-2024-07-15 19:14:24,710 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_sync_base.py', line 115, in _sync: return task.result()
-2024-07-15 19:14:24,710 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_locator.py', line 514, in press: return await self._frame.press(self._selector, strict=True, **params)
-2024-07-15 19:14:24,710 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_frame.py', line 731, in press: await self._channel.send("press", locals_to_params(locals()))
-2024-07-15 19:14:24,710 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_connection.py', line 59, in send: return await self._connection.wrap_api_call(
-2024-07-15 19:14:24,710 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_connection.py', line 514, in wrap_api_call: raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
-2024-07-15 19:14:24,710 - Error in test_View_sidebar: Locator.press: Target page, context or browser has been closed
-2024-07-15 19:15:07,027 - Viewing sidebar for contact name: IFzS4g1EGh KYD9awJ5
-2024-07-15 19:16:11,319 - Failure in Sub Source field
-2024-07-15 19:16:14,886 - Sidebar input fields saved
-2024-07-15 19:16:19,181 - Priority: Medium
-2024-07-15 19:16:19,320 - Category: Follow Ups
-2024-07-15 19:16:25,649 - Saved after voice to text success
-2024-07-15 19:16:30,662 - Asserted task visibility on sidebar
-2024-07-15 19:16:35,909 - In Note, task selected: category Follow Ups, priority Medium
-2024-07-15 19:17:12,109 - Future exception was never retrieved
-future: <Future finished exception=TargetClosedError('Target page, context or browser has been closed')>
-playwright._impl._errors.TargetClosedError: Target page, context or browser has been closed
-2024-07-15 19:17:12,109 - Future exception was never retrieved
-future: <Future finished exception=TargetClosedError('Target page, context or browser has been closed')>
-playwright._impl._errors.TargetClosedError: Target page, context or browser has been closed
-2024-07-15 19:17:12,109 - Future exception was never retrieved
-future: <Future finished exception=TargetClosedError('Target page, context or browser has been closed')>
-playwright._impl._errors.TargetClosedError: Target page, context or browser has been closed
-2024-07-15 19:17:32,150 - Viewing sidebar for contact name: gYjneim4Ly q5KcUZRe
-2024-07-15 19:18:06,624 - FAILURE.Keyboard.press: Unknown key: "Ctrl"
-2024-07-15 19:18:08,117 - Sidebar input fields saved
-2024-07-15 19:18:12,185 - Priority: Medium
-2024-07-15 19:18:12,380 - Category: Events
-2024-07-15 19:18:18,440 - Saved after voice to text success
-2024-07-15 19:18:23,543 - Asserted 2nd task visibility on sidebar
-2024-07-15 19:18:28,834 - In Note, task selected: category Sales, priority Medium
-2024-07-15 19:19:13,276 - Saved after voice to text success
-2024-07-15 19:19:16,827 - Clicked on 'Lead' in move to contact
-2024-07-15 19:19:16,915 - Decided not to move contact to Lead through toss
-2024-07-15 19:19:16,915 - Sidebar test completed
-2024-07-15 19:19:25,263 - URL: https://staging-api.bluemind.app/api/user/info, Method: GET, Status: 200
-
-2024-07-15 19:19:25,266 - URL: https://staging-api.bluemind.app/api/user-permission, Method: GET, Status: 200
-
-2024-07-15 19:19:25,268 - URL: https://staging-api.bluemind.app/api/contact_additional_info/get, Method: GET, Status: 200
-
-2024-07-15 19:19:25,279 - URL: https://staging-api.bluemind.app/api/client/get_all?page=0&pageSize=10&client_type=Lead&sortBy=client_id&sortType=DESC, Method: GET, Status: 200
-
-2024-07-15 19:19:25,283 - URL: https://staging-api.bluemind.app/api/client/count?client_type=Lead&search=&appVersion=canada, Method: GET, Status: 200
-
-2024-07-15 19:19:25,300 - URL: https://staging-api.bluemind.app/api/client/get_all?page=0&pageSize=10&sortBy=client_id&sortType=DESC, Method: GET, Status: 200
-
-2024-07-15 19:19:25,305 - URL: https://staging-api.bluemind.app/api/client/count?search=&appVersion=canada, Method: GET, Status: 200
-
-2024-07-15 19:19:25,309 - URL: https://staging-api.bluemind.app/api/contact-occupation, Method: GET, Status: 200
-
-2024-07-15 19:19:25,315 - URL: https://staging-api.bluemind.app/api/client_email_token/communication/get_all, Method: GET, Status: 200
-
-2024-07-15 19:19:25,322 - URL: https://staging-api.bluemind.app/api/client_tasks/get_all/11524?page=0&pageSize=2&type=Active, Method: GET, Status: 200
-
-2024-07-15 19:19:25,329 - URL: https://staging-api.bluemind.app/api/client_notes/get_all/11524, Method: GET, Status: 200
-
-2024-07-15 19:19:25,333 - URL: https://staging-api.bluemind.app/api/client_source/get_all, Method: GET, Status: 200
-
-2024-07-15 19:19:25,337 - URL: https://staging-api.bluemind.app/api/client/get/11524, Method: GET, Status: 200
-
-2024-07-15 19:19:25,342 - URL: https://staging-api.bluemind.app/api/opportunity/get_all_by_client/11524, Method: GET, Status: 200
-
-2024-07-15 19:19:25,345 - URL: https://staging-api.bluemind.app/api/client/11524, Method: PUT, Status: 200
-
-2024-07-15 19:19:25,362 - URL: https://staging-api.bluemind.app/api/client/get_search_all?search=, Method: GET, Status: 200
-
-2024-07-15 19:19:25,368 - URL: https://staging-api.bluemind.app/api/client_tasks/save/11524, Method: POST, Status: 200
-
-2024-07-15 19:19:25,371 - URL: https://staging-api.bluemind.app/api/client_notes/save, Method: POST, Status: 200
-
-2024-07-15 19:19:25,374 - URL: https://staging-api.bluemind.app/api/policy/get_all_client_policy/11524, Method: GET, Status: 200
-
-2024-07-15 19:19:25,381 - URL: https://staging-api.bluemind.app/api/investment-policy-client/11524, Method: GET, Status: 200
-
-2024-07-15 19:19:25,386 - URL: https://staging-api.bluemind.app/api/client_tasks/save/11524, Method: POST, Status: 500, 
--------------------> Payload: {"client_id":11524,"user_id":210,"priority":"Medium","type":"Sales","due_date":"2024-07-15T18:30:00.000Z","due_date_time":"2024-07-15T23:30:00.000Z","due_end_date":"2024-07-16T16:00:00.000Z","reminder":"minutes","reminder_unit":"7","reminder_type":"Notification","reminder_at":"2024-07-15T23:15:00.000Z","title":"%-%&#","notes":"<p>'EB:\\\"Vv&amp;vL&gt;K!J IEQf&gt;#8[NW')f%E\"(*}U.9t|A26g,h9UyTjpVYLgjs?1}M%3|&lt;#4]V'%sA\"^J]}duQ)!/ksX4J!aPR{ b!BB</p>\n","status":"active","created_from":"notes"}, 
--------------------> Data: {'status': 'error', 'data': {'config': {'url': 'https://www.googleapis.com/calendar/v3/calendars/primary/events?conferenceDataVersion=0&sendNotifications=true', 'method': 'POST', 'userAgentDirectives': [{'product': 'google-api-nodejs-client', 'version': '7.2.0', 'comment': 'gzip'}], 'data': {'summary': '%-%&#', 'start': {'dateTime': '2024-07-15T23:30:00.000Z', 'timeZone': 'UTC', 'date': None}, 'end': {'dateTime': '2024-07-15T16:00:00.000Z', 'timeZone': 'UTC', 'date': None}, 'description': '<p>\'EB:\\"Vv&amp;vL&gt;K!J IEQf&gt;#8[NW\')f%E"(*}U.9t|A26g,h9UyTjpVYLgjs?1}M%3|&lt;#4]V\'%sA"^J]}duQ)!/ksX4J!aPR{ b!BB</p>\n', 'recurrence': [], 'attendees': [], 'reminders': {'useDefault': False, 'overrides': [{'method': 'popup', 'minutes': '7'}]}, 'conferenceData': None}, 'headers': {'x-goog-api-client': 'gdcl/7.2.0 gl-node/18.20.3', 'Accept-Encoding': 'gzip', 'User-Agent': 'google-api-nodejs-client/7.2.0 (gzip)', 'Authorization': '<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.', 'Content-Type': 'application/json'}, 'params': {'conferenceDataVersion': 0, 'sendNotifications': True}, 'retry': True, 'body': '{"summary":"%-%&#","start":{"dateTime":"2024-07-15T23:30:00.000Z","timeZone":"UTC","date":null},"end":{"dateTime":"2024-07-15T16:00:00.000Z","timeZone":"UTC","date":null},"description":"<p>\'EB:\\\\\\"Vv&amp;vL&gt;K!J IEQf&gt;#8[NW\')f%E\\"(*}U.9t|A26g,h9UyTjpVYLgjs?1}M%3|&lt;#4]V\'%sA\\"^J]}duQ)!/ksX4J!aPR{ b!BB</p>\\n","recurrence":[],"attendees":[],"reminders":{"useDefault":false,"overrides":[{"method":"popup","minutes":"7"}]},"conferenceData":null}', 'responseType': 'unknown', 'retryConfig': {'currentRetryAttempt': 0, 'retry': 3, 'httpMethodsToRetry': ['GET', 'HEAD', 'PUT', 'OPTIONS', 'DELETE'], 'noResponseRetries': 2, 'statusCodesToRetry': [[100, 199], [408, 408], [429, 429], [500, 599]]}}, 'response': {'config': {'url': 'https://www.googleapis.com/calendar/v3/calendars/primary/events?conferenceDataVersion=0&sendNotifications=true', 'method': 'POST', 'userAgentDirectives': [{'product': 'google-api-nodejs-client', 'version': '7.2.0', 'comment': 'gzip'}], 'data': {'summary': '%-%&#', 'start': {'dateTime': '2024-07-15T23:30:00.000Z', 'timeZone': 'UTC', 'date': None}, 'end': {'dateTime': '2024-07-15T16:00:00.000Z', 'timeZone': 'UTC', 'date': None}, 'description': '<p>\'EB:\\"Vv&amp;vL&gt;K!J IEQf&gt;#8[NW\')f%E"(*}U.9t|A26g,h9UyTjpVYLgjs?1}M%3|&lt;#4]V\'%sA"^J]}duQ)!/ksX4J!aPR{ b!BB</p>\n', 'recurrence': [], 'attendees': [], 'reminders': {'useDefault': False, 'overrides': [{'method': 'popup', 'minutes': '7'}]}, 'conferenceData': None}, 'headers': {'x-goog-api-client': 'gdcl/7.2.0 gl-node/18.20.3', 'Accept-Encoding': 'gzip', 'User-Agent': 'google-api-nodejs-client/7.2.0 (gzip)', 'Authorization': '<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.', 'Content-Type': 'application/json'}, 'params': {'conferenceDataVersion': 0, 'sendNotifications': True}, 'retry': True, 'body': '{"summary":"%-%&#","start":{"dateTime":"2024-07-15T23:30:00.000Z","timeZone":"UTC","date":null},"end":{"dateTime":"2024-07-15T16:00:00.000Z","timeZone":"UTC","date":null},"description":"<p>\'EB:\\\\\\"Vv&amp;vL&gt;K!J IEQf&gt;#8[NW\')f%E\\"(*}U.9t|A26g,h9UyTjpVYLgjs?1}M%3|&lt;#4]V\'%sA\\"^J]}duQ)!/ksX4J!aPR{ b!BB</p>\\n","recurrence":[],"attendees":[],"reminders":{"useDefault":false,"overrides":[{"method":"popup","minutes":"7"}]},"conferenceData":null}', 'responseType': 'unknown'}, 'data': {'error': {'errors': [{'domain': 'calendar', 'reason': 'timeRangeEmpty', 'message': 'The specified time range is empty.', 'locationType': 'parameter', 'location': 'timeMax'}], 'code': 400, 'message': 'The specified time range is empty.'}}, 'headers': {'alt-svc': 'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000', 'cache-control': 'no-cache, no-store, max-age=0, must-revalidate', 'connection': 'close', 'content-encoding': 'gzip', 'content-type': 'application/json; charset=UTF-8', 'date': 'Mon, 15 Jul 2024 13:49:14 GMT', 'expires': 'Mon, 01 Jan 1990 00:00:00 GMT', 'pragma': 'no-cache', 'server': 'ESF', 'transfer-encoding': 'chunked', 'vary': 'Origin, X-Origin, Referer', 'x-content-type-options': 'nosniff', 'x-frame-options': 'SAMEORIGIN', 'x-xss-protection': '0'}, 'status': 400, 'statusText': 'Bad Request', 'request': {'responseURL': 'https://www.googleapis.com/calendar/v3/calendars/primary/events?conferenceDataVersion=0&sendNotifications=true'}}, 'status': 400, 'code': 400, 'errors': [{'domain': 'calendar', 'reason': 'timeRangeEmpty', 'message': 'The specified time range is empty.', 'locationType': 'parameter', 'location': 'timeMax'}]}}
-
-2024-07-15 19:19:25,390 - URL: https://staging-api.bluemind.app/api/log_message, Method: POST, Status: 200
-
-2024-07-15 19:19:25,396 - URL: https://staging-api.bluemind.app/api/aws/generate_presigned_url, Method: POST, Status: 200
-
-2024-07-15 19:19:48,761 - 
-Viewing sidebar for contact name: IFzS4g1EGh KYD9awJ5
-2024-07-15 19:19:52,875 - 1st try
-2024-07-15 19:20:24,608 - Sidebar input fields saved
-2024-07-15 19:20:28,892 - Priority: Low
-2024-07-15 19:20:29,071 - Category: Events
-2024-07-15 19:20:34,706 - Saved after voice to text success
-2024-07-15 19:20:39,733 - Asserted task visibility on sidebar
-2024-07-15 19:20:44,971 - In Note, task selected: category Follow Ups, priority Medium
-2024-07-15 19:21:09,213 - Future exception was never retrieved
-future: <Future finished exception=TargetClosedError('Target page, context or browser has been closed')>
-playwright._impl._errors.TargetClosedError: Target page, context or browser has been closed
-2024-07-15 19:21:09,214 - Future exception was never retrieved
-future: <Future finished exception=TargetClosedError('Target page, context or browser has been closed')>
-playwright._impl._errors.TargetClosedError: Target page, context or browser has been closed
-2024-07-15 19:21:09,214 - Future exception was never retrieved
-future: <Future finished exception=TargetClosedError('Target page, context or browser has been closed')>
-playwright._impl._errors.TargetClosedError: Target page, context or browser has been closed
-2024-07-15 19:21:31,207 - 
-Viewing sidebar for contact name: YcLudUceq6 9In8XA5I
-2024-07-15 19:21:36,290 - 2nd try
-2024-07-15 19:21:37,551 - Sidebar input fields saved
-2024-07-15 19:21:41,663 - Priority: Medium
-2024-07-15 19:21:41,809 - Category: Sales
-2024-07-15 19:21:48,545 - Saved after voice to text success
-2024-07-15 19:22:57,870 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 356, in <module>: main()
-2024-07-15 19:22:57,870 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 345, in main: view_sidebar(page)
-2024-07-15 19:22:57,870 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 324, in view_sidebar: page.get_by_test_id("DescriptionOutlinedIcon").nth(1).click()
-2024-07-15 19:22:57,870 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\sync_api\_generated.py', line 14929, in click: self._sync(
-2024-07-15 19:22:57,870 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_sync_base.py', line 115, in _sync: return task.result()
-2024-07-15 19:22:57,870 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_locator.py', line 156, in click: return await self._frame.click(self._selector, strict=True, **params)
-2024-07-15 19:22:57,870 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_frame.py', line 488, in click: await self._channel.send("click", locals_to_params(locals()))
-2024-07-15 19:22:57,871 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_connection.py', line 59, in send: return await self._connection.wrap_api_call(
-2024-07-15 19:22:57,871 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_connection.py', line 514, in wrap_api_call: raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
-2024-07-15 19:22:57,871 - Error in test_View_sidebar: Locator.click: Timeout 30000ms exceeded.
+2024-07-17 19:53:01,310 - ------------------->Viewing sidebar for contact name: y
+2024-07-17 19:53:35,327 - No email address for contact
+2024-07-17 19:53:37,877 - Priority: High
+2024-07-17 19:53:38,054 - Category: Events
+2024-07-17 19:53:43,697 - Saved after voice to text success
+2024-07-17 19:53:48,730 - Asserted task visibility on sidebar
+2024-07-17 19:53:49,836 - In Note, task selected: category Follow Ups, priority Low
+2024-07-17 19:54:05,592 - Saved after voice to text success
+2024-07-17 19:54:15,811 - Sidebar input fields saved
+2024-07-17 19:55:49,118 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 365, in <module>: main()
+2024-07-17 19:55:49,118 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 354, in main: view_sidebar(page)
+2024-07-17 19:55:49,118 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 324, in view_sidebar: page.get_by_label("Create Task").click()
+2024-07-17 19:55:49,118 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\sync_api\_generated.py', line 14929, in click: self._sync(
+2024-07-17 19:55:49,118 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_sync_base.py', line 115, in _sync: return task.result()
+2024-07-17 19:55:49,118 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_locator.py', line 156, in click: return await self._frame.click(self._selector, strict=True, **params)
+2024-07-17 19:55:49,118 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_frame.py', line 488, in click: await self._channel.send("click", locals_to_params(locals()))
+2024-07-17 19:55:49,119 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_connection.py', line 59, in send: return await self._connection.wrap_api_call(
+2024-07-17 19:55:49,119 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_connection.py', line 514, in wrap_api_call: raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+2024-07-17 19:55:49,119 - Error in test_View_sidebar: Locator.click: Timeout 30000ms exceeded.
 Call log:
-waiting for get_by_test_id("DescriptionOutlinedIcon").nth(1)
-  -   locator resolved to <svg focusable="false" aria-hidden="true" viewBox="0 …>…</svg>
+waiting for get_by_label("Create Task")
+  -   locator resolved to <button tabindex="0" type="button" aria-label="Create Ta…>…</button>
   - attempting click action
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <span class="MuiTypography-root MuiTypography-body1 Mu…>Medium</span> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div tabindex="-1" role="presentation" class="MuiDial…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #1
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <div class="MuiGrid-root MuiGrid-container MuiGrid-sp…>…</div> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div tabindex="-1" role="presentation" class="MuiDial…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #2
   -   waiting 20ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <input value="" type="text" id="autocomplete" autocompl…/> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div class="MuiGrid-root MuiGrid-container css-1d3bby…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #3
   -   waiting 100ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <span class="MuiTypography-root MuiTypography-body1 Mu…>Medium</span> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div tabindex="-1" role="presentation" class="MuiDial…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #4
   -   waiting 100ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <span class="MuiTypography-root MuiTypography-body1 Mu…>Medium</span> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div tabindex="-1" role="presentation" class="MuiDial…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #5
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <div class="MuiGrid-root MuiGrid-container MuiGrid-sp…>…</div> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div tabindex="-1" role="presentation" class="MuiDial…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #6
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <input value="" type="text" id="autocomplete" autocompl…/> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div class="MuiGrid-root MuiGrid-container css-1d3bby…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #7
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <span class="MuiTypography-root MuiTypography-body1 Mu…>Medium</span> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div tabindex="-1" role="presentation" class="MuiDial…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #8
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <span class="MuiTypography-root MuiTypography-body1 Mu…>Medium</span> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div tabindex="-1" role="presentation" class="MuiDial…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #9
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <div class="MuiGrid-root MuiGrid-container MuiGrid-sp…>…</div> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div tabindex="-1" role="presentation" class="MuiDial…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #10
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <input value="" type="text" id="autocomplete" autocompl…/> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div class="MuiGrid-root MuiGrid-container css-1d3bby…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #11
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <span class="MuiTypography-root MuiTypography-body1 Mu…>Medium</span> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div tabindex="-1" role="presentation" class="MuiDial…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #12
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <span class="MuiTypography-root MuiTypography-body1 Mu…>Medium</span> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div tabindex="-1" role="presentation" class="MuiDial…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #13
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <div class="MuiGrid-root MuiGrid-container MuiGrid-sp…>…</div> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div tabindex="-1" role="presentation" class="MuiDial…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #14
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <input value="" type="text" id="autocomplete" autocompl…/> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div class="MuiGrid-root MuiGrid-container css-1d3bby…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #15
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <span class="MuiTypography-root MuiTypography-body1 Mu…>Medium</span> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div tabindex="-1" role="presentation" class="MuiDial…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #16
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <span class="MuiTypography-root MuiTypography-body1 Mu…>Medium</span> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div tabindex="-1" role="presentation" class="MuiDial…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #17
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <div class="MuiGrid-root MuiGrid-container MuiGrid-sp…>…</div> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div tabindex="-1" role="presentation" class="MuiDial…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #18
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <input value="" type="text" id="autocomplete" autocompl…/> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div class="MuiGrid-root MuiGrid-container css-1d3bby…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #19
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <span class="MuiTypography-root MuiTypography-body1 Mu…>Medium</span> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div tabindex="-1" role="presentation" class="MuiDial…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #20
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <span class="MuiTypography-root MuiTypography-body1 Mu…>Medium</span> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div tabindex="-1" role="presentation" class="MuiDial…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #21
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <div class="MuiGrid-root MuiGrid-container MuiGrid-sp…>…</div> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div tabindex="-1" role="presentation" class="MuiDial…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #22
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <input value="" type="text" id="autocomplete" autocompl…/> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div class="MuiGrid-root MuiGrid-container css-1d3bby…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #23
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <span class="MuiTypography-root MuiTypography-body1 Mu…>Medium</span> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div tabindex="-1" role="presentation" class="MuiDial…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #24
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <span class="MuiTypography-root MuiTypography-body1 Mu…>Medium</span> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div tabindex="-1" role="presentation" class="MuiDial…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #25
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <div class="MuiGrid-root MuiGrid-container MuiGrid-sp…>…</div> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div tabindex="-1" role="presentation" class="MuiDial…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #26
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <input value="" type="text" id="autocomplete" autocompl…/> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div class="MuiGrid-root MuiGrid-container css-1d3bby…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #27
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <span class="MuiTypography-root MuiTypography-body1 Mu…>Medium</span> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div tabindex="-1" role="presentation" class="MuiDial…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #28
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <span class="MuiTypography-root MuiTypography-body1 Mu…>Medium</span> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div tabindex="-1" role="presentation" class="MuiDial…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #29
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <div class="MuiGrid-root MuiGrid-container MuiGrid-sp…>…</div> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div tabindex="-1" role="presentation" class="MuiDial…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #30
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <input value="" type="text" id="autocomplete" autocompl…/> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div class="MuiGrid-root MuiGrid-container css-1d3bby…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #31
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <span class="MuiTypography-root MuiTypography-body1 Mu…>Medium</span> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div tabindex="-1" role="presentation" class="MuiDial…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #32
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <span class="MuiTypography-root MuiTypography-body1 Mu…>Medium</span> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div tabindex="-1" role="presentation" class="MuiDial…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #33
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <div class="MuiGrid-root MuiGrid-container MuiGrid-sp…>…</div> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div tabindex="-1" role="presentation" class="MuiDial…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #34
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <input value="" type="text" id="autocomplete" autocompl…/> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div class="MuiGrid-root MuiGrid-container css-1d3bby…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #35
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <span class="MuiTypography-root MuiTypography-body1 Mu…>Medium</span> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div tabindex="-1" role="presentation" class="MuiDial…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #36
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <span class="MuiTypography-root MuiTypography-body1 Mu…>Medium</span> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div tabindex="-1" role="presentation" class="MuiDial…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #37
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <div class="MuiGrid-root MuiGrid-container MuiGrid-sp…>…</div> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div tabindex="-1" role="presentation" class="MuiDial…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #38
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <input value="" type="text" id="autocomplete" autocompl…/> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div class="MuiGrid-root MuiGrid-container css-1d3bby…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #39
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <span class="MuiTypography-root MuiTypography-body1 Mu…>Medium</span> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div tabindex="-1" role="presentation" class="MuiDial…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #40
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <span class="MuiTypography-root MuiTypography-body1 Mu…>Medium</span> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div tabindex="-1" role="presentation" class="MuiDial…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #41
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <div class="MuiGrid-root MuiGrid-container MuiGrid-sp…>…</div> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div tabindex="-1" role="presentation" class="MuiDial…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #42
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <input value="" type="text" id="autocomplete" autocompl…/> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div class="MuiGrid-root MuiGrid-container css-1d3bby…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #43
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <span class="MuiTypography-root MuiTypography-body1 Mu…>Medium</span> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div tabindex="-1" role="presentation" class="MuiDial…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #44
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <span class="MuiTypography-root MuiTypography-body1 Mu…>Medium</span> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div tabindex="-1" role="presentation" class="MuiDial…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #45
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <div class="MuiGrid-root MuiGrid-container MuiGrid-sp…>…</div> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div tabindex="-1" role="presentation" class="MuiDial…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #46
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <input value="" type="text" id="autocomplete" autocompl…/> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div class="MuiGrid-root MuiGrid-container css-1d3bby…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #47
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <span class="MuiTypography-root MuiTypography-body1 Mu…>Medium</span> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div tabindex="-1" role="presentation" class="MuiDial…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #48
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <span class="MuiTypography-root MuiTypography-body1 Mu…>Medium</span> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div tabindex="-1" role="presentation" class="MuiDial…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #49
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <div class="MuiGrid-root MuiGrid-container MuiGrid-sp…>…</div> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div tabindex="-1" role="presentation" class="MuiDial…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #50
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <input value="" type="text" id="autocomplete" autocompl…/> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div class="MuiGrid-root MuiGrid-container css-1d3bby…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #51
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <span class="MuiTypography-root MuiTypography-body1 Mu…>Medium</span> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div tabindex="-1" role="presentation" class="MuiDial…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #52
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <span class="MuiTypography-root MuiTypography-body1 Mu…>Medium</span> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div tabindex="-1" role="presentation" class="MuiDial…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #53
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <div class="MuiGrid-root MuiGrid-container MuiGrid-sp…>…</div> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div tabindex="-1" role="presentation" class="MuiDial…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #54
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <input value="" type="text" id="autocomplete" autocompl…/> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div class="MuiGrid-root MuiGrid-container css-1d3bby…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #55
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <span class="MuiTypography-root MuiTypography-body1 Mu…>Medium</span> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div tabindex="-1" role="presentation" class="MuiDial…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #56
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <span class="MuiTypography-root MuiTypography-body1 Mu…>Medium</span> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div tabindex="-1" role="presentation" class="MuiDial…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #57
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <div class="MuiGrid-root MuiGrid-container MuiGrid-sp…>…</div> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div tabindex="-1" role="presentation" class="MuiDial…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #58
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <input value="" type="text" id="autocomplete" autocompl…/> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div class="MuiGrid-root MuiGrid-container css-1d3bby…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #59
   -   waiting 500ms
   -   waiting for element to be visible, enabled and stable
   -   element is visible, enabled and stable
   -   scrolling into view if needed
   -   done scrolling
-  -   <span class="MuiTypography-root MuiTypography-body1 Mu…>Medium</span> from <div role="presentation" class="MuiDialog-root cs-not…>…</div> subtree intercepts pointer events
+  -   <div tabindex="-1" role="presentation" class="MuiDial…>…</div> from <div role="presentation" class="MuiDialog-root MuiMod…>…</div> subtree intercepts pointer events
   - retrying click action, attempt #60
   -   waiting 500ms
 
-2024-07-15 19:28:57,208 - ------------------->Viewing sidebar for contact name: D5QILqAyHp MXevm6f1
-2024-07-15 19:29:02,228 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 334, in <module>: main()
-2024-07-15 19:29:02,228 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 323, in main: view_sidebar(page)
-2024-07-15 19:29:02,228 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 238, in view_sidebar: input_id = input_element.evaluate('(element) => element.id')
-2024-07-15 19:29:02,228 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\sync_api\_generated.py', line 15129, in evaluate: self._sync(
-2024-07-15 19:29:02,229 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_sync_base.py', line 115, in _sync: return task.result()
-2024-07-15 19:29:02,229 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_locator.py', line 184, in evaluate: return await self._with_element(
-2024-07-15 19:29:02,229 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_locator.py', line 108, in _with_element: handle = await self.element_handle(timeout=timeout)
-2024-07-15 19:29:02,229 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_locator.py', line 311, in element_handle: handle = await self._frame.wait_for_selector(
-2024-07-15 19:29:02,229 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_frame.py', line 323, in wait_for_selector: await self._channel.send("waitForSelector", locals_to_params(locals()))
-2024-07-15 19:29:02,229 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_connection.py', line 59, in send: return await self._connection.wrap_api_call(
-2024-07-15 19:29:02,229 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_connection.py', line 514, in wrap_api_call: raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
-2024-07-15 19:29:02,229 - Error in test_View_sidebar: Locator.evaluate: Error: strict mode violation: locator(".MuiInputBase-input.MuiOutlinedInput-input.MuiInputBase-inputSizeSmall") resolved to 10 elements:
-    1) <input id=":rh:" value="10" type="text" role="combobox"…/> aka get_by_label("Page Size")
-    2) <input value="" id=":r3i:" type="text" role="combobox" …/> aka locator("[id=\"\\:r3i\\:\"]")
-    3) <input disabled value="0" id=":r34:" type="text" aria-i…/> aka get_by_role("textbox").first
-    4) <input value="" id=":r35:" type="text" role="combobox" …/> aka locator("[id=\"\\:r35\\:\"]")
-    5) <input disabled value="0" id=":r38:" type="text" aria-i…/> aka get_by_label("Please first select family").get_by_role("textbox")
-    6) <input value="" id=":r39:" type="text" role="combobox" …/> aka locator("[id=\"\\:r39\\:\"]")
-    7) <input id=":r3b:" required="" type="text" value="Npo<EC…/> aka get_by_role("textbox").nth(2)
-    8) <input id=":r3f:" type="text" value="New" role="combobo…/> aka locator("[id=\"\\:r3f\\:\"]")
-    9) <input id=":r3c:" type="text" role="combobox" autocompl…/> aka locator("[id=\"\\:r3c\\:\"]")
-    10) <input id=":r3e:" required="" type="text" aria-invalid=…/> aka get_by_role("textbox").nth(4)
+2024-07-17 20:00:51,148 - ------------------->Viewing sidebar for contact name: NN 
+2024-07-17 20:00:56,985 - Added C:\Users\Rutvik\Downloads\sample-contact-policy (52).xlsx to the contact pop up.
+2024-07-17 20:01:33,349 - Saved after voice to text success
+2024-07-17 20:01:36,086 - Priority: Medium
+2024-07-17 20:01:36,269 - Category: Sales
+2024-07-17 20:01:42,587 - Saved after voice to text success
+2024-07-17 20:01:47,614 - Asserted task visibility on sidebar
+2024-07-17 20:01:49,297 - In Note, task selected: category Follow Ups, priority Low
+2024-07-17 20:02:01,951 - Saved after voice to text success
+2024-07-17 20:02:14,070 - Sidebar input fields saved
+2024-07-17 20:02:18,005 - Priority: Medium
+2024-07-17 20:02:18,270 - Category: Events
+2024-07-17 20:02:23,712 - Saved after voice to text success
+2024-07-17 20:02:28,730 - Asserted task visibility on sidebar
+2024-07-17 20:02:34,289 - In Note, task selected: category Events, priority Low
+2024-07-17 20:02:49,565 - Saved after voice to text success
+2024-07-17 20:02:53,068 - Clicked on 'Client' in move to contact
+2024-07-17 20:02:56,213 - Contact moved successfully!
+2024-07-17 20:02:56,297 - Sidebar test completed
+2024-07-17 20:03:34,356 - URL: https://staging-api.bluemind.app/api/user/info, Method: GET, Status: 200
 
-Call log:
-waiting for locator(".MuiInputBase-input.MuiOutlinedInput-input.MuiInputBase-inputSizeSmall")
+2024-07-17 20:03:34,359 - URL: https://staging-api.bluemind.app/api/user-permission, Method: GET, Status: 200
 
-2024-07-15 19:31:16,207 - ------------------->Viewing sidebar for contact name: Cdiz29XByy R8fIXt6Y
-2024-07-15 19:31:21,124 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 336, in <module>: main()
-2024-07-15 19:31:21,124 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 325, in main: view_sidebar(page)
-2024-07-15 19:31:21,124 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 240, in view_sidebar: input_id = input_element.evaluate('(element) => element.id')
-2024-07-15 19:31:21,124 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\sync_api\_generated.py', line 15129, in evaluate: self._sync(
-2024-07-15 19:31:21,124 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_sync_base.py', line 115, in _sync: return task.result()
-2024-07-15 19:31:21,124 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_locator.py', line 184, in evaluate: return await self._with_element(
-2024-07-15 19:31:21,125 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_locator.py', line 108, in _with_element: handle = await self.element_handle(timeout=timeout)
-2024-07-15 19:31:21,125 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_locator.py', line 311, in element_handle: handle = await self._frame.wait_for_selector(
-2024-07-15 19:31:21,125 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_frame.py', line 323, in wait_for_selector: await self._channel.send("waitForSelector", locals_to_params(locals()))
-2024-07-15 19:31:21,125 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_connection.py', line 59, in send: return await self._connection.wrap_api_call(
-2024-07-15 19:31:21,125 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_connection.py', line 514, in wrap_api_call: raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
-2024-07-15 19:31:21,125 - Error in test_View_sidebar: Locator.evaluate: Error: strict mode violation: locator(".MuiFormControl-root .MuiInputBase-input.MuiOutlinedInput-input.MuiInputBase-inputSizeSmall") resolved to 9 elements:
-    1) <input id=":rh:" value="10" type="text" role="combobox"…/> aka get_by_label("Page Size")
-    2) <input value="" id=":r3e:" type="text" role="combobox" …/> aka get_by_role("combobox").first
-    3) <input disabled id=":r34:" value="23" type="text" aria-…/> aka locator("[id=\"\\:r34\\:\"]")
-    4) <input id=":r35:" type="text" value="Female" role="comb…/> aka get_by_role("combobox").nth(1)
-    5) <input disabled value="0" id=":r38:" type="text" aria-i…/> aka get_by_label("Please first select family").get_by_role("textbox")
-    6) <input value="" id=":r39:" required="" type="text" aria…/> aka locator("[id=\"\\:r39\\:\"]")
-    7) <input id=":r3a:" type="text" role="combobox" autocompl…/> aka get_by_role("combobox").nth(2)
-    8) <input id=":r3c:" required="" type="text" inputmode="nu…/> aka locator("[id=\"\\:r3c\\:\"]")
-    9) <input value="" id=":r3d:" required="" type="text" aria…/> aka locator("[id=\"\\:r3d\\:\"]")
-
-Call log:
-waiting for locator(".MuiFormControl-root .MuiInputBase-input.MuiOutlinedInput-input.MuiInputBase-inputSizeSmall")
-
-2024-07-15 19:35:43,138 - ------------------->Viewing sidebar for contact name: gYjneim4Ly q5KcUZRe
-2024-07-15 19:35:51,149 - Sidebar input fields saved
-2024-07-15 19:35:55,371 - Priority: High
-2024-07-15 19:35:55,558 - Category: Sales
-2024-07-15 19:36:02,554 - Saved after voice to text success
-2024-07-15 19:36:07,571 - Asserted task visibility on sidebar
-2024-07-15 19:36:12,765 - In Note, task selected: category Follow Ups, priority Medium
-2024-07-15 19:36:13,339 - Task was destroyed but it is pending!
-task: <Task pending name='Task-103' coro=<Page.wait_for_timeout() running at C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_page.py:1018> wait_for=<Future pending cb=[Task.task_wakeup()]> cb=[SyncBase._sync.<locals>.<lambda>() at C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_sync_base.py:111, ProtocolCallback.__init__.<locals>.cb() at C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_connection.py:191]>
-2024-07-15 19:36:33,240 - ------------------->Viewing sidebar for contact name: D5QILqAyHp MXevm6f1
-2024-07-15 19:36:45,428 - URL: https://staging-api.bluemind.app/api/user/info, Method: GET, Status: 200
-
-2024-07-15 19:36:45,431 - URL: https://staging-api.bluemind.app/api/user-permission, Method: GET, Status: 200
-
-2024-07-15 19:36:45,434 - URL: https://staging-api.bluemind.app/api/contact_additional_info/get, Method: GET, Status: 200
-
-2024-07-15 19:36:45,443 - URL: https://staging-api.bluemind.app/api/client/get_all?page=0&pageSize=10&client_type=Lead&sortBy=client_id&sortType=DESC, Method: GET, Status: 200
-
-2024-07-15 19:36:45,447 - URL: https://staging-api.bluemind.app/api/client/count?client_type=Lead&search=&appVersion=canada, Method: GET, Status: 200
-
-2024-07-15 19:36:45,462 - URL: https://staging-api.bluemind.app/api/client/get_all?page=0&pageSize=10&sortBy=client_id&sortType=DESC, Method: GET, Status: 200
-
-2024-07-15 19:36:45,466 - URL: https://staging-api.bluemind.app/api/client/count?search=&appVersion=canada, Method: GET, Status: 200
-
-2024-07-15 19:36:45,470 - URL: https://staging-api.bluemind.app/api/contact-occupation, Method: GET, Status: 200
-
-2024-07-15 19:36:45,472 - URL: https://staging-api.bluemind.app/api/client_email_token/communication/get_all, Method: GET, Status: 200
-
-2024-07-15 19:36:45,479 - URL: https://staging-api.bluemind.app/api/client_tasks/get_all/11521?page=0&pageSize=3&type=Active, Method: GET, Status: 200
-
-2024-07-15 19:36:45,482 - URL: https://staging-api.bluemind.app/api/client_notes/get_all/11521, Method: GET, Status: 200
-
-2024-07-15 19:36:45,485 - URL: https://staging-api.bluemind.app/api/client_source/get_all, Method: GET, Status: 200
-
-2024-07-15 19:36:45,488 - URL: https://staging-api.bluemind.app/api/client/get/11521, Method: GET, Status: 200
-
-2024-07-15 19:36:45,492 - URL: https://staging-api.bluemind.app/api/opportunity/get_all_by_client/11521, Method: GET, Status: 200
-
-2024-07-15 19:37:45,652 - ------------------->Viewing sidebar for contact name: RYx2ltg37G vbN0tA0Q
-2024-07-15 19:37:58,399 - URL: https://staging-api.bluemind.app/api/user/info, Method: GET, Status: 200
-
-2024-07-15 19:37:58,402 - URL: https://staging-api.bluemind.app/api/user-permission, Method: GET, Status: 200
-
-2024-07-15 19:37:58,405 - URL: https://staging-api.bluemind.app/api/contact_additional_info/get, Method: GET, Status: 200
-
-2024-07-15 19:37:58,413 - URL: https://staging-api.bluemind.app/api/client/get_all?page=0&pageSize=10&client_type=Lead&sortBy=client_id&sortType=DESC, Method: GET, Status: 200
-
-2024-07-15 19:37:58,417 - URL: https://staging-api.bluemind.app/api/client/count?client_type=Lead&search=&appVersion=canada, Method: GET, Status: 200
-
-2024-07-15 19:37:58,431 - URL: https://staging-api.bluemind.app/api/client/get_all?page=0&pageSize=10&sortBy=client_id&sortType=DESC, Method: GET, Status: 200
-
-2024-07-15 19:37:58,434 - URL: https://staging-api.bluemind.app/api/client/count?search=&appVersion=canada, Method: GET, Status: 200
-
-2024-07-15 19:37:58,439 - URL: https://staging-api.bluemind.app/api/contact-occupation, Method: GET, Status: 200
-
-2024-07-15 19:37:58,442 - URL: https://staging-api.bluemind.app/api/client_email_token/communication/get_all, Method: GET, Status: 200
-
-2024-07-15 19:37:58,445 - URL: https://staging-api.bluemind.app/api/client_tasks/get_all/11525?page=0&pageSize=2&type=Active, Method: GET, Status: 200
-
-2024-07-15 19:37:58,449 - URL: https://staging-api.bluemind.app/api/client_notes/get_all/11525, Method: GET, Status: 200
-
-2024-07-15 19:37:58,453 - URL: https://staging-api.bluemind.app/api/client_source/get_all, Method: GET, Status: 200
-
-2024-07-15 19:37:58,459 - URL: https://staging-api.bluemind.app/api/client/get/11525, Method: GET, Status: 200
-
-2024-07-15 19:37:58,467 - URL: https://staging-api.bluemind.app/api/opportunity/get_all_by_client/11525, Method: GET, Status: 200
-
-2024-07-15 19:41:25,640 - ------------------->Viewing sidebar for contact name: RYx2ltg37G vbN0tA0Q
-2024-07-15 19:41:30,211 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 364, in <module>: main()
-2024-07-15 19:41:30,212 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 353, in main: view_sidebar(page)
-2024-07-15 19:41:30,212 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 270, in view_sidebar: input_field(page)
-2024-07-15 19:41:30,212 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 238, in input_field: page.locator(utils.current_locator).fill(utils.generate_random_string(20))
-2024-07-15 19:41:30,212 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\sync_api\_generated.py', line 15276, in fill: self._sync(
-2024-07-15 19:41:30,212 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_sync_base.py', line 115, in _sync: return task.result()
-2024-07-15 19:41:30,212 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_locator.py', line 208, in fill: return await self._frame.fill(self._selector, strict=True, **params)
-2024-07-15 19:41:30,212 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_frame.py', line 527, in fill: await self._channel.send("fill", locals_to_params(locals()))
-2024-07-15 19:41:30,212 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_connection.py', line 59, in send: return await self._connection.wrap_api_call(
-2024-07-15 19:41:30,212 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_connection.py', line 514, in wrap_api_call: raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
-2024-07-15 19:41:30,212 - Error in test_View_sidebar: Locator.fill: Object of type function is not JSON serializable
-2024-07-15 19:41:30,256 - Future exception was never retrieved
-future: <Future finished exception=TargetClosedError('Target page, context or browser has been closed')>
-playwright._impl._errors.TargetClosedError: Target page, context or browser has been closed
-2024-07-15 19:43:17,347 - ------------------->Viewing sidebar for contact name: IFzS4g1EGh KYD9awJ5
-2024-07-15 19:43:21,906 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 365, in <module>: main()
-2024-07-15 19:43:21,907 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 354, in main: view_sidebar(page)
-2024-07-15 19:43:21,907 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 271, in view_sidebar: input_field(page)
-2024-07-15 19:43:21,907 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 239, in input_field: page.locator(abc).fill(utils.generate_random_string(20))
-2024-07-15 19:43:21,907 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\sync_api\_generated.py', line 15276, in fill: self._sync(
-2024-07-15 19:43:21,907 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_sync_base.py', line 115, in _sync: return task.result()
-2024-07-15 19:43:21,907 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_locator.py', line 208, in fill: return await self._frame.fill(self._selector, strict=True, **params)
-2024-07-15 19:43:21,907 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_frame.py', line 527, in fill: await self._channel.send("fill", locals_to_params(locals()))
-2024-07-15 19:43:21,907 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_connection.py', line 59, in send: return await self._connection.wrap_api_call(
-2024-07-15 19:43:21,907 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_connection.py', line 514, in wrap_api_call: raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
-2024-07-15 19:43:21,907 - Error in test_View_sidebar: Locator.fill: Unexpected token " " while parsing selector "ref: <Node>"
-Call log:
-waiting for ref: <Node>
-
-2024-07-15 19:44:51,770 - ------------------->Viewing sidebar for contact name: Y6hySWtEdc Prn06fp6
-2024-07-15 19:44:55,947 - Locator: ref: <Node>
-2024-07-15 19:44:56,355 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 367, in <module>: main()
-2024-07-15 19:44:56,355 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 356, in main: view_sidebar(page)
-2024-07-15 19:44:56,355 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 273, in view_sidebar: input_field(page)
-2024-07-15 19:44:56,355 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 240, in input_field: page.locator(abc).fill(utils.generate_random_string(20))
-2024-07-15 19:44:56,355 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\sync_api\_generated.py', line 15276, in fill: self._sync(
-2024-07-15 19:44:56,355 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_sync_base.py', line 115, in _sync: return task.result()
-2024-07-15 19:44:56,356 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_locator.py', line 208, in fill: return await self._frame.fill(self._selector, strict=True, **params)
-2024-07-15 19:44:56,356 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_frame.py', line 527, in fill: await self._channel.send("fill", locals_to_params(locals()))
-2024-07-15 19:44:56,356 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_connection.py', line 59, in send: return await self._connection.wrap_api_call(
-2024-07-15 19:44:56,356 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_connection.py', line 514, in wrap_api_call: raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
-2024-07-15 19:44:56,356 - Error in test_View_sidebar: Locator.fill: Unexpected token " " while parsing selector "ref: <Node>"
-Call log:
-waiting for ref: <Node>
-
-2024-07-15 19:46:59,867 - ------------------->Viewing sidebar for contact name: Cdiz29XByy R8fIXt6Y
-2024-07-15 19:47:04,044 - Locator: :r3d:
-2024-07-15 19:47:04,501 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 367, in <module>: main()
-2024-07-15 19:47:04,501 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 356, in main: view_sidebar(page)
-2024-07-15 19:47:04,501 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 273, in view_sidebar: input_field(page)
-2024-07-15 19:47:04,501 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 240, in input_field: page.locator(abc).fill(utils.generate_random_string(20))
-2024-07-15 19:47:04,501 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\sync_api\_generated.py', line 15276, in fill: self._sync(
-2024-07-15 19:47:04,501 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_sync_base.py', line 115, in _sync: return task.result()
-2024-07-15 19:47:04,501 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_locator.py', line 208, in fill: return await self._frame.fill(self._selector, strict=True, **params)
-2024-07-15 19:47:04,501 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_frame.py', line 527, in fill: await self._channel.send("fill", locals_to_params(locals()))
-2024-07-15 19:47:04,502 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_connection.py', line 59, in send: return await self._connection.wrap_api_call(
-2024-07-15 19:47:04,502 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_connection.py', line 514, in wrap_api_call: raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
-2024-07-15 19:47:04,502 - Error in test_View_sidebar: Locator.fill: Unexpected token "" while parsing selector ":r3d:"
-Call log:
-waiting for :r3d:
-
-2024-07-15 19:49:25,508 - ------------------->Viewing sidebar for contact name: wRHLBSvhlk 0oLfSeYa
-2024-07-15 19:49:29,701 - Locator: :r3d:
-2024-07-15 19:49:30,162 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 367, in <module>: main()
-2024-07-15 19:49:30,162 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 356, in main: view_sidebar(page)
-2024-07-15 19:49:30,162 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 273, in view_sidebar: input_field(page)
-2024-07-15 19:49:30,162 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 240, in input_field: page.locator(F'#{abc}]').fill(utils.generate_random_string(20))
-2024-07-15 19:49:30,162 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\sync_api\_generated.py', line 15276, in fill: self._sync(
-2024-07-15 19:49:30,162 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_sync_base.py', line 115, in _sync: return task.result()
-2024-07-15 19:49:30,163 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_locator.py', line 208, in fill: return await self._frame.fill(self._selector, strict=True, **params)
-2024-07-15 19:49:30,163 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_frame.py', line 527, in fill: await self._channel.send("fill", locals_to_params(locals()))
-2024-07-15 19:49:30,163 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_connection.py', line 59, in send: return await self._connection.wrap_api_call(
-2024-07-15 19:49:30,163 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_connection.py', line 514, in wrap_api_call: raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
-2024-07-15 19:49:30,163 - Error in test_View_sidebar: Locator.fill: Unexpected token "#" while parsing selector "#:r3d:]"
-Call log:
-waiting for #:r3d:]
-
-2024-07-15 19:51:00,649 - ------------------->Viewing sidebar for contact name: Y6hySWtEdc Prn06fp6
-2024-07-15 19:51:04,814 - Locator: :r3d:
-2024-07-15 19:51:05,182 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 367, in <module>: main()
-2024-07-15 19:51:05,182 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 356, in main: view_sidebar(page)
-2024-07-15 19:51:05,182 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 273, in view_sidebar: input_field(page)
-2024-07-15 19:51:05,182 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 240, in input_field: page.locator(f"#{abc}").fill(utils.generate_random_string(20))
-2024-07-15 19:51:05,182 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\sync_api\_generated.py', line 15276, in fill: self._sync(
-2024-07-15 19:51:05,182 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_sync_base.py', line 115, in _sync: return task.result()
-2024-07-15 19:51:05,182 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_locator.py', line 208, in fill: return await self._frame.fill(self._selector, strict=True, **params)
-2024-07-15 19:51:05,183 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_frame.py', line 527, in fill: await self._channel.send("fill", locals_to_params(locals()))
-2024-07-15 19:51:05,183 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_connection.py', line 59, in send: return await self._connection.wrap_api_call(
-2024-07-15 19:51:05,183 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_connection.py', line 514, in wrap_api_call: raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
-2024-07-15 19:51:05,183 - Error in test_View_sidebar: Locator.fill: Unexpected token "#" while parsing selector "#:r3d:"
-Call log:
-waiting for #:r3d:
-
-2024-07-15 19:52:40,312 - ------------------->Viewing sidebar for contact name: Cdiz29XByy R8fIXt6Y
-2024-07-15 19:52:44,484 - Locator: :r3d:
-2024-07-15 19:52:44,902 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 367, in <module>: main()
-2024-07-15 19:52:44,902 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 356, in main: view_sidebar(page)
-2024-07-15 19:52:44,902 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 273, in view_sidebar: input_field(page)
-2024-07-15 19:52:44,902 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 240, in input_field: page.locator(f"{abc}").fill(utils.generate_random_string(20))
-2024-07-15 19:52:44,902 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\sync_api\_generated.py', line 15276, in fill: self._sync(
-2024-07-15 19:52:44,902 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_sync_base.py', line 115, in _sync: return task.result()
-2024-07-15 19:52:44,902 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_locator.py', line 208, in fill: return await self._frame.fill(self._selector, strict=True, **params)
-2024-07-15 19:52:44,903 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_frame.py', line 527, in fill: await self._channel.send("fill", locals_to_params(locals()))
-2024-07-15 19:52:44,903 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_connection.py', line 59, in send: return await self._connection.wrap_api_call(
-2024-07-15 19:52:44,903 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_connection.py', line 514, in wrap_api_call: raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
-2024-07-15 19:52:44,903 - Error in test_View_sidebar: Locator.fill: Unexpected token "" while parsing selector ":r3d:"
-Call log:
-waiting for :r3d:
-
-2024-07-15 19:57:32,639 - ------------------->Viewing sidebar for contact name: rYbp5ruejJ jPfspVDF
-2024-07-15 19:57:36,819 - Locator: None
-2024-07-15 19:57:44,845 - URL: https://staging-api.bluemind.app/api/user/info, Method: GET, Status: 200
-
-2024-07-15 19:57:44,848 - URL: https://staging-api.bluemind.app/api/user-permission, Method: GET, Status: 200
-
-2024-07-15 19:57:44,851 - URL: https://staging-api.bluemind.app/api/contact_additional_info/get, Method: GET, Status: 200
-
-2024-07-15 19:57:44,861 - URL: https://staging-api.bluemind.app/api/client/get_all?page=0&pageSize=10&client_type=Lead&sortBy=client_id&sortType=DESC, Method: GET, Status: 200
-
-2024-07-15 19:57:44,865 - URL: https://staging-api.bluemind.app/api/client/count?client_type=Lead&search=&appVersion=canada, Method: GET, Status: 200
-
-2024-07-15 19:57:44,890 - URL: https://staging-api.bluemind.app/api/client/get_all?page=0&pageSize=10&sortBy=client_id&sortType=DESC, Method: GET, Status: 200
-
-2024-07-15 19:57:44,900 - URL: https://staging-api.bluemind.app/api/client/count?search=&appVersion=canada, Method: GET, Status: 200
-
-2024-07-15 19:57:44,904 - URL: https://staging-api.bluemind.app/api/contact-occupation, Method: GET, Status: 200
-
-2024-07-15 19:57:44,908 - URL: https://staging-api.bluemind.app/api/client_email_token/communication/get_all, Method: GET, Status: 200
-
-2024-07-15 19:57:44,916 - URL: https://staging-api.bluemind.app/api/client_tasks/get_all/11527?page=0&pageSize=3&type=Active, Method: GET, Status: 200
-
-2024-07-15 19:57:44,923 - URL: https://staging-api.bluemind.app/api/client_notes/get_all/11527, Method: GET, Status: 200
-
-2024-07-15 19:57:44,928 - URL: https://staging-api.bluemind.app/api/client_source/get_all, Method: GET, Status: 200
-
-2024-07-15 19:57:44,934 - URL: https://staging-api.bluemind.app/api/client/get/11527, Method: GET, Status: 200
-
-2024-07-15 19:57:44,939 - URL: https://staging-api.bluemind.app/api/opportunity/get_all_by_client/11527, Method: GET, Status: 200
-
-2024-07-15 19:58:58,265 - ------------------->Viewing sidebar for contact name: RYx2ltg37G vbN0tA0Q
-2024-07-15 19:59:02,922 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 365, in <module>: main()
-2024-07-15 19:59:02,922 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 354, in main: view_sidebar(page)
-2024-07-15 19:59:02,922 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 271, in view_sidebar: input_field(page)
-2024-07-15 19:59:02,922 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 238, in input_field: page.keyboard.press(utils.generate_random_string(20))
-2024-07-15 19:59:02,922 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\sync_api\_generated.py', line 1284, in press: self._sync(self._impl_obj.press(key=key, delay=delay))
-2024-07-15 19:59:02,923 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_sync_base.py', line 115, in _sync: return task.result()
-2024-07-15 19:59:02,923 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_input.py', line 38, in press: await self._channel.send("keyboardPress", locals_to_params(locals()))
-2024-07-15 19:59:02,923 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_connection.py', line 59, in send: return await self._connection.wrap_api_call(
-2024-07-15 19:59:02,923 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_connection.py', line 514, in wrap_api_call: raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
-2024-07-15 19:59:02,923 - Error in test_View_sidebar: Keyboard.press: Unknown key: "CvXOv4!t#LSFJtA1Pp=-"
-2024-07-15 19:59:33,355 - ------------------->Viewing sidebar for contact name: Y6hySWtEdc Prn06fp6
-2024-07-15 19:59:46,267 - URL: https://staging-api.bluemind.app/api/user/info, Method: GET, Status: 200
-
-2024-07-15 19:59:46,270 - URL: https://staging-api.bluemind.app/api/user-permission, Method: GET, Status: 200
-
-2024-07-15 19:59:46,276 - URL: https://staging-api.bluemind.app/api/contact_additional_info/get, Method: GET, Status: 200
-
-2024-07-15 19:59:46,283 - URL: https://staging-api.bluemind.app/api/client/get_all?page=0&pageSize=10&client_type=Lead&sortBy=client_id&sortType=DESC, Method: GET, Status: 200
-
-2024-07-15 19:59:46,288 - URL: https://staging-api.bluemind.app/api/client/count?client_type=Lead&search=&appVersion=canada, Method: GET, Status: 200
-
-2024-07-15 19:59:46,302 - URL: https://staging-api.bluemind.app/api/client/get_all?page=0&pageSize=10&sortBy=client_id&sortType=DESC, Method: GET, Status: 200
-
-2024-07-15 19:59:46,305 - URL: https://staging-api.bluemind.app/api/client/count?search=&appVersion=canada, Method: GET, Status: 200
-
-2024-07-15 19:59:46,308 - URL: https://staging-api.bluemind.app/api/contact-occupation, Method: GET, Status: 200
-
-2024-07-15 19:59:46,312 - URL: https://staging-api.bluemind.app/api/client_email_token/communication/get_all, Method: GET, Status: 200
-
-2024-07-15 19:59:46,316 - URL: https://staging-api.bluemind.app/api/client_tasks/get_all/11522?page=0&pageSize=2&type=Active, Method: GET, Status: 200
-
-2024-07-15 19:59:46,320 - URL: https://staging-api.bluemind.app/api/client_notes/get_all/11522, Method: GET, Status: 200
-
-2024-07-15 19:59:46,322 - URL: https://staging-api.bluemind.app/api/client_source/get_all, Method: GET, Status: 200
-
-2024-07-15 19:59:46,329 - URL: https://staging-api.bluemind.app/api/client/get/11522, Method: GET, Status: 200
-
-2024-07-15 19:59:46,332 - URL: https://staging-api.bluemind.app/api/opportunity/get_all_by_client/11522, Method: GET, Status: 200
-
-2024-07-15 20:02:06,543 - ------------------->Viewing sidebar for contact name: rYbp5ruejJ jPfspVDF
-2024-07-15 20:02:12,296 - Added C:\Users\Rutvik\Downloads\sample-contact-policy (52).xlsx to the contact pop up.
-2024-07-15 20:03:48,104 - Saved after voice to text success
-2024-07-15 20:03:50,932 - Priority: Medium
-2024-07-15 20:03:51,187 - Category: Sales
-2024-07-15 20:04:27,129 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 365, in <module>: main()
-2024-07-15 20:04:27,129 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 354, in main: view_sidebar(page)
-2024-07-15 20:04:27,129 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 163, in view_sidebar: task_sidebar(page)
-2024-07-15 20:04:27,130 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test_View_sidebar.py', line 101, in task_sidebar: utils.click_calendar(page)
-2024-07-15 20:04:27,130 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Variables\utils.py', line 489, in click_calendar: page.get_by_label("Next month").click()
-2024-07-15 20:04:27,130 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\sync_api\_generated.py', line 14929, in click: self._sync(
-2024-07-15 20:04:27,130 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_sync_base.py', line 115, in _sync: return task.result()
-2024-07-15 20:04:27,130 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_locator.py', line 156, in click: return await self._frame.click(self._selector, strict=True, **params)
-2024-07-15 20:04:27,130 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_frame.py', line 488, in click: await self._channel.send("click", locals_to_params(locals()))
-2024-07-15 20:04:27,130 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_connection.py', line 59, in send: return await self._connection.wrap_api_call(
-2024-07-15 20:04:27,130 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_connection.py', line 514, in wrap_api_call: raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
-2024-07-15 20:04:27,130 - Error in test_View_sidebar: Locator.click: Timeout 30000ms exceeded.
-Call log:
-waiting for get_by_label("Next month")
-
-2024-07-15 20:11:00,992 - ------------------->Viewing sidebar for contact name: RYx2ltg37G vbN0tA0Q
-2024-07-15 20:11:07,216 - Added C:\Users\Rutvik\Downloads\sample-contact-policy (52).xlsx to the contact pop up.
-2024-07-15 20:11:43,515 - Saved after voice to text success
-2024-07-15 20:11:46,886 - Priority: Medium
-2024-07-15 20:11:47,130 - Category: Sales
-2024-07-15 20:11:54,626 - Saved after voice to text success
-2024-07-15 20:11:59,651 - Asserted task visibility on sidebar
-2024-07-15 20:12:01,589 - In Note, task selected: category Events, priority Medium
-2024-07-15 20:12:16,994 - Saved after voice to text success
-2024-07-15 20:12:25,612 - Sidebar input fields saved
-2024-07-15 20:12:29,598 - Priority: High
-2024-07-15 20:12:29,762 - Category: Events
-2024-07-15 20:12:35,428 - Saved after voice to text success
-2024-07-15 20:12:40,576 - Asserted 2nd task visibility on sidebar
-2024-07-15 20:12:46,315 - In Note, task selected: category Follow Ups, priority High
-2024-07-15 20:13:03,398 - Saved after voice to text success
-2024-07-15 20:13:06,881 - Clicked on 'Prospect' in move to contact
-2024-07-15 20:13:06,963 - Decided not to move contact to Prospect through toss
-2024-07-15 20:13:06,963 - Sidebar test completed
-2024-07-15 20:13:15,305 - URL: https://staging-api.bluemind.app/api/user/info, Method: GET, Status: 200
+2024-07-17 20:03:34,365 - URL: https://staging-api.bluemind.app/api/contact_additional_info/get, Method: GET, Status: 200
 
-2024-07-15 20:13:15,309 - URL: https://staging-api.bluemind.app/api/user-permission, Method: GET, Status: 200
+2024-07-17 20:03:34,375 - URL: https://staging-api.bluemind.app/api/client/get_all?page=0&pageSize=10&client_type=Lead&sortBy=client_id&sortType=DESC, Method: GET, Status: 200
 
-2024-07-15 20:13:15,314 - URL: https://staging-api.bluemind.app/api/contact_additional_info/get, Method: GET, Status: 200
+2024-07-17 20:03:34,382 - URL: https://staging-api.bluemind.app/api/client/count?client_type=Lead&search=&appVersion=canada, Method: GET, Status: 200
 
-2024-07-15 20:13:15,331 - URL: https://staging-api.bluemind.app/api/client/get_all?page=0&pageSize=10&client_type=Lead&sortBy=client_id&sortType=DESC, Method: GET, Status: 200
+2024-07-17 20:03:34,396 - URL: https://staging-api.bluemind.app/api/client/get_all?page=0&pageSize=10&sortBy=client_id&sortType=DESC, Method: GET, Status: 200
 
-2024-07-15 20:13:15,336 - URL: https://staging-api.bluemind.app/api/client/count?client_type=Lead&search=&appVersion=canada, Method: GET, Status: 200
+2024-07-17 20:03:34,401 - URL: https://staging-api.bluemind.app/api/client/count?search=&appVersion=canada, Method: GET, Status: 200
 
-2024-07-15 20:13:15,360 - URL: https://staging-api.bluemind.app/api/client/get_all?page=0&pageSize=10&sortBy=client_id&sortType=DESC, Method: GET, Status: 200
+2024-07-17 20:03:34,408 - URL: https://staging-api.bluemind.app/api/contact-occupation, Method: GET, Status: 200
 
-2024-07-15 20:13:15,364 - URL: https://staging-api.bluemind.app/api/client/count?search=&appVersion=canada, Method: GET, Status: 200
+2024-07-17 20:03:34,411 - URL: https://staging-api.bluemind.app/api/client_email_token/communication/get_all, Method: GET, Status: 200
 
-2024-07-15 20:13:15,371 - URL: https://staging-api.bluemind.app/api/contact-occupation, Method: GET, Status: 200
+2024-07-17 20:03:34,419 - URL: https://staging-api.bluemind.app/api/client_tasks/get_all/11572?page=0&pageSize=3&type=Active, Method: GET, Status: 200
 
-2024-07-15 20:13:15,377 - URL: https://staging-api.bluemind.app/api/client_email_token/communication/get_all, Method: GET, Status: 200
+2024-07-17 20:03:34,423 - URL: https://staging-api.bluemind.app/api/client_notes/get_all/11572, Method: GET, Status: 200
 
-2024-07-15 20:13:15,385 - URL: https://staging-api.bluemind.app/api/client_tasks/get_all/11525?page=0&pageSize=2&type=Active, Method: GET, Status: 200
+2024-07-17 20:03:34,426 - URL: https://staging-api.bluemind.app/api/client_source/get_all, Method: GET, Status: 200
 
-2024-07-15 20:13:15,391 - URL: https://staging-api.bluemind.app/api/client_notes/get_all/11525, Method: GET, Status: 200
+2024-07-17 20:03:34,432 - URL: https://staging-api.bluemind.app/api/client/get/11572, Method: GET, Status: 200
 
-2024-07-15 20:13:15,398 - URL: https://staging-api.bluemind.app/api/client_source/get_all, Method: GET, Status: 200
+2024-07-17 20:03:34,435 - URL: https://staging-api.bluemind.app/api/opportunity/get_all_by_client/11572, Method: GET, Status: 200
 
-2024-07-15 20:13:15,403 - URL: https://staging-api.bluemind.app/api/client/get/11525, Method: GET, Status: 200
+2024-07-17 20:03:34,439 - URL: https://staging-api.bluemind.app/api/mail-box/get-alias?email=rutvik%40bluemind.app&token_provider_for=email, Method: GET, Status: 200
 
-2024-07-15 20:13:15,411 - URL: https://staging-api.bluemind.app/api/opportunity/get_all_by_client/11525, Method: GET, Status: 200
+2024-07-17 20:03:34,445 - URL: https://staging-api.bluemind.app/api/user-mail-signature, Method: GET, Status: 200
 
-2024-07-15 20:13:15,416 - URL: https://staging-api.bluemind.app/api/mail-box/get-alias?email=rutvik%40bluemind.app&token_provider_for=email, Method: GET, Status: 200
+2024-07-17 20:03:34,448 - URL: https://staging-api.bluemind.app/api/log_message, Method: POST, Status: 200
 
-2024-07-15 20:13:15,425 - URL: https://staging-api.bluemind.app/api/user-mail-signature, Method: GET, Status: 200
+2024-07-17 20:03:34,451 - URL: https://staging-api.bluemind.app/api/client/sent_mail/11572, Method: POST, Status: 200
 
-2024-07-15 20:13:15,430 - URL: https://staging-api.bluemind.app/api/client/sent_mail/11525, Method: POST, Status: 200
+2024-07-17 20:03:34,469 - URL: https://staging-api.bluemind.app/api/client/get_search_all?search=, Method: GET, Status: 200
 
-2024-07-15 20:13:15,460 - URL: https://staging-api.bluemind.app/api/client/get_search_all?search=, Method: GET, Status: 200
+2024-07-17 20:03:34,475 - URL: https://staging-api.bluemind.app/api/client_tasks/save/11572, Method: POST, Status: 200
 
-2024-07-15 20:13:15,469 - URL: https://staging-api.bluemind.app/api/client_tasks/save/11525, Method: POST, Status: 200
+2024-07-17 20:03:34,479 - URL: https://staging-api.bluemind.app/api/client_notes/save, Method: POST, Status: 200
 
-2024-07-15 20:13:15,482 - URL: https://staging-api.bluemind.app/api/client_notes/save, Method: POST, Status: 200
+2024-07-17 20:03:34,484 - URL: https://staging-api.bluemind.app/api/policy/get_all_client_policy/11572, Method: GET, Status: 200
 
-2024-07-15 20:13:15,493 - URL: https://staging-api.bluemind.app/api/policy/get_all_client_policy/11525, Method: GET, Status: 200
+2024-07-17 20:03:34,489 - URL: https://staging-api.bluemind.app/api/investment-policy-client/11572, Method: GET, Status: 200
 
-2024-07-15 20:13:15,497 - URL: https://staging-api.bluemind.app/api/investment-policy-client/11525, Method: GET, Status: 200
+2024-07-17 20:03:34,492 - URL: https://staging-api.bluemind.app/api/client_tasks/save/11572, Method: POST, Status: 200
 
-2024-07-15 20:13:15,506 - URL: https://staging-api.bluemind.app/api/client_tasks/save/11525, Method: POST, Status: 200
+2024-07-17 20:03:34,499 - URL: https://staging-api.bluemind.app/api/client_notes/save, Method: POST, Status: 200
 
-2024-07-15 20:13:15,512 - URL: https://staging-api.bluemind.app/api/client_notes/save, Method: POST, Status: 200
+2024-07-17 20:03:34,502 - URL: https://staging-api.bluemind.app/api/client/11572, Method: PUT, Status: 200
 
-2024-07-15 20:13:15,518 - URL: https://staging-api.bluemind.app/api/client/11525, Method: PUT, Status: 200
+2024-07-17 20:03:34,506 - URL: https://staging-api.bluemind.app/api/client_tasks/update/20370, Method: POST, Status: 200
 
-2024-07-15 20:13:15,522 - URL: https://staging-api.bluemind.app/api/client_tasks/save/11525, Method: POST, Status: 200
+2024-07-17 20:03:34,510 - URL: https://staging-api.bluemind.app/api/client_tasks/save/11572, Method: POST, Status: 200
 
-2024-07-15 20:13:15,531 - URL: https://staging-api.bluemind.app/api/client_notes/save, Method: POST, Status: 200
+2024-07-17 20:03:34,513 - URL: https://staging-api.bluemind.app/api/client_notes/save, Method: POST, Status: 200
 
-2024-07-15 20:13:15,535 - URL: https://staging-api.bluemind.app/api/client_tasks/save/11525, Method: POST, Status: 200
+2024-07-17 20:03:34,516 - URL: https://staging-api.bluemind.app/api/client_tasks/save/11572, Method: POST, Status: 200
 
-2024-07-15 20:13:15,538 - URL: https://staging-api.bluemind.app/api/aws/generate_presigned_url, Method: POST, Status: 200
-
-2024-07-15 20:13:35,748 - ------------------->Viewing sidebar for contact name: nz9t6ekkv3 kr4ynhZQ
-2024-07-15 20:13:41,496 - Added C:\Users\Rutvik\Downloads\sample-contact-policy (52).xlsx to the contact pop up.
-2024-07-15 20:14:18,121 - Saved after voice to text success
-2024-07-15 20:14:20,970 - Priority: Low
-2024-07-15 20:14:21,143 - Category: Sales
-2024-07-15 20:14:28,590 - Saved after voice to text success
-2024-07-15 20:14:33,721 - Asserted 2nd task visibility on sidebar
-2024-07-15 20:14:35,730 - In Note, task selected: category Events, priority Medium
-2024-07-15 20:14:51,704 - Saved after voice to text success
-2024-07-15 20:15:00,438 - Sidebar input fields saved
-2024-07-15 20:15:04,455 - Priority: High
-2024-07-15 20:15:04,629 - Category: Sales
-2024-07-15 20:15:12,127 - Saved after voice to text success
-2024-07-15 20:15:17,222 - Asserted 2nd task visibility on sidebar
-2024-07-15 20:15:23,558 - In Note, task selected: category Sales, priority Low
-2024-07-15 20:15:40,896 - Saved after voice to text success
-2024-07-15 20:15:44,376 - Clicked on 'Lead' in move to contact
-2024-07-15 20:15:44,454 - Decided not to move contact to Lead through toss
-2024-07-15 20:15:44,454 - Sidebar test completed
-2024-07-15 20:15:52,789 - URL: https://staging-api.bluemind.app/api/user/info, Method: GET, Status: 200
-
-2024-07-15 20:15:52,801 - URL: https://staging-api.bluemind.app/api/user-permission, Method: GET, Status: 200
-
-2024-07-15 20:15:52,808 - URL: https://staging-api.bluemind.app/api/contact_additional_info/get, Method: GET, Status: 200
-
-2024-07-15 20:15:52,821 - URL: https://staging-api.bluemind.app/api/client/get_all?page=0&pageSize=10&client_type=Lead&sortBy=client_id&sortType=DESC, Method: GET, Status: 200
-
-2024-07-15 20:15:52,833 - URL: https://staging-api.bluemind.app/api/client/count?client_type=Lead&search=&appVersion=canada, Method: GET, Status: 200
-
-2024-07-15 20:15:52,853 - URL: https://staging-api.bluemind.app/api/client/get_all?page=0&pageSize=10&sortBy=client_id&sortType=DESC, Method: GET, Status: 200
-
-2024-07-15 20:15:52,857 - URL: https://staging-api.bluemind.app/api/client/count?search=&appVersion=canada, Method: GET, Status: 200
-
-2024-07-15 20:15:52,860 - URL: https://staging-api.bluemind.app/api/contact-occupation, Method: GET, Status: 200
-
-2024-07-15 20:15:52,863 - URL: https://staging-api.bluemind.app/api/client_email_token/communication/get_all, Method: GET, Status: 200
-
-2024-07-15 20:15:52,868 - URL: https://staging-api.bluemind.app/api/client_tasks/get_all/11528?page=0&pageSize=2&type=Active, Method: GET, Status: 200
-
-2024-07-15 20:15:52,872 - URL: https://staging-api.bluemind.app/api/client_notes/get_all/11528, Method: GET, Status: 200
-
-2024-07-15 20:15:52,875 - URL: https://staging-api.bluemind.app/api/client_source/get_all, Method: GET, Status: 200
-
-2024-07-15 20:15:52,881 - URL: https://staging-api.bluemind.app/api/client/get/11528, Method: GET, Status: 200
-
-2024-07-15 20:15:52,884 - URL: https://staging-api.bluemind.app/api/opportunity/get_all_by_client/11528, Method: GET, Status: 200
-
-2024-07-15 20:15:52,887 - URL: https://staging-api.bluemind.app/api/mail-box/get-alias?email=rutvik%40bluemind.app&token_provider_for=email, Method: GET, Status: 200
-
-2024-07-15 20:15:52,890 - URL: https://staging-api.bluemind.app/api/user-mail-signature, Method: GET, Status: 200
-
-2024-07-15 20:15:52,894 - URL: https://staging-api.bluemind.app/api/client/sent_mail/11528, Method: POST, Status: 200
-
-2024-07-15 20:15:52,909 - URL: https://staging-api.bluemind.app/api/client/get_search_all?search=, Method: GET, Status: 200
-
-2024-07-15 20:15:52,913 - URL: https://staging-api.bluemind.app/api/client_tasks/save/11528, Method: POST, Status: 200
-
-2024-07-15 20:15:52,916 - URL: https://staging-api.bluemind.app/api/client_notes/save, Method: POST, Status: 200
-
-2024-07-15 20:15:52,921 - URL: https://staging-api.bluemind.app/api/policy/get_all_client_policy/11528, Method: GET, Status: 200
-
-2024-07-15 20:15:52,925 - URL: https://staging-api.bluemind.app/api/investment-policy-client/11528, Method: GET, Status: 200
-
-2024-07-15 20:15:52,928 - URL: https://staging-api.bluemind.app/api/client_tasks/save/11528, Method: POST, Status: 500, 
--------------------> Payload: {"client_id":11528,"user_id":210,"priority":"Medium","type":"Events","due_date":"2024-07-15T18:30:00.000Z","due_date_time":"2024-07-15T23:00:00.000Z","due_end_date":"2024-07-16T01:30:00.000Z","reminder":"minutes","reminder_unit":"9","reminder_type":"Notification","reminder_at":"2024-07-15T22:45:00.000Z","title":"Trade","notes":"<p>.mBI?tCkA~&gt;WgydqO&gt;uV~&amp;5P^izBfuqdSYQFH9MY\\T]xaw[ [CMu$O0my5APk^U%D)h=vst1u_VNvu}*!#=*p/ejgD:{@V[UJ&amp;WH</p>\n","status":"active","created_from":"notes"}, 
--------------------> Data: {'status': 'error', 'data': {'config': {'url': 'https://www.googleapis.com/calendar/v3/calendars/primary/events?conferenceDataVersion=0&sendNotifications=true', 'method': 'POST', 'userAgentDirectives': [{'product': 'google-api-nodejs-client', 'version': '7.2.0', 'comment': 'gzip'}], 'data': {'summary': 'Trade', 'start': {'dateTime': '2024-07-15T23:00:00.000Z', 'timeZone': 'UTC', 'date': None}, 'end': {'dateTime': '2024-07-15T01:30:00.000Z', 'timeZone': 'UTC', 'date': None}, 'description': '<p>.mBI?tCkA~&gt;WgydqO&gt;uV~&amp;5P^izBfuqdSYQFH9MY\\T]xaw[ [CMu$O0my5APk^U%D)h=vst1u_VNvu}*!#=*p/ejgD:{@V[UJ&amp;WH</p>\n', 'recurrence': [], 'attendees': [], 'reminders': {'useDefault': False, 'overrides': [{'method': 'popup', 'minutes': '9'}]}, 'conferenceData': None}, 'headers': {'x-goog-api-client': 'gdcl/7.2.0 gl-node/18.20.3', 'Accept-Encoding': 'gzip', 'User-Agent': 'google-api-nodejs-client/7.2.0 (gzip)', 'Authorization': '<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.', 'Content-Type': 'application/json'}, 'params': {'conferenceDataVersion': 0, 'sendNotifications': True}, 'retry': True, 'body': '{"summary":"Trade","start":{"dateTime":"2024-07-15T23:00:00.000Z","timeZone":"UTC","date":null},"end":{"dateTime":"2024-07-15T01:30:00.000Z","timeZone":"UTC","date":null},"description":"<p>.mBI?tCkA~&gt;WgydqO&gt;uV~&amp;5P^izBfuqdSYQFH9MY\\\\T]xaw[ [CMu$O0my5APk^U%D)h=vst1u_VNvu}*!#=*p/ejgD:{@V[UJ&amp;WH</p>\\n","recurrence":[],"attendees":[],"reminders":{"useDefault":false,"overrides":[{"method":"popup","minutes":"9"}]},"conferenceData":null}', 'responseType': 'unknown', 'retryConfig': {'currentRetryAttempt': 0, 'retry': 3, 'httpMethodsToRetry': ['GET', 'HEAD', 'PUT', 'OPTIONS', 'DELETE'], 'noResponseRetries': 2, 'statusCodesToRetry': [[100, 199], [408, 408], [429, 429], [500, 599]]}}, 'response': {'config': {'url': 'https://www.googleapis.com/calendar/v3/calendars/primary/events?conferenceDataVersion=0&sendNotifications=true', 'method': 'POST', 'userAgentDirectives': [{'product': 'google-api-nodejs-client', 'version': '7.2.0', 'comment': 'gzip'}], 'data': {'summary': 'Trade', 'start': {'dateTime': '2024-07-15T23:00:00.000Z', 'timeZone': 'UTC', 'date': None}, 'end': {'dateTime': '2024-07-15T01:30:00.000Z', 'timeZone': 'UTC', 'date': None}, 'description': '<p>.mBI?tCkA~&gt;WgydqO&gt;uV~&amp;5P^izBfuqdSYQFH9MY\\T]xaw[ [CMu$O0my5APk^U%D)h=vst1u_VNvu}*!#=*p/ejgD:{@V[UJ&amp;WH</p>\n', 'recurrence': [], 'attendees': [], 'reminders': {'useDefault': False, 'overrides': [{'method': 'popup', 'minutes': '9'}]}, 'conferenceData': None}, 'headers': {'x-goog-api-client': 'gdcl/7.2.0 gl-node/18.20.3', 'Accept-Encoding': 'gzip', 'User-Agent': 'google-api-nodejs-client/7.2.0 (gzip)', 'Authorization': '<<REDACTED> - See `errorRedactor` option in `gaxios` for configuration>.', 'Content-Type': 'application/json'}, 'params': {'conferenceDataVersion': 0, 'sendNotifications': True}, 'retry': True, 'body': '{"summary":"Trade","start":{"dateTime":"2024-07-15T23:00:00.000Z","timeZone":"UTC","date":null},"end":{"dateTime":"2024-07-15T01:30:00.000Z","timeZone":"UTC","date":null},"description":"<p>.mBI?tCkA~&gt;WgydqO&gt;uV~&amp;5P^izBfuqdSYQFH9MY\\\\T]xaw[ [CMu$O0my5APk^U%D)h=vst1u_VNvu}*!#=*p/ejgD:{@V[UJ&amp;WH</p>\\n","recurrence":[],"attendees":[],"reminders":{"useDefault":false,"overrides":[{"method":"popup","minutes":"9"}]},"conferenceData":null}', 'responseType': 'unknown'}, 'data': {'error': {'errors': [{'domain': 'calendar', 'reason': 'timeRangeEmpty', 'message': 'The specified time range is empty.', 'locationType': 'parameter', 'location': 'timeMax'}], 'code': 400, 'message': 'The specified time range is empty.'}}, 'headers': {'alt-svc': 'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000', 'cache-control': 'no-cache, no-store, max-age=0, must-revalidate', 'connection': 'close', 'content-encoding': 'gzip', 'content-type': 'application/json; charset=UTF-8', 'date': 'Mon, 15 Jul 2024 14:44:52 GMT', 'expires': 'Mon, 01 Jan 1990 00:00:00 GMT', 'pragma': 'no-cache', 'server': 'ESF', 'transfer-encoding': 'chunked', 'vary': 'Origin, X-Origin, Referer', 'x-content-type-options': 'nosniff', 'x-frame-options': 'SAMEORIGIN', 'x-xss-protection': '0'}, 'status': 400, 'statusText': 'Bad Request', 'request': {'responseURL': 'https://www.googleapis.com/calendar/v3/calendars/primary/events?conferenceDataVersion=0&sendNotifications=true'}}, 'status': 400, 'code': 400, 'errors': [{'domain': 'calendar', 'reason': 'timeRangeEmpty', 'message': 'The specified time range is empty.', 'locationType': 'parameter', 'location': 'timeMax'}]}}
-
-2024-07-15 20:15:52,933 - URL: https://staging-api.bluemind.app/api/log_message, Method: POST, Status: 200
-
-2024-07-15 20:15:52,937 - URL: https://staging-api.bluemind.app/api/client/11528, Method: PUT, Status: 200
-
-2024-07-15 20:15:52,939 - URL: https://staging-api.bluemind.app/api/client_tasks/save/11528, Method: POST, Status: 200
-
-2024-07-15 20:15:52,942 - URL: https://staging-api.bluemind.app/api/client_notes/save, Method: POST, Status: 200
-
-2024-07-15 20:15:52,947 - URL: https://staging-api.bluemind.app/api/client_tasks/save/11528, Method: POST, Status: 200
-
-2024-07-15 20:15:52,950 - URL: https://staging-api.bluemind.app/api/client_notes/save, Method: POST, Status: 200
-
-2024-07-15 20:15:52,953 - URL: https://staging-api.bluemind.app/api/aws/generate_presigned_url, Method: POST, Status: 200
+2024-07-17 20:03:34,519 - URL: https://staging-api.bluemind.app/api/client/move, Method: PUT, Status: 200
 

@@ -301,7 +301,12 @@ def view_sidebar(page):
         utils.for_x_y(page, 1, 24)
         page.get_by_label("Close time").click()
         utils.anti_for_x_y(page, 1, 24)
-    page.get_by_role("button", name="Save").click()
+
+    try:    
+        page.get_by_role("button", name="Save").click()
+    except:
+        page.get_by_role("button", name="close").click()
+        logging.info("Save button not clickable, closing availability pop up")
 
     page.get_by_role("button", name="Save").click()
 
@@ -312,7 +317,6 @@ def view_sidebar(page):
         page.wait_for_timeout(500)
     except:
         pass
-
     # page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
     # page.evaluate("window.scrollTo(0, 0)")
     # element = page.locator("div:nth-child(2) > .LastContactedBlock > .MuiPaper-root > div:nth-child(3) > div").first
@@ -346,7 +350,7 @@ def view_sidebar(page):
 def main():
 
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=False)
+        browser = p.chromium.launch(headless=True)
         context = browser.new_context(storage_state="variables/playwright/.auth/state.json")
         page = context.new_page()
         # page.set_viewport_size({"width": 1920, "height": 1080})
