@@ -9,8 +9,7 @@ import logging
 import time
 import re
 import requests
-import sys
-import subprocess
+from collections import defaultdict
 import time
 import re
 from bs4 import BeautifulSoup
@@ -83,7 +82,7 @@ def logging_setup(script_name):
     logs_folder = get_env_variables()[3]
     if not os.path.exists(logs_folder):
         os.makedirs(logs_folder)
-    log_file_path = os.path.join(logs_folder, f'{script_name}_log.txt')
+    log_file_path = os.path.join(logs_folder, f'{script_name}.log')
     logging.basicConfig(filename=log_file_path, level=logging.INFO, format='%(asctime)s - %(message)s')
 
 # Function to check if the login state file is recent
@@ -101,6 +100,22 @@ def tap_random_view_contact(page):
     if count > 0:
         random_index = random.randint(0, count - 1)
         view_contact_buttons.nth(random_index).click()
+
+        # Ensure we find the correct contact name element
+        contact_name_element = page.locator('.bm-contact-name').first
+        if contact_name_element.is_visible():
+            contact_name = contact_name_element.inner_text()
+
+            # Remove the last word from contact_name
+            contact_name_words = contact_name.split()
+            if len(contact_name_words) > 1:
+                contact_name = ' '.join(contact_name_words[:-1])
+
+            # Backspace twice
+            contact_name = contact_name[:-2]
+
+            # Log the modified contact_name
+            logging.info(f"------------------->Viewing sidebar for contact name: {contact_name}")
     else:
         logging.info("No sidebar view contact buttons found") 
 
@@ -127,6 +142,11 @@ def select_random_name(page):
     num_spaces_after = random.randint(0, 4)
     inner_text = ' ' * num_spaces_before + inner_text + ' ' * num_spaces_after
     return inner_text, real_name
+
+# Clear field input
+def remove_field_input(page):
+    page.keyboard.press("Control+A")
+    page.keyboard.press("Backspace")
 
 # Def for Random characters ABC...
 def generate_random_alphabet(length):
@@ -209,26 +229,26 @@ def add_reminder(page, random_choice):
 
 # Function to add to voice to text and save
 def Voice_to_text(page):
-    page.get_by_role("button", name="Start").click()
+    page.get_by_role("button", name="Start").click(timeout=2000)
     page.wait_for_timeout(3000)
-    page.get_by_role("button", name="Stop").click()
-    page.get_by_role("button", name="Reset").click()
+    page.get_by_role("button", name="Stop").click(timeout=500)
+    page.get_by_role("button", name="Reset").click(timeout=500)
     try:
-        page.locator("textarea[name=\"notes\"]").fill(generate_random_string(100))
+        page.locator("textarea[name=\"notes\"]").fill(generate_random_string(100), timeout=1000)
     except:
         try:
-            page.locator(".rich-text-editor-editor").fill(generate_random_string(100))
+            page.locator(".rich-text-editor-editor").fill(generate_random_string(100), timeout=1000)
         except:
             page.get_by_role("button", name="Reset").press("Shift+Tab")
             page.get_by_role("button", name="Start").press("Shift+Tab")
-            page.keyboard.type(generate_random_string(100))
+            page.keyboard.type(generate_random_string(100), delay=0)
     try:
         page.get_by_role("button", name="Save").click()
     except:
         try:
-            page.get_by_role("button", name="Send").click()
+            page.get_by_role("button", name="Send").click(timeout=500)
         except:
-            page.get_by_role("button", name="Update").click()
+            page.get_by_role("button", name="Update").click(timeout=500)
     logging.info("Saved after voice to text success")
 
 # Function to select random priority
@@ -280,33 +300,76 @@ def handle_response_failure1(self, response, api_urls, api_pattern):
                 break
         logging.error(f"Request failed: {response.url} - Status: {response.status}")
 
+# # Function to handle request and log URL
+# def handle_request(request, api_urls):
+#     api_url = os.getenv('URL_API')
+#     api_pattern = re.compile(fr'^{re.escape(api_url)}')
+#     if request.method in ["PUT", "POST", "GET", "DELETE"] and request.resource_type in ["fetch", "xhr"] and api_pattern.match(request.url):
+#         # logging.info(f"Request URL: {request.url}")
+#         payload = request.post_data if request.method in ["PUT", "POST"] else None
+#         api_urls.append({'url': request.url, 'response': None, 'payload': payload})
+
+# # Function to handle response, log status and data
+# def handle_response(response, api_urls):
+#     api_url = os.getenv('URL_API')
+#     api_pattern = re.compile(fr'^{re.escape(api_url)}')
+#     if response.request.method in ["PUT", "POST", "GET", "DELETE"] and response.request.resource_type in ["fetch", "xhr"] and api_pattern.match(response.url):
+#         for api_url in api_urls:
+#             if api_url['url'] == response.url:
+#                 api_url['response'] = response
+#                 break
+#         # logging.info(f"Response URL: {response.url} - Status: {response.status} Response Data: {response.json() if 'application/json' in response.headers['content-type'] else response.text()}")
+
+# # Function to show API response
+# def show_api_response(api_urls):
+#     for url_info in api_urls:
+
+#         response_status = url_info['response'].status if url_info['response'] else 'No response'
+#         response_data = (url_info['response'].json() if url_info['response'] and 'application/json' in url_info['response'].headers['content-type'] 
+#                          else (url_info['response'].text() if url_info['response'] else 'No response data'))
+#         request_payload = url_info.get('payload', 'No payload')
+
+#         if url_info['response'] and url_info['response'].ok:
+#             logging.info(f"URL: {url_info['url']}, Status: {response_status}\n")
+#         elif url_info['response'] and not url_info['response'].ok:
+#             logging.info(f"URL: {url_info['url']}, Status: {response_status}, Payload: {request_payload}, Data: {response_data}\n")
+#         else:
+#             logging.info(f"URL: {url_info['url']}, Status: {response_status}, Payload: {request_payload}, Data: {response_data}\n")
+
 # Function to handle request and log URL
 def handle_request(request, api_urls):
     api_url = os.getenv('URL_API')
     api_pattern = re.compile(fr'^{re.escape(api_url)}')
     if request.method in ["PUT", "POST", "GET", "DELETE"] and request.resource_type in ["fetch", "xhr"] and api_pattern.match(request.url):
-        # logging.info(f"Request URL: {request.url}")
-        api_urls.append({'url': request.url, 'response': None})
+        payload = request.post_data if request.method in ["PUT", "POST"] else None
+        request_key = (request.url, request.method, payload)
+        if request_key not in api_urls:
+            api_urls[request_key] = {'response': None, 'payload': payload}
 
 # Function to handle response, log status and data
 def handle_response(response, api_urls):
     api_url = os.getenv('URL_API')
     api_pattern = re.compile(fr'^{re.escape(api_url)}')
+    request_key = (response.url, response.request.method, response.request.post_data if response.request.method in ["PUT", "POST"] else None)
     if response.request.method in ["PUT", "POST", "GET", "DELETE"] and response.request.resource_type in ["fetch", "xhr"] and api_pattern.match(response.url):
-        for api_url in api_urls:
-            if api_url['url'] == response.url:
-                api_url['response'] = response
-                break
-        # logging.info(f"Response URL: {response.url} - Status: {response.status} Response Data: {response.json() if 'application/json' in response.headers['content-type'] else response.text()}")
-
+        if request_key in api_urls:
+            api_urls[request_key]['response'] = response
 
 # Function to show API response
 def show_api_response(api_urls):
-    for url_info in api_urls:
-        # if url_info['response'] and not url_info['response'].ok:
-            response_status = url_info['response'].status if url_info['response'] else 'No response'
-            response_data = url_info['response'].json() if url_info['response'] and 'application/json' in url_info['response'].headers['content-type'] else (url_info['response'].text() if url_info['response'] else 'No response data')
-            logging.info(f"URL: {url_info['url']}, Status: {response_status}, Data: {response_data}\n")
+    for key, info in api_urls.items():
+        url, method, payload = key
+        response = info['response']
+        response_status = response.status if response else 'No response'
+        response_data = (response.json() if response and 'application/json' in response.headers['content-type'] 
+                         else (response.text() if response else 'No response data'))
+        if response and response.ok:
+            logging.info(f"URL: {url}, Method: {method}, Status: {response_status}\n")
+        elif response and not response.ok:
+            logging.info(f"URL: {url}, Method: {method}, Status: {response_status}, \n-------------------> Payload: {payload}, \n-------------------> Data: {response_data}\n") 
+        else:
+            logging.info(f"URL: {url}, Method: {method}, Status: {response_status}, \n-------------------> Payload: {payload}, \n-------------------> Data: {response_data}\n") 
+
 
 
 def start_handler(page, api_urls):
@@ -321,6 +384,9 @@ def stop_handler(page, api_urls, response_handler, request_handler):
     page.remove_listener("response", response_handler)
     show_api_response(api_urls)
 
+def scroll_to_find(page):
+    page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+    page.evaluate("window.scrollTo(0, 0)")
 
 # Function to find latest file from type defined and 5mb max size
 def find_latest_upload(file_type, max_size_mb=5):
@@ -415,14 +481,15 @@ def click_calendar(page):
     day_str = tomorrow.strftime('%d')
     page.wait_for_timeout(1000) 
     try:
-        page.get_by_role("gridcell", name=day_str, exact=True).click(timeout=1000)
+        page.get_by_role("gridcell", name=day_str, exact=True).click(timeout=2000)
     except:
             try:
-                page.get_by_role("gridcell", name=day_str).click(timeout=1000)
+                page.get_by_role("gridcell", name=day_str).click(timeout=2000)
             except:
                 page.get_by_label("Next month").click()
                 page.wait_for_timeout(500)
                 page.get_by_role("gridcell", name="1", exact=True).click() 
+                page.wait_for_timeout(500)
 
 # Phone Number
 def phone_number():
@@ -609,3 +676,45 @@ def intercept_api_requests(route, request, url_to_intercept):
         )
     else:
         route.continue_()
+
+# Move to ( Move contact to lead, prospect, client randomly) Curated for contacts side bar
+def move_to_random(page):
+
+    page.get_by_role("button", name="Move To").click()
+    options = ["Prospect", "Client", "Lead"]
+    available_options = []
+
+    # Check visibility of each option and collect visible ones
+    for option in options:
+        try:
+            role_menuitem = page.get_by_role("menuitem", name=option)
+            if role_menuitem.is_visible():
+                available_options.append(option)
+        except:
+            pass
+
+    # If there are visible options, randomly click on one
+    if available_options:
+        random_option = random.choice(available_options)
+        page.get_by_role("menuitem", name=random_option).click()
+        logging.info(f"Clicked on '{random_option}' in move to contact")
+    else:
+        print("No visible options found")
+    x=coin_toss() 
+    if x == "Heads":
+        page.get_by_role("button", name="Yes, Move it!").click()
+        page.wait_for_timeout(3000) 
+        if page.get_by_role("alert").is_visible():
+            try:
+                assert page.get_by_text("Contact moved successfully!").is_visible()
+                logging.info("Contact moved successfully!")
+                page.get_by_label("Close").click()
+
+            except:
+                logging.info(f"Failed to move contact to {random_option}")
+                page.get_by_label("Close").click()
+        else:
+            logging.info(f"No alert msgs on moving contact to {random_option}") 
+    else:
+        page.get_by_role("button", name="No").click()
+        logging.info(f"Decided not to move contact to {random_option} through toss")
