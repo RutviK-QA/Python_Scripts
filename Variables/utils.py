@@ -380,6 +380,7 @@ def start_handler(page, api_urls):
     return response_handler, request_handler
 
 def stop_handler(page, api_urls, response_handler, request_handler):
+    page.wait_for_timeout(8000)
     page.remove_listener("request", request_handler)
     page.remove_listener("response", response_handler)
     show_api_response(api_urls)

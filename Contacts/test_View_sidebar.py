@@ -356,7 +356,6 @@ def main():
         # page.set_viewport_size({"width": 1920, "height": 1080})
         response_handler, request_handler = utils.start_handler(page, api_urls)
         view_sidebar(page)
-        page.wait_for_timeout(8000)
         utils.stop_handler(page, api_urls, response_handler, request_handler)
         context.close()
         browser.close()

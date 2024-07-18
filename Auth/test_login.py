@@ -9,6 +9,8 @@ import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from Variables.utils import APIHandler
 import Variables.utils as utils
+from collections import defaultdict
+
 
 #Load vars
 utils.load_env_files()
@@ -24,7 +26,7 @@ utils.logging_setup(script_name)
 
 
 api_pattern = re.compile(fr'^{re.escape(api_url)}')
-api_urls = []
+api_urls = defaultdict(dict)
 test_results = []
 
 #Perform API test
@@ -60,8 +62,6 @@ def login(page: Page) -> None:
         page.get_by_placeholder("Password").fill(password)
         page.get_by_placeholder("Password").press("Enter")
         logging.info("Entered password and submitted login form")
-
-        page.wait_for_timeout(8000)
 
     except Exception as e:
         logging.info(f"Error in file upload .{e}")

@@ -11,6 +11,7 @@ import subprocess
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import Variables.utils as utils
+from collections import defaultdict
 
 # Load environment variables
 utils.load_env_files()
@@ -25,7 +26,7 @@ script_name = os.path.basename(__file__).split('.')[0]
 utils.logging_setup(script_name)
 
 # api_pattern = re.compile(fr'^{re.escape(api_url)}')
-api_urls = []
+api_urls = defaultdict(dict)
 test_results = []
 
 api_patterns = [

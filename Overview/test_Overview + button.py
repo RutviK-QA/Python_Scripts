@@ -11,6 +11,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import Variables.utils as utils
 import re
 import subprocess
+from collections import defaultdict
 
 # Load environment variables
 utils.load_env_files()
@@ -25,7 +26,7 @@ script_name = os.path.basename(__file__).split('.')[0]
 utils.logging_setup(script_name)
 
 api_pattern = re.compile(fr'^{re.escape(api_url)}')
-api_urls = []
+api_urls = defaultdict(dict)
 test_results = []
 
 def plus_button(page: Page) -> None:
@@ -116,7 +117,6 @@ def main():
         page.set_viewport_size({"width": 1920, "height": 1080})
         response_handler, request_handler = utils.start_handler(page, api_urls)
         plus_button(page)
-        page.wait_for_timeout(8000)
         utils.stop_handler(page, api_urls, response_handler, request_handler)
         context.close()
         browser.close()

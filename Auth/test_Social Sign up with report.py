@@ -10,6 +10,7 @@ import Variables.utils as utils
 import re
 import  string
 import subprocess   
+from collections import defaultdict
 # Load environment variables
 utils.load_env_files()
 script_path, state_path = utils.paths()
@@ -23,7 +24,7 @@ script_name = os.path.basename(__file__).split('.')[0]
 utils.logging_setup(script_name)
 
 api_pattern = re.compile(fr'^{re.escape(api_url)}')
-api_urls = []
+api_urls = defaultdict(dict)
 test_results = []    
 
 emails = [outlook_account, outlook_account2]    
@@ -63,7 +64,6 @@ def main():
         page = browser.new_page()
         response_handler, request_handler = utils.start_handler(page, api_urls)
         test_signup(page)
-        page.wait_for_timeout(8000)
         utils.stop_handler(page, api_urls, response_handler, request_handler)
         browser.close()
         

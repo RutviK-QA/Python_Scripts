@@ -10,6 +10,7 @@ import subprocess
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import Variables.utils as utils
+from collections import defaultdict
 
 # Load environment variables
 utils.load_env_files()
@@ -24,7 +25,7 @@ script_name = os.path.basename(__file__).split('.')[0]
 utils.logging_setup(script_name)
 
 api_pattern = re.compile(fr'^{re.escape(api_url)}')
-api_urls = []
+api_urls = defaultdict(dict)
 test_results = []
 
 load_dotenv(dotenv_path='variables/API.env')
@@ -48,20 +49,6 @@ def get_element_count(page, title):
 
 
 def Contacts(page: Page) -> None:
-    page.goto("https://staging.bluemind.app/contacts")
-    page.wait_for_timeout(5000)
-    if page.get_by_placeholder("Enter Email").is_visible():
-        page.get_by_placeholder("Enter Email").fill(username)
-        logging.info("Entered email")
-        page.get_by_placeholder("Password").fill(password)
-        page.get_by_placeholder("Password").press("Enter")
-        logging.info("Logged In")
-        page.goto("https://staging.bluemind.app/contacts")
-        
-    else:
-        pass
-    page.wait_for_timeout(5000)
-    
     # Click Lead priority filters and reset
     try:
         page.get_by_text("High", exact=True).click()
@@ -289,9 +276,9 @@ def main():
         context = browser.new_context(storage_state="variables/playwright/.auth/state.json")
         page = context.new_page()
         page.set_viewport_size({"width": 1920, "height": 1080})
+        page.goto("https://staging.bluemind.app/contacts")
         response_handler, request_handler = utils.start_handler(page, api_urls)
         Contacts(page)
-        page.wait_for_timeout(8000)
         utils.stop_handler(page, api_urls, response_handler, request_handler)
         context.close()
         browser.close()

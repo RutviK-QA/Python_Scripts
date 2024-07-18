@@ -1,11 +1,9 @@
-from playwright.sync_api import sync_playwright, Page
-import time
-import requests
-import re
-import os
-import logging
-import random
 from dotenv import load_dotenv
+import logging
+from playwright.sync_api import Page, sync_playwright, expect
+import os
+from datetime import datetime, timedelta
+import re
 import subprocess
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -28,52 +26,55 @@ api_pattern = re.compile(fr'^{re.escape(api_url)}')
 api_urls = defaultdict(dict)
 test_results = []
 
-def upload_contact(page: Page) -> None:
+load_dotenv(dotenv_path='variables/API.env')
 
-    page.goto("https://staging.bluemind.app/contacts")
-    page.wait_for_timeout(6000)
-    page.get_by_role("button", name="Actions").click()
-    page.get_by_role("menuitem", name="Upload").click()
-    
-    try:
-        page.get_by_role("button", name="Download sample CSV").click()
-    except Exception as e:
-        logging.info(f"Error in file download: {e}")
+leads=os.getenv('C_LEADS')
+prospects=os.getenv('C_PROSPECTS')
+clients=os.getenv('C_CLIENTS')
 
-    # Find the latest file to upload
-    latest_file = utils.find_latest_contact_upload()
-    
-    try:
-        file_input =  page.locator('input[type="file"]')
-        file_input.set_input_files(latest_file)
-    except Exception as e:
-        logging.info(f"Error in file upload .{e}")
+leads_all=os.getenv('LEADS_GET_ALL')
+prospects_all=os.getenv('PROSPECTS_GET_ALL')
+clients_all=os.getenv('CLIENTS_GET_ALL')
 
-    page.wait_for_timeout(3000) 
-    page.get_by_role("button", name="Next").click()
+# Function to get count from the API response
+def get_api_count(api_data, key):
+    return api_data['data'][key]
 
-    page.get_by_role("button", name="Upload").click() 
+# Function to get count from the HTML element
+def get_element_count(page, title):
+    selector = f".title:has-text('{title}') + .count"
+    return page.inner_text(selector)
 
-    try:
-        toast_msg = page.wait_for_selector("div[role='alert']", timeout=5000)
-        assert "Contacts saved successfully." in toast_msg.inner_text()
-        logging.info("Success message: Contacts saved successfully.")
-    except:
-        logging.info("No success message, check for failures!")
+
+def test(page: Page) -> None:
+    page.goto("https://staging.bluemind.app/calendar")
+
+    tomorrow = datetime.today() + timedelta(days=1)
+    formatted_date = tomorrow.strftime('%A, %B %d, %Y')
+    page.get_by_label(formatted_date, exact=True).dblclick()
+
+    page.get_by_role("combobox").first.click()
+    utils.for_x_y(page, 1, 30)  
+
+    page.get_by_role("combobox").nth(3).fill(utils.generate_alphanumeric(2)+("@rutvikqa.testinator.com") )
+
+
+
+
+    logging.info("reached bottom")
 
 def main():
-
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
         context = browser.new_context(storage_state="variables/playwright/.auth/state.json")
         page = context.new_page()
         page.set_viewport_size({"width": 1920, "height": 1080})
         response_handler, request_handler = utils.start_handler(page, api_urls)
-        upload_contact(page)
+        test(page)
         utils.stop_handler(page, api_urls, response_handler, request_handler)
         context.close()
         browser.close()
-        
+
 if __name__ == '__main__':
     # Ensure the state is recent by running the login script if necessary
     if not utils.is_recent_state(state_path):
@@ -84,3 +85,4 @@ if __name__ == '__main__':
     except Exception as e:
         utils.traceback_error_logging(script_name, e)
         utils.end_report(test_results, script_name) 
+
