@@ -44,6 +44,7 @@ def get_env_variables():
 # Define the path to the login script and the state file
 SCRIPT_PATH = os.path.join(os.path.dirname(__file__), '../Variables/Login session script.py')   
 STATE_PATH = os.path.join(os.path.dirname(__file__), 'variables/playwright/.auth/state.json')
+STATE_PATH_GOOGLE = os.path.join(os.path.dirname(__file__), 'variables/playwright/.auth/state-google.json')
 
 # Function to define the path to the login script and the state file
 def paths():
@@ -51,6 +52,11 @@ def paths():
     script_path = os.path.join(os.path.dirname(__file__), '../Variables/Login session script.py')
     state_path = os.path.join(os.path.dirname(__file__), 'variables/playwright/.auth/state.json')
     return script_path, state_path
+
+def paths_google():
+    script_path_google = os.path.join(os.path.dirname(__file__), '../Variables/Login session for google.py')
+    state_path_google = os.path.join(os.path.dirname(__file__), 'variables/playwright/.auth/state-google.json')
+    return script_path_google, state_path_google
 
 # Function to load environment variables from .env files
 def load_env_files():
@@ -87,6 +93,13 @@ def logging_setup(script_name):
 
 # Function to check if the login state file is recent
 def is_recent_state(path=STATE_PATH, hours=8):
+    """Check if the login state file is recent"""
+    if not os.path.exists(path):
+        return False
+    file_mod_time = datetime.fromtimestamp(os.path.getmtime(path))
+    return datetime.now() - file_mod_time < timedelta(hours=hours)
+
+def is_recent_google_state(path=STATE_PATH_GOOGLE, hours=8):
     """Check if the login state file is recent"""
     if not os.path.exists(path):
         return False
@@ -591,7 +604,25 @@ def fetch_otp(mailinator, token):
         print(f"Failed to fetch message summaries: {response.status_code}")
         return None
 
-
+# Check for sender email address in mailinator
+async def fetch_and_check_sender_email(mailinator_url, email_a, email_b):
+    response = requests.get(mailinator_url)
+    if response.status_code == 200:
+        data = response.json()
+        if 'msgs' in data and len(data['msgs']) > 0:
+            # Get the most recent message
+            most_recent_message = data['msgs'][0]
+            
+            subject = most_recent_message.get('subject', '')
+            sender_email = most_recent_message.get('fromfull', '') 
+            logging.info(f"{sender_email} : {subject}") #Logs all
+            
+            if sender_email not in [email_a, email_b]: #Logs failures
+                raise ValueError(f"------------------> ERROR:Email from sender {sender_email} does not match either {email_a} or {email_b}")
+        else:
+            logging.info("No emails found.")
+    else:
+        logging.error(f"Failed to fetch message summaries: {response.status_code}")
 
 # Verification Mailinator
 async def fetch_and_click_verification_link(mailinator_url, token):
@@ -618,13 +649,14 @@ async def fetch_and_click_verification_link(mailinator_url, token):
 
                 if verify_link:
                     verify_url = verify_link['href']
-
+                    logging.info(f"Verify link found and pressed: {verify_url}")
                     async with async_playwright() as p:
                         browser = await p.chromium.launch(headless=True)
                         page = await browser.new_page()
                         await page.goto(verify_url)
-                        page.wait_for_timeout(5000)
+                        await page.wait_for_timeout(8000)
                         await browser.close()
+                        logging.info("Verification link clicked successfully.")
                     break
                 else:
                     logging.info("No 'Verify Account' link found in the email.")

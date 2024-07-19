@@ -1,23 +1,41 @@
-2024-07-18 19:35:11,326 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Variables\test.py', line 71, in <module>: main()
-2024-07-18 19:35:11,327 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Variables\test.py', line 61, in main: test(page)
-2024-07-18 19:35:11,327 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Variables\test.py', line 52, in test: page.locator('.green-btn-new-deal.p-2.calendar-account-card').click()
-2024-07-18 19:35:11,327 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\sync_api\_generated.py', line 14929, in click: self._sync(
-2024-07-18 19:35:11,327 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_sync_base.py', line 115, in _sync: return task.result()
-2024-07-18 19:35:11,327 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_locator.py', line 156, in click: return await self._frame.click(self._selector, strict=True, **params)
-2024-07-18 19:35:11,327 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_frame.py', line 488, in click: await self._channel.send("click", locals_to_params(locals()))
-2024-07-18 19:35:11,327 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_connection.py', line 59, in send: return await self._connection.wrap_api_call(
-2024-07-18 19:35:11,327 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_connection.py', line 514, in wrap_api_call: raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
-2024-07-18 19:35:11,327 - Error in test: Locator.click: list indices must be integers or slices, not tuple
-2024-07-18 19:47:43,114 - reached bottom
-2024-07-18 19:47:51,144 - URL: https://staging-api.bluemind.app/api/user/info, Method: GET, Status: 200
+2024-07-19 18:51:58,589 -  : Bluemind | Confirm your email
+2024-07-19 18:51:58,923 - File 'c:\Users\Rutvik\Python PlaywrightScripts\test.py', line 86, in <module>: asyncio.run(main())
+2024-07-19 18:51:58,924 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\asyncio\runners.py', line 194, in run: return runner.run(main)
+2024-07-19 18:51:58,924 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\asyncio\runners.py', line 118, in run: return self._loop.run_until_complete(task)
+2024-07-19 18:51:58,924 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\asyncio\base_events.py', line 687, in run_until_complete: return future.result()
+2024-07-19 18:51:58,924 - File 'c:\Users\Rutvik\Python PlaywrightScripts\test.py', line 76, in main: await test(page)
+2024-07-19 18:51:58,924 - File 'c:\Users\Rutvik\Python PlaywrightScripts\test.py', line 65, in test: await utils.fetch_and_check_sender_email(mailinator, google_account, google_account2)
+2024-07-19 18:51:58,924 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Variables\utils.py', line 608, in fetch_and_check_sender_email: raise ValueError(f"------------------> ERROR:Email from sender {sender_email} does not match either {email_a} or {email_b}")
+2024-07-19 18:51:58,924 - Error in test: ------------------> ERROR:Email from sender  does not match either rutvik@bluemind.app or rutvikqatest@gmail.com
+2024-07-19 18:52:41,214 - File 'c:\Users\Rutvik\Python PlaywrightScripts\test.py', line 86, in <module>: asyncio.run(main())
+2024-07-19 18:52:41,214 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\asyncio\runners.py', line 194, in run: return runner.run(main)
+2024-07-19 18:52:41,215 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\asyncio\runners.py', line 118, in run: return self._loop.run_until_complete(task)
+2024-07-19 18:52:41,215 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\asyncio\base_events.py', line 687, in run_until_complete: return future.result()
+2024-07-19 18:52:41,215 - File 'c:\Users\Rutvik\Python PlaywrightScripts\test.py', line 76, in main: await test(page)
+2024-07-19 18:52:41,215 - File 'c:\Users\Rutvik\Python PlaywrightScripts\test.py', line 63, in test: await repeat(page)
+2024-07-19 18:52:41,215 - File 'c:\Users\Rutvik\Python PlaywrightScripts\test.py', line 36, in repeat: await page.get_by_label(formatted_date, exact=True).dblclick()
+2024-07-19 18:52:41,215 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\async_api\_generated.py', line 14961, in dblclick: await self._impl_obj.dblclick(
+2024-07-19 18:52:41,215 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_locator.py', line 170, in dblclick: return await self._frame.dblclick(self._selector, strict=True, **params)
+2024-07-19 18:52:41,215 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_frame.py', line 503, in dblclick: await self._channel.send("dblclick", locals_to_params(locals()))
+2024-07-19 18:52:41,215 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_connection.py', line 59, in send: return await self._connection.wrap_api_call(
+2024-07-19 18:52:41,215 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_connection.py', line 514, in wrap_api_call: raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+2024-07-19 18:52:41,215 - Error in test: Locator.dblclick: Target page, context or browser has been closed
+Call log:
+waiting for get_by_label("Saturday, July 20, 2024", exact=True)
 
-2024-07-18 19:47:51,148 - URL: https://staging-api.bluemind.app/api/user-permission, Method: GET, Status: 200
-
-2024-07-18 19:47:51,151 - URL: https://staging-api.bluemind.app/api/contact_additional_info/get, Method: GET, Status: 200
-
-2024-07-18 19:47:51,155 - URL: https://staging-api.bluemind.app/api/client_email_token/calendar/get_all, Method: GET, Status: 200
-
-2024-07-18 19:47:51,180 - URL: https://staging-api.bluemind.app/api/client_tasks/get_all?dateRange[]=2024-06-30T18:30:00.000Z&dateRange[]=2024-07-31T18:29:59.999Z, Method: GET, Status: 200
-
-2024-07-18 19:47:51,192 - URL: https://staging-api.bluemind.app/api/client_events/get_all?start_date=2024-06-30T18:30:00.000Z&end_date=2024-07-31T18:29:59.999Z, Method: GET, Status: 200
+2024-07-19 18:55:02,652 - File 'c:\Users\Rutvik\Python PlaywrightScripts\test.py', line 86, in <module>: asyncio.run(main())
+2024-07-19 18:55:02,652 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\asyncio\runners.py', line 194, in run: return runner.run(main)
+2024-07-19 18:55:02,652 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\asyncio\runners.py', line 118, in run: return self._loop.run_until_complete(task)
+2024-07-19 18:55:02,653 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\asyncio\base_events.py', line 687, in run_until_complete: return future.result()
+2024-07-19 18:55:02,653 - File 'c:\Users\Rutvik\Python PlaywrightScripts\test.py', line 76, in main: await test(page)
+2024-07-19 18:55:02,653 - File 'c:\Users\Rutvik\Python PlaywrightScripts\test.py', line 63, in test: await repeat(page)
+2024-07-19 18:55:02,653 - File 'c:\Users\Rutvik\Python PlaywrightScripts\test.py', line 36, in repeat: await page.get_by_label(formatted_date, exact=True).dblclick()
+2024-07-19 18:55:02,653 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\async_api\_generated.py', line 14961, in dblclick: await self._impl_obj.dblclick(
+2024-07-19 18:55:02,653 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_locator.py', line 170, in dblclick: return await self._frame.dblclick(self._selector, strict=True, **params)
+2024-07-19 18:55:02,653 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_frame.py', line 503, in dblclick: await self._channel.send("dblclick", locals_to_params(locals()))
+2024-07-19 18:55:02,653 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_connection.py', line 59, in send: return await self._connection.wrap_api_call(
+2024-07-19 18:55:02,653 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_connection.py', line 514, in wrap_api_call: raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+2024-07-19 18:55:02,653 - Error in test: Locator.dblclick: Timeout 30000ms exceeded.
+Call log:
+waiting for get_by_label("Saturday, July 20, 2024", exact=True)
 
