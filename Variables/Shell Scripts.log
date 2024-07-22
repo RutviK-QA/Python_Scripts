@@ -1,0 +1,79 @@
+function oldtail {
+    param(
+        [Parameter(Mandatory=$true, Position=0)]
+        [string]$FileName
+    )
+
+    $LogDirectory = "C:\Users\Rutvik\Python PlaywrightScripts\Logs"
+    $FullPath = Join-Path -Path $LogDirectory -ChildPath $FileName
+
+    if (-Not (Test-Path $FullPath)) {
+        Write-Host "File '$FileName' not found in directory '$LogDirectory'."
+        return
+    }
+
+    try {
+        # Read existing contents of the log file
+        Get-Content -Path $FullPath -Wait
+    } catch {
+        Write-Host "Error reading file: $_"
+    }
+}
+
+function tail {
+    param(
+        [Parameter(Position=0)]
+        [string]$FileName,
+
+        [switch]$t,
+        [switch]$top
+    )
+
+    $LogDirectory = "C:\Users\Rutvik\Python PlaywrightScripts\Logs"
+
+    if ($top) {
+        $latestFile = Get-ChildItem -Path $LogDirectory -Filter "*.log" | Sort-Object LastWriteTime -Descending | Select-Object -First 1
+        if ($latestFile) {
+            $FileName = $latestFile.Name
+        } else {
+            Write-Host "No log files found in directory '$LogDirectory'."
+            return
+        }
+    }
+
+    if ($t) {
+        Get-ChildItem -Path $LogDirectory -Filter "test_*" | ForEach-Object {
+            Write-Host $_.Name
+        }
+        return
+    }
+
+    if (-not $FileName) {
+        Write-Host "Please provide a file name."
+        return
+    }
+
+    $FullPath = Join-Path -Path $LogDirectory -ChildPath $FileName
+
+    if (-Not (Test-Path $FullPath)) {
+        Write-Host "File '$FileName' not found in directory '$LogDirectory'."
+        return
+    }
+
+    try {
+        # Read existing contents of the log file
+        Get-Content -Path $FullPath -Wait
+    } catch {
+        Write-Host "Error reading file: $_"
+    }
+}
+
+
+
+function playwrightf {
+    npx playwright codegen staging.bluemind.app --viewport-size "1920,1080"
+}
+
+function playwright {
+    npx playwright codegen staging.bluemind.app
+}
