@@ -1,10 +1,10 @@
 from dotenv import load_dotenv
-import logging
 from playwright.async_api import Page, async_playwright, expect, Playwright
 import asyncio
 import os
 from datetime import datetime, timedelta
 import re
+import logging
 import subprocess
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -31,15 +31,59 @@ api_urls = defaultdict(dict)
 test_results = []
 
 tomorrow = datetime.today() + timedelta(days=1)
-formatted_date = tomorrow.strftime('%A, %B %d, %Y')
+date_1 = tomorrow.strftime('%A, %B %d, %Y')
+date_2 = tomorrow.strftime('%A, %B %d,')
 
 async def repeat(page):
-    await page.get_by_label(formatted_date, exact=True).dblclick()
 
-    page.get_by_role("combobox").first.click()
-    utils.for_x_y(page, 1, 30)  
+    appointment_exists = await page.query_selector("div.e-appointment-wrapper > div.e-appointment") is not None
 
-    await page.get_by_role("combobox").nth(3).fill(utils.generate_alphanumeric(2)+("@rutvikqa.testinator.com") )
+    await page.locator("button:nth-child(7)").first.click()
+    await page.get_by_label("Anniversary").uncheck()
+    await page.get_by_label("Birthday", exact=True).uncheck()
+    await page.get_by_label("Sales").uncheck()
+    await page.get_by_label("Follow Ups").uncheck()
+    await page.get_by_label("Events").uncheck()
+    try:
+        await page.get_by_label("rutvik@bluemind.app").uncheck(timeout=500)
+    except:
+        pass
+    try:
+        await page.get_by_label("rutvikqatest@gmail.com").uncheck(timeout=500)
+    except:
+        pass
+    try:
+        await page.get_by_label("rutvikqatester@gmail.com").uncheck(timeout=500)
+    except:
+        pass
+    try:
+        await page.get_by_label("rutvikqatest@outlook.com").uncheck(timeout=500)
+    except:
+        pass
+    try:    
+        await page.get_by_label("rutvikqatester@outlook.com").uncheck(timeout=500)
+    except:
+        pass
+    await page.locator("button:nth-child(7)").first.click()
+
+
+    # if appointment_exists:
+    #     await page.get_by_label(date_1, exact=True).dblclick(timeout=2000)
+    # else:
+    #     try:
+    await page.get_by_label(date_2).dblclick(timeout=2000)
+        # except:
+        #     await page.get_by_label(date_1, exact=True).dblclick(timeout=2000)
+ 
+    await page.locator("input[name=\"title\"]").fill(utils.generate_alphanumeric(3))
+
+    await page.get_by_role("combobox").first.click()
+    page.wait_for_timeout(1000)
+    await utils.for_x_y_async(page, 1, 30)  
+
+    x=utils.generate_alphanumeric(3)
+    x=x.lower()
+    await page.get_by_role("combobox").nth(3).fill(x+("@rutvikqa.testinator.com"))
     await page.keyboard.press("Enter")
 
     a=utils.coin_toss()
@@ -53,67 +97,51 @@ async def repeat(page):
     if c == "Heads":
         await page.locator("input[name=\"repeat\"]").check()
 
-    utils.Voice_to_text(page)
+    await utils.Voice_to_text_async(page)
+    return x
 
 async def test(page):
 
-    await page.goto("https://staging.bluemind.app/calendar")
+    await page.goto("https://dev.bluemind.app/calendar")
+    # while True:
 
-    while True:
+    # x=await repeat(page)
+    # logging.info(x)
+    x="11"
+    await utils.fetch_and_check_sender_email(mailinator, google_account, google_account2, x)
 
-        await repeat(page)
-
-        await utils.fetch_and_check_sender_email(mailinator, google_account, google_account2)  
-        
-        await page.wait_for_timeout(3000)
-
-
-
-
-
-async def run_tests_in_two_windows(mailinator_url: str, google_account: str, google_account2: str) -> None:
+async def run_tests_in_two_windows() -> None:
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=False)
 
-        # Create two browser contexts
+        # Create 2 contexts of the browser
         context1 = await browser.new_context(storage_state="variables/playwright/.auth/state.json")
-        context2 = await browser.new_context(storage_state="variables/playwright/.auth/state.json")
+        # context2 = await browser.new_context(storage_state="variables/playwright/.auth/state-google.json")
 
         # Open pages in both contexts
         page1 = await context1.new_page()
-        page2 = await context2.new_page()
+        # page2 = await context2.new_page()
 
-        # Run the test function in parallel for both pages
+        # Run parrallel tests in both
         await asyncio.gather(
             test(page1),
-            test(page2)
+            # test(page2)
         )
 
-        # Close contexts and browser
         await context1.close()
-        await context2.close()
+        # await context2.close()
         await browser.close()
 
-# Use below in above to code it properly
-
-# async def main():
-#     async with async_playwright() as p:
-#         browser = await p.chromium.launch(headless=False)
-#         context = await browser.new_context(storage_state="variables/playwright/.auth/state.json")
-#         page = await context.new_page()
-#         await page.set_viewport_size({"width": 1920, "height": 1080})
-#         response_handler, request_handler = utils.start_handler(page, api_urls)
-#         await test(page)
-#         utils.stop_handler(page, api_urls, response_handler, request_handler)
-#         await context.close()
-#         await browser.close()
-
 if __name__ == '__main__':
-    # Ensure the state is recent by running the login script if necessary
+
+    # Ensure the states are recent by running the login scripts if necessary
     if not utils.is_recent_state(state_path):
         subprocess.run(['python', script_path])
+    if not utils.is_recent_google_state(state_path_google):
+        subprocess.run(['python', script_path_google])   
+    
     try:
-        asyncio.run(main())
+        asyncio.run(run_tests_in_two_windows())
         utils.start_report(test_results, script_name)
     except Exception as e:
         utils.traceback_error_logging(script_name, e)

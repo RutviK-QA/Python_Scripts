@@ -1,41 +1,52 @@
-2024-07-19 18:51:58,589 -  : Bluemind | Confirm your email
-2024-07-19 18:51:58,923 - File 'c:\Users\Rutvik\Python PlaywrightScripts\test.py', line 86, in <module>: asyncio.run(main())
-2024-07-19 18:51:58,924 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\asyncio\runners.py', line 194, in run: return runner.run(main)
-2024-07-19 18:51:58,924 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\asyncio\runners.py', line 118, in run: return self._loop.run_until_complete(task)
-2024-07-19 18:51:58,924 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\asyncio\base_events.py', line 687, in run_until_complete: return future.result()
-2024-07-19 18:51:58,924 - File 'c:\Users\Rutvik\Python PlaywrightScripts\test.py', line 76, in main: await test(page)
-2024-07-19 18:51:58,924 - File 'c:\Users\Rutvik\Python PlaywrightScripts\test.py', line 65, in test: await utils.fetch_and_check_sender_email(mailinator, google_account, google_account2)
-2024-07-19 18:51:58,924 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Variables\utils.py', line 608, in fetch_and_check_sender_email: raise ValueError(f"------------------> ERROR:Email from sender {sender_email} does not match either {email_a} or {email_b}")
-2024-07-19 18:51:58,924 - Error in test: ------------------> ERROR:Email from sender  does not match either rutvik@bluemind.app or rutvikqatest@gmail.com
-2024-07-19 18:52:41,214 - File 'c:\Users\Rutvik\Python PlaywrightScripts\test.py', line 86, in <module>: asyncio.run(main())
-2024-07-19 18:52:41,214 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\asyncio\runners.py', line 194, in run: return runner.run(main)
-2024-07-19 18:52:41,215 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\asyncio\runners.py', line 118, in run: return self._loop.run_until_complete(task)
-2024-07-19 18:52:41,215 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\asyncio\base_events.py', line 687, in run_until_complete: return future.result()
-2024-07-19 18:52:41,215 - File 'c:\Users\Rutvik\Python PlaywrightScripts\test.py', line 76, in main: await test(page)
-2024-07-19 18:52:41,215 - File 'c:\Users\Rutvik\Python PlaywrightScripts\test.py', line 63, in test: await repeat(page)
-2024-07-19 18:52:41,215 - File 'c:\Users\Rutvik\Python PlaywrightScripts\test.py', line 36, in repeat: await page.get_by_label(formatted_date, exact=True).dblclick()
-2024-07-19 18:52:41,215 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\async_api\_generated.py', line 14961, in dblclick: await self._impl_obj.dblclick(
-2024-07-19 18:52:41,215 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_locator.py', line 170, in dblclick: return await self._frame.dblclick(self._selector, strict=True, **params)
-2024-07-19 18:52:41,215 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_frame.py', line 503, in dblclick: await self._channel.send("dblclick", locals_to_params(locals()))
-2024-07-19 18:52:41,215 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_connection.py', line 59, in send: return await self._connection.wrap_api_call(
-2024-07-19 18:52:41,215 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_connection.py', line 514, in wrap_api_call: raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
-2024-07-19 18:52:41,215 - Error in test: Locator.dblclick: Target page, context or browser has been closed
-Call log:
-waiting for get_by_label("Saturday, July 20, 2024", exact=True)
-
-2024-07-19 18:55:02,652 - File 'c:\Users\Rutvik\Python PlaywrightScripts\test.py', line 86, in <module>: asyncio.run(main())
-2024-07-19 18:55:02,652 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\asyncio\runners.py', line 194, in run: return runner.run(main)
-2024-07-19 18:55:02,652 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\asyncio\runners.py', line 118, in run: return self._loop.run_until_complete(task)
-2024-07-19 18:55:02,653 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\asyncio\base_events.py', line 687, in run_until_complete: return future.result()
-2024-07-19 18:55:02,653 - File 'c:\Users\Rutvik\Python PlaywrightScripts\test.py', line 76, in main: await test(page)
-2024-07-19 18:55:02,653 - File 'c:\Users\Rutvik\Python PlaywrightScripts\test.py', line 63, in test: await repeat(page)
-2024-07-19 18:55:02,653 - File 'c:\Users\Rutvik\Python PlaywrightScripts\test.py', line 36, in repeat: await page.get_by_label(formatted_date, exact=True).dblclick()
-2024-07-19 18:55:02,653 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\async_api\_generated.py', line 14961, in dblclick: await self._impl_obj.dblclick(
-2024-07-19 18:55:02,653 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_locator.py', line 170, in dblclick: return await self._frame.dblclick(self._selector, strict=True, **params)
-2024-07-19 18:55:02,653 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_frame.py', line 503, in dblclick: await self._channel.send("dblclick", locals_to_params(locals()))
-2024-07-19 18:55:02,653 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_connection.py', line 59, in send: return await self._connection.wrap_api_call(
-2024-07-19 18:55:02,653 - File 'C:\Users\Rutvik\AppData\Local\Programs\Python\Python312\Lib\site-packages\playwright\_impl\_connection.py', line 514, in wrap_api_call: raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
-2024-07-19 18:55:02,653 - Error in test: Locator.dblclick: Timeout 30000ms exceeded.
-Call log:
-waiting for get_by_label("Saturday, July 20, 2024", exact=True)
-
+2024-07-22 18:08:22,594 - Email address: rutvikqatester@outlook.com not in rutvik@bluemind.app or rutvikqatest@gmail.com.
+2024-07-22 18:08:22,594 - More details: Sender Email 1: rutvikqatester@outlook.com | Receiver: rutviffk | Subject: 1
+2024-07-22 18:08:22,594 - Proper Email address: rutvik@bluemind.app.
+2024-07-22 18:08:26,593 - Email address: rutvikqatester@outlook.com not in rutvik@bluemind.app or rutvikqatest@gmail.com.
+2024-07-22 18:08:26,594 - More details: Sender Email 1: rutvikqatester@outlook.com | Receiver: rutviffk | Subject: 1
+2024-07-22 18:08:26,594 - Proper Email address: rutvik@bluemind.app.
+2024-07-22 18:08:30,688 - Email address: rutvikqatester@outlook.com not in rutvik@bluemind.app or rutvikqatest@gmail.com.
+2024-07-22 18:08:30,688 - More details: Sender Email 1: rutvikqatester@outlook.com | Receiver: rutviffk | Subject: 1
+2024-07-22 18:08:30,688 - Proper Email address: rutvik@bluemind.app.
+2024-07-22 18:08:34,758 - Email address: rutvikqatester@outlook.com not in rutvik@bluemind.app or rutvikqatest@gmail.com.
+2024-07-22 18:08:34,758 - More details: Sender Email 1: rutvikqatester@outlook.com | Receiver: rutviffk | Subject: 1
+2024-07-22 18:08:34,759 - Proper Email address: rutvik@bluemind.app.
+2024-07-22 18:08:38,830 - Email address: rutvikqatester@outlook.com not in rutvik@bluemind.app or rutvikqatest@gmail.com.
+2024-07-22 18:08:38,830 - More details: Sender Email 1: rutvikqatester@outlook.com | Receiver: rutviffk | Subject: 1
+2024-07-22 18:08:38,830 - Proper Email address: rutvik@bluemind.app.
+2024-07-22 18:08:42,833 - Email address: rutvikqatester@outlook.com not in rutvik@bluemind.app or rutvikqatest@gmail.com.
+2024-07-22 18:08:42,833 - More details: Sender Email 1: rutvikqatester@outlook.com | Receiver: rutviffk | Subject: 1
+2024-07-22 18:08:42,833 - Proper Email address: rutvik@bluemind.app.
+2024-07-22 18:08:46,692 - Email address: rutvikqatester@outlook.com not in rutvik@bluemind.app or rutvikqatest@gmail.com.
+2024-07-22 18:08:46,692 - More details: Sender Email 1: rutvikqatester@outlook.com | Receiver: rutviffk | Subject: 1
+2024-07-22 18:08:46,692 - Proper Email address: rutvik@bluemind.app.
+2024-07-22 18:08:50,532 - Email address: rutvikqatester@outlook.com not in rutvik@bluemind.app or rutvikqatest@gmail.com.
+2024-07-22 18:08:50,533 - More details: Sender Email 1: rutvikqatester@outlook.com | Receiver: rutviffk | Subject: 1
+2024-07-22 18:08:50,533 - Proper Email address: rutvik@bluemind.app.
+2024-07-22 18:08:54,436 - Email address: rutvikqatester@outlook.com not in rutvik@bluemind.app or rutvikqatest@gmail.com.
+2024-07-22 18:08:54,436 - More details: Sender Email 1: rutvikqatester@outlook.com | Receiver: rutviffk | Subject: 1
+2024-07-22 18:08:54,436 - Proper Email address: rutvik@bluemind.app.
+2024-07-22 18:08:58,487 - Email address: rutvikqatester@outlook.com not in rutvik@bluemind.app or rutvikqatest@gmail.com.
+2024-07-22 18:08:58,488 - More details: Sender Email 1: rutvikqatester@outlook.com | Receiver: rutviffk | Subject: 1
+2024-07-22 18:08:58,488 - Proper Email address: rutvik@bluemind.app.
+2024-07-22 18:09:01,844 - Email address: rutvikqatester@outlook.com not in rutvik@bluemind.app or rutvikqatest@gmail.com.
+2024-07-22 18:09:01,845 - More details: Sender Email 1: rutvikqatester@outlook.com | Receiver: rutviffk | Subject: 1
+2024-07-22 18:09:01,845 - Proper Email address: rutvik@bluemind.app.
+2024-07-22 18:09:05,895 - Email address: rutvikqatester@outlook.com not in rutvik@bluemind.app or rutvikqatest@gmail.com.
+2024-07-22 18:09:05,895 - More details: Sender Email 1: rutvikqatester@outlook.com | Receiver: rutviffk | Subject: 1
+2024-07-22 18:09:05,895 - Proper Email address: rutvik@bluemind.app.
+2024-07-22 18:09:09,306 - Email address: rutvikqatester@outlook.com not in rutvik@bluemind.app or rutvikqatest@gmail.com.
+2024-07-22 18:09:09,306 - More details: Sender Email 1: rutvikqatester@outlook.com | Receiver: rutviffk | Subject: 1
+2024-07-22 18:09:09,307 - Proper Email address: rutvik@bluemind.app.
+2024-07-22 18:09:13,185 - Email address: rutvikqatester@outlook.com not in rutvik@bluemind.app or rutvikqatest@gmail.com.
+2024-07-22 18:09:13,185 - More details: Sender Email 1: rutvikqatester@outlook.com | Receiver: rutviffk | Subject: 1
+2024-07-22 18:09:13,185 - Proper Email address: rutvik@bluemind.app.
+2024-07-22 18:09:17,035 - Email address: rutvikqatester@outlook.com not in rutvik@bluemind.app or rutvikqatest@gmail.com.
+2024-07-22 18:09:17,035 - More details: Sender Email 1: rutvikqatester@outlook.com | Receiver: rutviffk | Subject: 1
+2024-07-22 18:09:17,035 - Proper Email address: rutvik@bluemind.app.
+2024-07-22 18:09:20,462 - Email address: rutvikqatester@outlook.com not in rutvik@bluemind.app or rutvikqatest@gmail.com.
+2024-07-22 18:09:20,462 - More details: Sender Email 1: rutvikqatester@outlook.com | Receiver: rutviffk | Subject: 1
+2024-07-22 18:09:20,463 - Proper Email address: rutvik@bluemind.app.
+2024-07-22 18:09:24,354 - Email address: rutvikqatester@outlook.com not in rutvik@bluemind.app or rutvikqatest@gmail.com.
+2024-07-22 18:09:24,354 - More details: Sender Email 1: rutvikqatester@outlook.com | Receiver: rutviffk | Subject: 1
+2024-07-22 18:09:24,354 - Proper Email address: rutvik@bluemind.app.
+2024-07-22 18:09:24,354 - Maximum duration reached. Stopping retries.

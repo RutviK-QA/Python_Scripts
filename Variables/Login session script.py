@@ -26,10 +26,13 @@ def is_recent_state(path, hours=8):
 # Function to login and save the storage state
 def login_and_save_state():
     with sync_playwright() as p:
-        browser = p.chromium.launch()
+        browser = p.chromium.launch(headless=True)
         context = browser.new_context()
         page = context.new_page()
         page.goto(url)
+
+        # TEMPORARY
+        username= "rutvikh5kk@rutvikqa.testinator.com"
         
         # Perform login actions
         page.get_by_placeholder("Enter Email").fill(username)
