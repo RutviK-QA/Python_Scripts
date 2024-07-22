@@ -34,10 +34,7 @@ tomorrow = datetime.today() + timedelta(days=1)
 date_1 = tomorrow.strftime('%A, %B %d, %Y')
 date_2 = tomorrow.strftime('%A, %B %d,')
 
-async def repeat(page):
-
-    appointment_exists = await page.query_selector("div.e-appointment-wrapper > div.e-appointment") is not None
-
+async def disable_others(page):
     await page.locator("button:nth-child(7)").first.click()
     await page.get_by_label("Anniversary").uncheck()
     await page.get_by_label("Birthday", exact=True).uncheck()
@@ -67,6 +64,10 @@ async def repeat(page):
     await page.locator("button:nth-child(7)").first.click()
 
 
+async def repeat(page):
+
+    appointment_exists = await page.query_selector("div.e-appointment-wrapper > div.e-appointment") is not None
+
     # if appointment_exists:
     #     await page.get_by_label(date_1, exact=True).dblclick(timeout=2000)
     # else:
@@ -78,7 +79,7 @@ async def repeat(page):
     await page.locator("input[name=\"title\"]").fill(utils.generate_alphanumeric(3))
 
     await page.get_by_role("combobox").first.click()
-    page.wait_for_timeout(1000)
+    await page.wait_for_timeout(1000)
     await utils.for_x_y_async(page, 1, 30)  
 
     x=utils.generate_alphanumeric(3)
@@ -103,41 +104,41 @@ async def repeat(page):
 async def test(page):
 
     await page.goto("https://dev.bluemind.app/calendar")
-    # while True:
+    await disable_others(page)
 
-    # x=await repeat(page)
-    # logging.info(x)
-    x="11"
-    await utils.fetch_and_check_sender_email(mailinator, google_account, google_account2, x)
+    while True:
+
+        x=await repeat(page)
+        # logging.info(x)
+        # x="11"
+        await utils.fetch_and_check_sender_email(mailinator, google_account, google_account2, x)
 
 async def run_tests_in_two_windows() -> None:
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=False)
 
-        # Create 2 contexts of the browser
+        #  2 contexts of the browser
         context1 = await browser.new_context(storage_state="variables/playwright/.auth/state.json")
-        # context2 = await browser.new_context(storage_state="variables/playwright/.auth/state-google.json")
+        context2 = await browser.new_context(storage_state="variables/playwright/.auth/state-google.json")
 
-        # Open pages in both contexts
         page1 = await context1.new_page()
-        # page2 = await context2.new_page()
+        page2 = await context2.new_page()
 
-        # Run parrallel tests in both
+        # Run parrallel
         await asyncio.gather(
             test(page1),
-            # test(page2)
+            test(page2)
         )
 
         await context1.close()
-        # await context2.close()
+        await context2.close()
         await browser.close()
 
 if __name__ == '__main__':
 
     # Ensure the states are recent by running the login scripts if necessary
-    if not utils.is_recent_state(state_path):
+    if not utils.is_recent_state(state_path) or not utils.is_recent_google_state(state_path_google):
         subprocess.run(['python', script_path])
-    if not utils.is_recent_google_state(state_path_google):
         subprocess.run(['python', script_path_google])   
     
     try:

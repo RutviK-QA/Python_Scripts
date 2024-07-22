@@ -638,7 +638,7 @@ def fetch_otp(mailinator, token):
         return None
 
 # Check for sender email address in mailinator
-async def fetch_and_check_sender_email(mailinator_url, email_a, email_b, receiver_email, timeout=3, max_duration=60):
+async def fetch_and_check_sender_email(mailinator_url, email_a, email_b, receiver_email, timeout=3, max_duration=40):
     start_time = time.time()
     
     while True:
@@ -655,7 +655,7 @@ async def fetch_and_check_sender_email(mailinator_url, email_a, email_b, receive
                 receiver_found = False
                 
                 # Check up to the top 2 most recent messages
-                for index, message in enumerate(data['msgs'][:2]):
+                for index, message in enumerate(data['msgs'][:4]):
                     subject = message.get('subject', '')
                     origfrom = message.get('origfrom', '')
                     to = message.get('to', '')
