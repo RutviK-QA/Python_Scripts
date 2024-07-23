@@ -26,22 +26,29 @@ def is_recent_state(path, hours=8):
 # Function to login and save the storage state
 def login_and_save_state():
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
+        browser = p.chromium.launch(headless=False)
         context = browser.new_context()
         page = context.new_page()
         page.goto(url)
 
         # TEMPORARY
-        username= "rutvikh5kk@rutvikqa.testinator.com"
+        # username= "rutvikh5kk@rutvikqa.testinator.com"
         
         # Perform login actions
         page.get_by_placeholder("Enter Email").fill(username)
         page.get_by_placeholder("Password").fill(password)
         page.get_by_placeholder("Password").press("Enter")
-        
+
+
+
         # Wait for login to complete
-        page.wait_for_timeout(5000)
+        page.wait_for_timeout(6000)
         
+        try:
+            assert not page.get_by_role("alert").is_visible(timeout=10000)
+        except:
+            print("Login script failure due to login credentials")
+            
         # Ensure the directory exists
         ensure_directory_exists('variables/playwright/.auth')
         

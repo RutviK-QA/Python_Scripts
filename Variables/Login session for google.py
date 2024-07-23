@@ -26,7 +26,7 @@ def is_recent_google_state(path, hours=8):
 # Function to login and save the storage state
 def login_and_save_state_google():
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
+        browser = p.chromium.launch(headless=False)
         context = browser.new_context()
         page = context.new_page()
         page.goto(url)
@@ -40,14 +40,18 @@ def login_and_save_state_google():
             page.get_by_label("Email or phone").press("Enter")
             page.get_by_label("Enter your password").fill("Rutvik2710$$")
             page.get_by_label("Enter your password").press("Enter")
-            
-        # Wait for login to complete
+        
         page.wait_for_timeout(15000)
+
+        try:
+            assert not page.get_by_role("alert").is_visible(timeout=10000)
+        except:
+            print("Login script failure due to login credentials")
         
         # Ensure the directory exists
         ensure_directory_exists('variables/playwright/.auth')
         
-        # Save storage state (cookies, local storage) to a file
+        # Save storage state
         context.storage_state(path="variables/playwright/.auth/state-google.json")
         browser.close()
 
@@ -59,6 +63,6 @@ if __name__ == '__main__':
     if not is_recent_google_state(state_path):
         # Step 2: Login and save the state if it's not recent
         login_and_save_state_google()
-        print("Created a new login session")
+        logging.info("Created a new google login session")
     else:
-        print("Logging in using existing session.")
+        logging.info("Logging in using existing session.")

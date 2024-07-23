@@ -103,7 +103,7 @@ async def repeat(page):
 
 async def test(page):
 
-    await page.goto("https://dev.bluemind.app/calendar")
+    await page.goto("https://staging.bluemind.app/calendar")
     await disable_others(page)
 
     while True:
@@ -138,14 +138,15 @@ if __name__ == '__main__':
 
     # Ensure the states are recent by running the login scripts if necessary
     if not utils.is_recent_state(state_path) or not utils.is_recent_google_state(state_path_google):
-        subprocess.run(['python', script_path])
-        subprocess.run(['python', script_path_google])   
-    
+        subprocess.run(['python', script_path], check=True)
+        subprocess.run(['python', script_path_google], check=True)   
+
     try:
         asyncio.run(run_tests_in_two_windows())
         utils.start_report(test_results, script_name)
     except Exception as e:
         utils.traceback_error_logging(script_name, e)
         utils.end_report(test_results, script_name)
+
 
 
