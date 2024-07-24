@@ -64,9 +64,42 @@ async def disable_others(page):
     await page.locator("button:nth-child(7)").first.click()
 
 
-async def repeat(page):
+async def repeat_mailbox(page):
+    await page.get_by_role("button", name="Compose").click()
+    await page.get_by_text("Cc", exact=True).click()
+    await page.get_by_text("Bcc").click()
 
-    appointment_exists = await page.query_selector("div.e-appointment-wrapper > div.e-appointment") is not None
+    y=utils.generate_alphanumeric(3)
+    y=y.lower()
+    await page.get_by_placeholder("Type an email address and").first.fill(y+"@rutvikqa.testinator.com")
+    await page.wait_for_timeout(500)
+    yy=utils.generate_alphanumeric(3)
+    yy=yy.lower()
+    await page.get_by_placeholder("Type an email address and").nth(1).fill(yy+"@rutvikqa.testinator.com", timeout=2000)
+    await page.wait_for_timeout(500)
+    yyy=utils.generate_alphanumeric(3)
+    yyy=yyy.lower()
+    await page.get_by_placeholder("Type an email address and").nth(1).fill(yyy+"@rutvikqa.testinator.com", timeout=2000)
+
+    x = [y, yy, yyy]
+
+    await page.get_by_role("textbox").fill(utils.generate_alphanumeric(5))
+    await page.keyboard.press("Tab")
+    await page.keyboard.type(utils.generate_alphanumeric(2)) 
+    await page.get_by_role("button", name="Send").click()
+    await page.wait_for_timeout(3000)
+
+    try:
+        await expect(page.get_by_text("Message sent successfully!")).to_be_visible(timeout=3000)
+        logging.info("Mailbox mail sent")
+    except:
+        logging.info("Mailbox mail send didnt work")
+
+    return x
+
+async def repeat_calendar(page):
+
+    # appointment_exists = await page.query_selector("div.e-appointment-wrapper > div.e-appointment") is not None
 
     # if appointment_exists:
     #     await page.get_by_label(date_1, exact=True).dblclick(timeout=2000)
@@ -99,19 +132,27 @@ async def repeat(page):
         await page.locator("input[name=\"repeat\"]").check()
 
     await utils.Voice_to_text_async(page)
-    return x
+    return [x]
 
-async def test(page):
+async def test_calendar(page):
 
     await page.goto("https://staging.bluemind.app/calendar")
+    await page.wait_for_timeout(5000)
     await disable_others(page)
 
     while True:
 
-        x=await repeat(page)
-        # logging.info(x)
-        # x="11"
+        x=await repeat_calendar(page)
         await utils.fetch_and_check_sender_email(mailinator, google_account, google_account2, x)
+
+async def test_mailbox(page):
+    await page.goto("https://staging.bluemind.app/mail-box")
+
+    while True:
+
+        x=await repeat_mailbox(page)
+        await utils.fetch_and_check_sender_email(mailinator, google_account, google_account2, x)
+
 
 async def run_tests_in_two_windows() -> None:
     async with async_playwright() as p:
@@ -120,14 +161,19 @@ async def run_tests_in_two_windows() -> None:
         #  2 contexts of the browser
         context1 = await browser.new_context(storage_state="variables/playwright/.auth/state.json")
         context2 = await browser.new_context(storage_state="variables/playwright/.auth/state-google.json")
-
+        
+        # 4 pages, 2 browsers with 2 page each
         page1 = await context1.new_page()
-        page2 = await context2.new_page()
+        # page2 = await context2.new_page()
+        # page3 = await context2.new_page()
+        # page4 = await context1.new_page()
 
         # Run parrallel
         await asyncio.gather(
-            test(page1),
-            test(page2)
+            test_calendar(page1),
+            # test_calendar(page2),
+            # test_mailbox(page3),
+            # test_mailbox(page4)
         )
 
         await context1.close()

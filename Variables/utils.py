@@ -2,7 +2,7 @@
 import os
 from datetime import datetime, timedelta
 from dotenv import load_dotenv
-import pytest
+import aiohttp
 import string
 import random
 import logging
@@ -11,6 +11,7 @@ import re
 import requests
 from collections import defaultdict
 import time
+import asyncio
 import re
 from bs4 import BeautifulSoup
 import traceback
@@ -277,24 +278,24 @@ def Voice_to_text(page):
 async def Voice_to_text_async(page):
     await page.get_by_role("button", name="Start").click(timeout=2000)
     await page.wait_for_timeout(3000)
-    await page.get_by_role("button", name="Stop").click(timeout=500)
-    await page.get_by_role("button", name="Reset").click(timeout=500)
+    await page.get_by_role("button", name="Stop").click(timeout=3000)
+    await page.get_by_role("button", name="Reset").click(timeout=3000)
     try:
-        await page.locator("textarea[name=\"notes\"]").fill(generate_random_string(100), timeout=1000)
+        await page.locator("textarea[name=\"notes\"]").fill(generate_random_string(10), delay=0, timeout=1000)
     except:
         try:
-            await page.locator(".rich-text-editor-editor").fill(generate_random_string(100), timeout=1000)
+            await page.locator(".rich-text-editor-editor").fill(generate_random_string(10), delay=0, timeout=1000)
         except:
             await page.get_by_role("button", name="Reset").press("Shift+Tab")
             await page.get_by_role("button", name="Start").press("Shift+Tab")
-            await page.keyboard.type(generate_random_string(100), delay=0)
+            await page.keyboard.type(generate_random_string(10), delay=0)
     try:
-        await page.get_by_role("button", name="Save").click(timeout=500)
+        await page.get_by_role("button", name="Save").click(timeout=1000)
     except:
         try:
-            await page.get_by_role("button", name="Send").click(timeout=500)
+            await page.get_by_role("button", name="Send").click(timeout=1000)
         except:
-            await page.get_by_role("button", name="Update").click(timeout=500)
+            await page.get_by_role("button", name="Update").click(timeout=1000)
     logging.info("Saved after voice to text success")
 
 # Function to select random priority
@@ -430,6 +431,22 @@ def stop_handler(page, api_urls, response_handler, request_handler):
     page.remove_listener("request", request_handler)
     page.remove_listener("response", response_handler)
     show_api_response(api_urls)
+
+
+async def start_handler_async(page, api_urls):
+    response_handler = lambda response: handle_response(response, api_urls)
+    request_handler = lambda request: handle_request(request, api_urls)
+    page.on('request', request_handler)
+    page.on('response', response_handler)
+    return response_handler, request_handler
+
+async def stop_handler_async(page, api_urls, response_handler, request_handler):
+    await asyncio.sleep(8)  # Wait for 8 seconds
+    page.remove_listener("request", request_handler)
+    page.remove_listener("response", response_handler)
+    show_api_response(api_urls)
+
+
 
 def scroll_to_find(page):
     page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
@@ -584,13 +601,25 @@ def start_report(test_results, script_name):
     with open(report_file, "a") as f:
         f.write(report_content + "\n")
 
-# Traceback error logging
+# # Traceback error logging
+# def traceback_error_logging(script_name, e):
+#     tb = e.__traceback__
+#     full_traceback = traceback.extract_tb(tb)
+#     for filename, lineno, funcname, line in full_traceback:
+#         logging.info(f"File '{filename}', line {lineno}, in {funcname}: {line.strip()}")
+#     logging.info(f"Error in function named {script_name}: {e}")
+
 def traceback_error_logging(script_name, e):
+    path = r'c:\Users\Rutvik\Python PlaywrightScripts'
     tb = e.__traceback__
     full_traceback = traceback.extract_tb(tb)
+    
+    logging.info(f"\nError in function named {script_name}: {e}")
+    
     for filename, lineno, funcname, line in full_traceback:
-        logging.info(f"File '{filename}', line {lineno}, in {funcname}: {line.strip()}")
-    logging.info(f"Error in {script_name}: {e}")
+        if filename.startswith(path):  # Check if the filename starts with the static path
+            logging.info(f"File '{filename}', line {lineno}, in {funcname}: {line.strip()}")
+
 
 # Report FAIL
 def end_report(test_results, script_name):
@@ -638,66 +667,124 @@ def fetch_otp(mailinator, token):
         return None
 
 # Check for sender email address in mailinator
-async def fetch_and_check_sender_email(mailinator_url, email_a, email_b, receiver_email, timeout=3, max_duration=40):
+# async def fetch_and_check_sender_email(mailinator_url, email_a, email_b, receiver_email, timeout=3, max_duration=40):
+#     start_time = time.time()
+    
+#     while True:
+#         try:
+#             response = requests.get(mailinator_url)
+#             response.raise_for_status()  # Raise an exception for HTTP errors
+#             data = response.json()
+            
+#             # Log the entire response to inspect its structure
+#             # logging.info(f"API Response: {data}")
+            
+#             if 'msgs' in data and len(data['msgs']) > 0:
+#                 found_matching_email = False
+#                 receiver_found = False
+                
+#                 # Check up to the top 2 most recent messages
+#                 for index, message in enumerate(data['msgs'][:10]):
+#                     subject = message.get('subject', '')
+#                     origfrom = message.get('origfrom', '')
+#                     to = message.get('to', '')
+#                     sender_email = origfrom.split('<')[-1].strip('>') if '<' in origfrom else origfrom
+                    
+#                     # logging.info(f"Sender Email {index + 1}: {sender_email} | Receiver: {to} | Subject: {subject}")  # Logs all
+                    
+#                     if to == receiver_email:
+#                         receiver_found = True
+#                         if sender_email in [email_a, email_b]:  # Check if the email matches either
+#                             found_matching_email = True
+#                             logging.info(f"Proper Email address: {sender_email}.") 
+                    
+#                     elif sender_email in [email_a, email_b]: 
+#                             logging.info(f"Proper Email address: {sender_email}.") 
+#                             found_matching_email = True
+#                     elif sender_email not in [email_a, email_b]:
+#                         logging.info(f"Sender Email: {sender_email} not in {email_a} or {email_b}.")
+#                         logging.info(f"More details: Sender Email {index + 1}: {sender_email} | Receiver: {to} | Subject: {subject}")  # Logs all
+
+#                         found_matching_email = False
+                
+#                 if receiver_found:  
+#                     if not found_matching_email:
+#                         raise ValueError(f"------------------> ERROR: Email address did not match either {email_a} or {email_b}") 
+#                     break
+#                 else:
+#                     elapsed_time = time.time() - start_time
+#                     if elapsed_time >= max_duration:
+#                         logging.error("Maximum duration reached. Stopping retries.")
+#                         break
+#                     # logging.info("No matching receiver found in the top messages. Retrying in 3 seconds...")
+#                     time.sleep(timeout)
+#             else:
+#                 elapsed_time = time.time() - start_time
+#                 if elapsed_time >= max_duration:
+#                     logging.error("Maximum duration reached. Stopping retries.")
+#                     break
+#                 # logging.info("No emails found. Retrying in 3 seconds...")
+#                 time.sleep(timeout)
+            
+#         except requests.RequestException as e:
+#             logging.error(f"Failed to fetch message summaries: {e}")
+#             break
+#         except ValueError as e:
+#             logging.error(f"ValueError: {e}")
+#             break
+
+async def fetch_and_check_sender_email(mailinator_url, email_a, email_b, receiver_emails, timeout=3, max_duration=40):
+    if isinstance(receiver_emails, str):
+        receiver_emails = [receiver_emails]
+    
     start_time = time.time()
     
     while True:
         try:
-            response = requests.get(mailinator_url)
-            response.raise_for_status()  # Raise an exception for HTTP errors
-            data = response.json()
-            
-            # Log the entire response to inspect its structure
-            # logging.info(f"API Response: {data}")
-            
-            if 'msgs' in data and len(data['msgs']) > 0:
-                found_matching_email = False
-                receiver_found = False
-                
-                # Check up to the top 2 most recent messages
-                for index, message in enumerate(data['msgs'][:4]):
-                    subject = message.get('subject', '')
-                    origfrom = message.get('origfrom', '')
-                    to = message.get('to', '')
-                    sender_email = origfrom.split('<')[-1].strip('>') if '<' in origfrom else origfrom
+            async with aiohttp.ClientSession() as session:
+                async with session.get(mailinator_url) as response:
+                    response.raise_for_status()  # Raise an exception for HTTP errors
+                    data = await response.json()
                     
-                    # logging.info(f"Sender Email {index + 1}: {sender_email} | Receiver: {to} | Subject: {subject}")  # Logs all
-                    
-                    if to == receiver_email:
-                        receiver_found = True
-                        if sender_email in [email_a, email_b]:  # Check if the email matches either
-                            found_matching_email = True
-                            logging.info(f"Proper Email address: {sender_email}.") 
-                    
-                    elif sender_email in [email_a, email_b]: 
-                            logging.info(f"Proper Email address: {sender_email}.") 
-                            found_matching_email = True
-                    elif sender_email not in [email_a, email_b]:
-                        logging.info(f"Email address: {sender_email} not in {email_a} or {email_b}.")
-                        logging.info(f"More details: Sender Email {index + 1}: {sender_email} | Receiver: {to} | Subject: {subject}")  # Logs all
-
+                    if 'msgs' in data and len(data['msgs']) > 0:
                         found_matching_email = False
-                
-                if receiver_found:  
-                    if not found_matching_email:
-                        raise ValueError(f"------------------> ERROR: Email address did not match either {email_a} or {email_b}") 
-                    break
-                else:
-                    elapsed_time = time.time() - start_time
-                    if elapsed_time >= max_duration:
-                        logging.error("Maximum duration reached. Stopping retries.")
-                        break
-                    # logging.info("No matching receiver found in the top messages. Retrying in 3 seconds...")
-                    time.sleep(timeout)
-            else:
-                elapsed_time = time.time() - start_time
-                if elapsed_time >= max_duration:
-                    logging.error("Maximum duration reached. Stopping retries.")
-                    break
-                # logging.info("No emails found. Retrying in 3 seconds...")
-                time.sleep(timeout)
-            
-        except requests.RequestException as e:
+                        receiver_found = False
+                        
+                        for index, message in enumerate(data['msgs'][:5]):
+                            subject = message.get('subject', '')
+                            origfrom = message.get('origfrom', '')
+                            to = message.get('to', '')
+                            sender_email = origfrom.split('<')[-1].strip('>') if '<' in origfrom else origfrom
+                            
+                            if to in receiver_emails:
+                                receiver_found = True
+                                if sender_email in [email_a, email_b]:
+                                    found_matching_email = True
+                            
+                            elif sender_email in [email_a, email_b]:
+                                found_matching_email = True
+                            elif sender_email not in [email_a, email_b]:
+                                logging.info(f"Sender Email: {sender_email} not in {email_a} or {email_b}.")
+                                logging.info(f"More details: Sender Email {index + 1}: {sender_email} | Receiver: {to} | Subject: {subject}")
+
+                        if receiver_found:
+                            if not found_matching_email:
+                                raise ValueError(f"------------------> ERROR: Email address did not match either {email_a} or {email_b}") 
+                            break
+                        else:
+                            elapsed_time = time.time() - start_time
+                            if elapsed_time >= max_duration:
+                                logging.error(f"Maximum duration reached. Stopping retries.")
+                                break
+                            await asyncio.sleep(timeout)
+                    else:
+                        elapsed_time = time.time() - start_time
+                        if elapsed_time >= max_duration:
+                            logging.error(f"Maximum duration reached. Stopping retries.")
+                            break
+                        await asyncio.sleep(timeout)
+        
+        except aiohttp.ClientError as e:
             logging.error(f"Failed to fetch message summaries: {e}")
             break
         except ValueError as e:

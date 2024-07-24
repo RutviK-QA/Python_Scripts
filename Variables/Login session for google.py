@@ -26,7 +26,7 @@ def is_recent_google_state(path, hours=8):
 # Function to login and save the storage state
 def login_and_save_state_google():
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=False)
+        browser = p.chromium.launch(headless=True)
         context = browser.new_context()
         page = context.new_page()
         page.goto(url)
