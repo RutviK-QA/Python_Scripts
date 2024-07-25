@@ -21,7 +21,7 @@ script_path_google, state_path_google = utils.paths_google()
  google_password, outlook_account, outlook_password, outlook_account2, 
  api_url, url_contacts, login_api, mailinator, token, signup) = utils.get_env_variables()
 
-google_account2 = "rutvikqatest@gmail.com"
+google_account2 = "rutvikqatest@outlook.com"
 
 script_name = os.path.basename(__file__).split('.')[0]
 utils.logging_setup(script_name)
@@ -63,8 +63,9 @@ async def disable_others(page):
         pass
     await page.locator("button:nth-child(7)").first.click()
 
-
+# i= 0 # to be used for logging
 async def repeat_mailbox(page):
+    global i
     await page.get_by_role("button", name="Compose").click()
     await page.get_by_text("Cc", exact=True).click()
     await page.get_by_text("Bcc").click()
@@ -91,12 +92,14 @@ async def repeat_mailbox(page):
 
     try:
         await expect(page.get_by_text("Message sent successfully!")).to_be_visible(timeout=3000)
-        logging.info("Mailbox mail sent")
+        # logging.info(f"Mailbox mail sent {i} {type}")
+        # i+=1
     except:
         logging.info("Mailbox mail send didnt work")
 
     return x
 
+o=0 # to be used for logging
 async def repeat_calendar(page):
 
     # appointment_exists = await page.query_selector("div.e-appointment-wrapper > div.e-appointment") is not None
@@ -105,7 +108,7 @@ async def repeat_calendar(page):
     #     await page.get_by_label(date_1, exact=True).dblclick(timeout=2000)
     # else:
     #     try:
-    await page.get_by_label(date_2).dblclick(timeout=2000)
+    await page.get_by_label(date_2).dblclick(timeout=5000)
         # except:
         #     await page.get_by_label(date_1, exact=True).dblclick(timeout=2000)
  
@@ -130,8 +133,9 @@ async def repeat_calendar(page):
         await page.locator("input[name=\"all_day\"]").check()
     if c == "Heads":
         await page.locator("input[name=\"repeat\"]").check()
-
+    global o
     await utils.Voice_to_text_async(page)
+    # o+=1
     return [x]
 
 async def test_calendar(page):
@@ -140,19 +144,30 @@ async def test_calendar(page):
     await page.wait_for_timeout(5000)
     await disable_others(page)
 
-    while True:
+    for _ in range(20):
 
         x=await repeat_calendar(page)
-        await utils.fetch_and_check_sender_email(mailinator, google_account, google_account2, x)
+        try:
+            result = await utils.fetch_and_check_sender_email(mailinator, google_account, google_account2, x)
+            
+            if result == -1:
+                return 1
+        except:
+            return 1
 
 async def test_mailbox(page):
     await page.goto("https://staging.bluemind.app/mail-box")
 
-    while True:
+    for _ in range(20):
 
-        x=await repeat_mailbox(page)
-        await utils.fetch_and_check_sender_email(mailinator, google_account, google_account2, x)
-
+        x=await repeat_mailbox(page) 
+        try:
+            result = await utils.fetch_and_check_sender_email(mailinator, google_account, google_account2, x)
+            
+            if result == -1:
+                return 1
+        except:
+            return 1
 
 async def run_tests_in_two_windows() -> None:
     async with async_playwright() as p:
@@ -160,20 +175,22 @@ async def run_tests_in_two_windows() -> None:
 
         #  2 contexts of the browser
         context1 = await browser.new_context(storage_state="variables/playwright/.auth/state.json")
+        await context1.grant_permissions(["microphone"], origin="https://staging.bluemind.app")
         context2 = await browser.new_context(storage_state="variables/playwright/.auth/state-google.json")
+        await context2.grant_permissions(["microphone"], origin="https://staging.bluemind.app")
         
         # 4 pages, 2 browsers with 2 page each
         page1 = await context1.new_page()
-        # page2 = await context2.new_page()
-        # page3 = await context2.new_page()
-        # page4 = await context1.new_page()
+        page2 = await context2.new_page()
+        page3 = await context2.new_page()
+        page4 = await context1.new_page()
 
         # Run parrallel
         await asyncio.gather(
             test_calendar(page1),
-            # test_calendar(page2),
-            # test_mailbox(page3),
-            # test_mailbox(page4)
+            test_calendar(page2),
+            test_mailbox(page3),
+            test_mailbox(page4)
         )
 
         await context1.close()
@@ -188,8 +205,9 @@ if __name__ == '__main__':
         subprocess.run(['python', script_path_google], check=True)   
 
     try:
-        asyncio.run(run_tests_in_two_windows())
+        result=asyncio.run(run_tests_in_two_windows())
         utils.start_report(test_results, script_name)
+        sys.exit(result)
     except Exception as e:
         utils.traceback_error_logging(script_name, e)
         utils.end_report(test_results, script_name)

@@ -167,8 +167,16 @@ def view_sidebar(page):
     sidebar_note(page)
 
     # Sidebar Input Fields going from the right side top to bottom and moving to bottom left later on for business and personal type of contacts
-    page.locator(".FamilyStatusDropDown > .MuiAutocomplete-root > .MuiFormControl-root > .MuiInputBase-root").first.click()
-    utils.for_x_y(page, 1, 3)
+    try:
+        if page.locator(".FamilyStatusDropDown > .MuiAutocomplete-root > .MuiFormControl-root > .MuiInputBase-root").first.is_visible(timeout=5000):
+            page.locator(".FamilyStatusDropDown > .MuiAutocomplete-root > .MuiFormControl-root > .MuiInputBase-root").first.click()
+            utils.for_x_y(page, 1, 3)
+    except:
+        try:
+            page.locator(".FamilyStatusDropDown > .MuiAutocomplete-root > .MuiFormControl-root > .MuiInputBase-root").first.click(timeout=3000)
+            utils.for_x_y(page, 1, 3)
+        except:
+            pass
 
     if page.get_by_text("Personal").is_visible():
         page.locator(".mb-3 > .FamilyStatusDropDown > .MuiAutocomplete-root > .MuiFormControl-root > .MuiInputBase-root").first.click()

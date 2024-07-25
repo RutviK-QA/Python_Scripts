@@ -296,7 +296,7 @@ async def Voice_to_text_async(page):
             await page.get_by_role("button", name="Send").click(timeout=1000)
         except:
             await page.get_by_role("button", name="Update").click(timeout=1000)
-    logging.info("Saved after voice to text success")
+    # logging.info(f"Saved after voice to text success - {type}")
 
 # Function to select random priority
 def select_random_priority(page):
@@ -666,73 +666,6 @@ def fetch_otp(mailinator, token):
         print(f"Failed to fetch message summaries: {response.status_code}")
         return None
 
-# Check for sender email address in mailinator
-# async def fetch_and_check_sender_email(mailinator_url, email_a, email_b, receiver_email, timeout=3, max_duration=40):
-#     start_time = time.time()
-    
-#     while True:
-#         try:
-#             response = requests.get(mailinator_url)
-#             response.raise_for_status()  # Raise an exception for HTTP errors
-#             data = response.json()
-            
-#             # Log the entire response to inspect its structure
-#             # logging.info(f"API Response: {data}")
-            
-#             if 'msgs' in data and len(data['msgs']) > 0:
-#                 found_matching_email = False
-#                 receiver_found = False
-                
-#                 # Check up to the top 2 most recent messages
-#                 for index, message in enumerate(data['msgs'][:10]):
-#                     subject = message.get('subject', '')
-#                     origfrom = message.get('origfrom', '')
-#                     to = message.get('to', '')
-#                     sender_email = origfrom.split('<')[-1].strip('>') if '<' in origfrom else origfrom
-                    
-#                     # logging.info(f"Sender Email {index + 1}: {sender_email} | Receiver: {to} | Subject: {subject}")  # Logs all
-                    
-#                     if to == receiver_email:
-#                         receiver_found = True
-#                         if sender_email in [email_a, email_b]:  # Check if the email matches either
-#                             found_matching_email = True
-#                             logging.info(f"Proper Email address: {sender_email}.") 
-                    
-#                     elif sender_email in [email_a, email_b]: 
-#                             logging.info(f"Proper Email address: {sender_email}.") 
-#                             found_matching_email = True
-#                     elif sender_email not in [email_a, email_b]:
-#                         logging.info(f"Sender Email: {sender_email} not in {email_a} or {email_b}.")
-#                         logging.info(f"More details: Sender Email {index + 1}: {sender_email} | Receiver: {to} | Subject: {subject}")  # Logs all
-
-#                         found_matching_email = False
-                
-#                 if receiver_found:  
-#                     if not found_matching_email:
-#                         raise ValueError(f"------------------> ERROR: Email address did not match either {email_a} or {email_b}") 
-#                     break
-#                 else:
-#                     elapsed_time = time.time() - start_time
-#                     if elapsed_time >= max_duration:
-#                         logging.error("Maximum duration reached. Stopping retries.")
-#                         break
-#                     # logging.info("No matching receiver found in the top messages. Retrying in 3 seconds...")
-#                     time.sleep(timeout)
-#             else:
-#                 elapsed_time = time.time() - start_time
-#                 if elapsed_time >= max_duration:
-#                     logging.error("Maximum duration reached. Stopping retries.")
-#                     break
-#                 # logging.info("No emails found. Retrying in 3 seconds...")
-#                 time.sleep(timeout)
-            
-#         except requests.RequestException as e:
-#             logging.error(f"Failed to fetch message summaries: {e}")
-#             break
-#         except ValueError as e:
-#             logging.error(f"ValueError: {e}")
-#             break
-
 async def fetch_and_check_sender_email(mailinator_url, email_a, email_b, receiver_emails, timeout=3, max_duration=40):
     if isinstance(receiver_emails, str):
         receiver_emails = [receiver_emails]
@@ -770,26 +703,86 @@ async def fetch_and_check_sender_email(mailinator_url, email_a, email_b, receive
                         if receiver_found:
                             if not found_matching_email:
                                 raise ValueError(f"------------------> ERROR: Email address did not match either {email_a} or {email_b}") 
-                            break
+                                # return -1  # Indicate failure (doesnt work with the above piece of code)
+                            return 0  # Indicate success
                         else:
                             elapsed_time = time.time() - start_time
                             if elapsed_time >= max_duration:
-                                logging.error(f"Maximum duration reached. Stopping retries.")
-                                break
+                                logging.info(f"Maximum tries. Stopping. Check Mailinator email limit, if reached.")
+                                return -1  # Indicate failure
                             await asyncio.sleep(timeout)
                     else:
                         elapsed_time = time.time() - start_time
                         if elapsed_time >= max_duration:
-                            logging.error(f"Maximum duration reached. Stopping retries.")
-                            break
+                            logging.info(f"Maximum tries. Stopping. Check Mailinator email limit, if reached.")
+                            return -1  # Indicate failure
                         await asyncio.sleep(timeout)
         
         except aiohttp.ClientError as e:
             logging.error(f"Failed to fetch message summaries: {e}")
-            break
+            return -1  # Indicate failure
         except ValueError as e:
             logging.error(f"ValueError: {e}")
-            break
+            return -1  # Indicate failure
+
+# # Check Sender Email
+# async def fetch_and_check_sender_email(mailinator_url, email_a, email_b, receiver_emails, timeout=3, max_duration=40):
+#     if isinstance(receiver_emails, str):
+#         receiver_emails = [receiver_emails]
+    
+#     start_time = time.time()
+    
+#     while True:
+#         try:
+#             async with aiohttp.ClientSession() as session:
+#                 async with session.get(mailinator_url) as response:
+#                     response.raise_for_status()  # Raise an exception for HTTP errors
+#                     data = await response.json()
+                    
+#                     if 'msgs' in data and len(data['msgs']) > 0:
+#                         found_matching_email = False
+#                         receiver_found = False
+                        
+#                         for index, message in enumerate(data['msgs'][:5]):
+#                             subject = message.get('subject', '')
+#                             origfrom = message.get('origfrom', '')
+#                             to = message.get('to', '')
+#                             sender_email = origfrom.split('<')[-1].strip('>') if '<' in origfrom else origfrom
+                            
+#                             if to in receiver_emails:
+#                                 receiver_found = True
+#                                 if sender_email in [email_a, email_b]:
+#                                     found_matching_email = True
+                            
+#                             elif sender_email in [email_a, email_b]:
+#                                 found_matching_email = True
+#                             elif sender_email not in [email_a, email_b]:
+#                                 logging.info(f"Sender Email: {sender_email} not in {email_a} or {email_b}.")
+#                                 logging.info(f"More details: Sender Email {index + 1}: {sender_email} | Receiver: {to} | Subject: {subject}")
+
+#                         if receiver_found:
+#                             if not found_matching_email:
+#                                 raise ValueError(f"------------------> ERROR: Email address did not match either {email_a} or {email_b}") 
+#                             break
+#                         else:
+#                             elapsed_time = time.time() - start_time
+#                             if elapsed_time >= max_duration:
+#                                 logging.info(f"Maximum tries. Stopping. Check Mailinator email limit reached.")
+#                                 break
+#                             await asyncio.sleep(timeout)
+#                     else:
+#                         elapsed_time = time.time() - start_time
+#                         if elapsed_time >= max_duration:
+#                             logging.info(f"Maximum tries. Stopping. Check Mailinator email limit reached.")
+#                             break
+#                         await asyncio.sleep(timeout)
+        
+#         except aiohttp.ClientError as e:
+#             logging.error(f"Failed to fetch message summaries: {e}")
+#             break
+#         except ValueError as e:
+#             logging.error(f"ValueError: {e}")
+#             break
 
 
 # Verification Mailinator

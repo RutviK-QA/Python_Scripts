@@ -32,6 +32,7 @@ test_results = []
 async def click_dynamic_text(page):
     await page.goto("https://staging.bluemind.app/contacts")
     await page.get_by_text("All Contacts").click()
+    
     elements = await page.query_selector_all('b.text-blue.text-underline')
     if not elements:
         logging.info("No elements found with the specified class.")
