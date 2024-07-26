@@ -94,7 +94,18 @@ def anti_for_x_y(page, x, y):
     page.keyboard.press("Enter")
 
 # Function to setup logging for the scripts
+# def logging_setup(script_name):
+#     if logging.getLogger().hasHandlers():
+#         logging.getLogger().handlers.clear()
+#     logs_folder = get_env_variables()[3]
+#     if not os.path.exists(logs_folder):
+#         os.makedirs(logs_folder)
+#     log_file_path = os.path.join(logs_folder, f'{script_name}.log')
+#     logging.basicConfig(filename=log_file_path, level=logging.INFO, format='%(asctime)s - %(message)s')
 def logging_setup(script_name):
+    logger = logging.getLogger()
+    if logger.hasHandlers():
+        logger.handlers.clear()
     logs_folder = get_env_variables()[3]
     if not os.path.exists(logs_folder):
         os.makedirs(logs_folder)
@@ -402,6 +413,32 @@ def handle_response(response, api_urls):
         if request_key in api_urls:
             api_urls[request_key]['response'] = response
 
+
+# async def handle_request_async(request, api_urls):
+#     api_url = os.getenv('URL_API')
+#     api_pattern = re.compile(fr'^{re.escape(api_url)}')
+    
+#     if request.method in ["PUT", "POST", "GET", "DELETE"] and request.resource_type in ["fetch", "xhr"] and api_pattern.match(request.url):
+#         payload = await request.post_data() if request.method in ["PUT", "POST"] else None
+#         request_key = (request.url, request.method, payload)
+        
+#         if request_key not in api_urls:
+#             api_urls[request_key] = {'response': None, 'payload': payload}
+#         # logging.info(f"Handled request: {request_key}")
+
+# async def handle_response_async(response, api_urls):
+#     api_url = os.getenv('URL_API')
+#     api_pattern = re.compile(fr'^{re.escape(api_url)}')
+    
+#     request_key = (response.url, response.request.method, await response.request.post_data() if response.request.method in ["PUT", "POST"] else None)
+    
+#     if response.request.method in ["PUT", "POST", "GET", "DELETE"] and response.request.resource_type in ["fetch", "xhr"] and api_pattern.match(response.url):
+#         if request_key in api_urls:
+#             api_urls[request_key]['response'] = response
+#         # logging.info(f"Handled response: {request_key}")
+
+
+
 # Function to show API response
 def show_api_response(api_urls):
     for key, info in api_urls.items():
@@ -417,6 +454,22 @@ def show_api_response(api_urls):
         else:
             logging.info(f"URL: {url}, Method: {method}, Status: {response_status}, \n-------------------> Payload: {payload}, \n-------------------> Data: {response_data}\n") 
 
+# async def show_api_response_async(api_urls):
+#     async with aiohttp.ClientSession() as session:
+#         for key, info in api_urls.items():
+#             url, method, payload = key
+#             response = info['response']
+
+#             if response:
+#                 async with session.get(url) if method == 'GET' else session.post(url, json=payload) as resp:
+#                     response_status = resp.status
+#                     response_data = await (resp.json() if 'application/json' in resp.headers.get('content-type', '') else resp.text())
+#                     if resp.ok:
+#                         logging.info(f"URL: {url}, Method: {method}, Status: {response_status}\n")
+#                     else:
+#                         logging.info(f"URL: {url}, Method: {method}, Status: {response_status}, \n-------------------> Payload: {payload}, \n-------------------> Data: {response_data}\n")
+#             else:
+#                 logging.info(f"URL: {url}, Method: {method}, Status: 'No response', \n-------------------> Payload: {payload}, \n-------------------> Data: 'No response data'\n")
 
 
 def start_handler(page, api_urls):
@@ -432,10 +485,9 @@ def stop_handler(page, api_urls, response_handler, request_handler):
     page.remove_listener("response", response_handler)
     show_api_response(api_urls)
 
-
 async def start_handler_async(page, api_urls):
-    response_handler = lambda response: handle_response(response, api_urls)
-    request_handler = lambda request: handle_request(request, api_urls)
+    response_handler = lambda response: asyncio.create_task(handle_response_async(response, api_urls))
+    request_handler = lambda request: asyncio.create_task(handle_request_async(request, api_urls))
     page.on('request', request_handler)
     page.on('response', response_handler)
     return response_handler, request_handler
@@ -444,7 +496,57 @@ async def stop_handler_async(page, api_urls, response_handler, request_handler):
     await asyncio.sleep(8)  # Wait for 8 seconds
     page.remove_listener("request", request_handler)
     page.remove_listener("response", response_handler)
-    show_api_response(api_urls)
+    # logging.info("\n")
+    await show_api_response_async(api_urls)
+    # logging.info("Handlers removed and API response shown")
+
+async def handle_request_async(request, api_urls):
+    api_url = os.getenv('URL_API')
+    api_pattern = re.compile(fr'^{re.escape(api_url)}')
+    
+    if request.method in ["PUT", "POST", "GET", "DELETE"] and request.resource_type in ["fetch", "xhr"] and api_pattern.match(request.url):
+        payload = await request.post_data() if request.method in ["PUT", "POST"] else None
+        request_key = (request.url, request.method, payload)
+        
+        if request_key not in api_urls:
+            api_urls[request_key] = {'response': None, 'payload': payload}
+        # logging.info(f"Handled request: {request_key}")
+
+async def handle_response_async(response, api_urls):
+    api_url = os.getenv('URL_API')
+    api_pattern = re.compile(fr'^{re.escape(api_url)}')
+    request_key = (response.url, response.request.method, response.request.post_data if response.request.method in ["PUT", "POST"] else None)
+    if response.request.method in ["PUT", "POST", "GET", "DELETE"] and response.request.resource_type in ["fetch", "xhr"] and api_pattern.match(response.url):
+        if request_key in api_urls:
+            api_urls[request_key]['response'] = response
+
+async def show_api_response_async(api_urls):
+    for key, info in api_urls.items():
+        url, method, payload = key
+        response = info['response']
+        response_status = response.status if response else 'No response'
+        if response:
+            response_data = await (response.json() if 'application/json' in response.headers['content-type'] else response.text())
+        else:
+            response_data = 'No response data'
+        
+        if response and response.ok:
+            logging.info(f"URL: {url}, Method: {method}, Status: {response_status}")
+        else:
+            logging.info(f"URL: {url}, Method: {method}, Status: {response_status}, \n-------------------> Payload: {payload}, \n-------------------> Data: {response_data}")
+            
+# async def start_handler_async(page, api_urls):
+#     response_handler = lambda response: handle_response_async(response, api_urls)
+#     request_handler = lambda request: handle_request_async(request, api_urls)
+#     page.on('request', request_handler)
+#     page.on('response', response_handler)
+#     return response_handler, request_handler
+
+# async def stop_handler_async(page, api_urls, response_handler, request_handler):
+#     await asyncio.sleep(8)  # Wait for 8 seconds
+#     page.remove_listener("request", request_handler)
+#     page.remove_listener("response", response_handler)
+#     await show_api_response_async(api_urls)
 
 
 

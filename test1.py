@@ -29,35 +29,64 @@ api_pattern = re.compile(fr'^{re.escape(api_url)}')
 api_urls = defaultdict(dict)
 test_results = []
 
+
 async def click_dynamic_text(page):
     await page.goto("https://staging.bluemind.app/contacts")
     await page.get_by_text("All Contacts").click()
     
-    elements = await page.query_selector_all('b.text-blue.text-underline')
-    if not elements:
-        logging.info("No elements found with the specified class.")
+    # Use a locator to find elements
+    locator = page.locator('div.d-flex.align-items-center.profile-details b.text-blue.text-underline')
+    
+    # Wait for at least one element to be visible
+    await asyncio.sleep(5)
+
+    # Get the count of elements
+    count = await locator.count()
+    if count == 0:
+        # logging.info("No elements found with the specified class.")
         return None
     
-    for element in elements:
-        text_content = await element.text_content()
-        logging.info(f"Found element with text: {text_content}")
-
-    chosen_element = random.choice(elements) 
-    # await first_element.click()
+    # Log details of all found elements
+    # for i in range(count):
+    #     text_content = await locator.nth(i).text_content()
+        # logging.info(f"Found element with text: {text_content}")
+    
+    # Choose a random element
+    index = random.randint(0, count - 1)
+    chosen_element = locator.nth(index)
     element_content = await chosen_element.text_content()
-    logging.info(f"Clicked on element with text: {element_content}")
-    return element_content
+    logging.info(f"Clicked on name: {element_content}")
+    
+    # Perform any action needed on the chosen element, e.g., click
+    await chosen_element.click()
+
+    await page.locator("div").filter(has_text=re.compile(r"^Overview$")).click()
+
+    await page.get_by_role("button", name="New Note").click()
+    toss1=utils.coin_toss()
+    if toss1 == "Heads":
+        await page.get_by_role("combobox").click()
+        await utils.for_x_y_async(page, 1, 20)
+    else:
+        await page.get_by_role("combobox").fill(utils.generate_random_string(10))
+        await page.keyboard.press("Enter")
+
+    await utils.Voice_to_text_async(page)
+    await expect(page.locator("text=Note saved successfully!")).to_be_visible()
 
 async def run() -> None:
     async with async_playwright() as p:
-        browser1 = await p.chromium.launch(headless=False)
+        browser1 = await p.chromium.launch(headless=True)
         context1 = await browser1.new_context(storage_state="variables/playwright/.auth/state.json")
+        await context1.grant_permissions(["microphone"], origin="https://staging.bluemind.app")
         page1 = await context1.new_page()
         await page1.set_viewport_size({"width": 1920, "height": 1080})
         response_handler, request_handler = await utils.start_handler_async(page1, api_urls)
-        await asyncio.gather(
-                click_dynamic_text(page1)
+
+        asyncio.gather(
+            click_dynamic_text(page1)
         )
+        
         await utils.stop_handler_async(page1, api_urls, response_handler, request_handler)
         await context1.close()
         await browser1.close()
@@ -73,4 +102,5 @@ if __name__ == '__main__':
     except Exception as e:
         utils.traceback_error_logging(script_name, e)
         utils.end_report(test_results, script_name)
+        pass
 

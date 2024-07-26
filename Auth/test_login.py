@@ -7,7 +7,6 @@ import requests
 from dotenv import load_dotenv
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from Variables.utils import APIHandler
 import Variables.utils as utils
 from collections import defaultdict
 
