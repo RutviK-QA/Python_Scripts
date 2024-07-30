@@ -93,6 +93,24 @@ def anti_for_x_y(page, x, y):
     page.wait_for_timeout(500)
     page.keyboard.press("Enter")
 
+# Func to start tracing / trace
+async def start_trace(contexts):
+    for context in contexts:
+        await context.tracing.start(screenshots=True, snapshots=True, sources=True)
+
+# Func to stop tracing / trace
+async def stop_trace(script_name, contexts):
+    trace_directory = r"C:\Users\Rutvik\Python PlaywrightScripts\Logs\Trace"
+    os.makedirs(trace_directory, exist_ok=True)
+
+    timestamp = time.strftime("%Y%m%d_%H%M%S")
+
+    for i, context in enumerate(contexts):
+        trace_filename = f"trace_{script_name}_{timestamp}_{i}.zip"
+        trace_path = os.path.join(trace_directory, trace_filename)
+        await context.tracing.stop(path=trace_path)
+        print(f"Trace saved to {trace_path}")
+
 # Function to setup logging for the scripts
 # def logging_setup(script_name):
 #     if logging.getLogger().hasHandlers():
@@ -260,6 +278,26 @@ def add_reminder(page, random_choice):
     for_x_y(page, "1", "4") 
     page.keyboard.press("Tab")
     page.keyboard.press("Tab")
+
+
+# Function to add reminder ASYNC
+async def add_reminder_async(page):
+    coin = await coin_toss_async()
+    await page.keyboard.press("Tab")
+    await page.get_by_role("button", name="Add Reminder").click()
+    await page.get_by_role("combobox").nth(2).click()
+    await for_x_y_async(page, "1", "2") 
+    await page.keyboard.press("Tab")
+    if coin == "Heads":
+        for _ in range(random.randint(1, 10)):
+            await page.keyboard.press("ArrowDown")
+    else:
+        for _ in range(random.randint(1, 100)):
+            await page.keyboard.press("ArrowUp")
+    await page.keyboard.press("Tab")
+    await for_x_y_async(page, "1", "4") 
+    await page.keyboard.press("Tab")
+    await page.keyboard.press("Tab")
 
 # Function to add to voice to text and save
 def Voice_to_text(page):
@@ -573,6 +611,16 @@ def find_latest_upload(file_type, max_size_mb=5):
     # Return None if no file is found that meets the criteria
     return None
 
+# Get random locator out of available locators
+async def get_random_locator(locator): 
+    count = await locator.count()
+    if count == 0:
+        # logging.info("No elements found with the specified locator.")
+        return None
+    random_index = random.randint(0, count - 1)
+    element = locator.nth(random_index)
+    return element
+
 # Upload Random Files
 def upload_random_files(max_files):
     # file_types = ["pdf", "xlsx", "har", "jpg", "png", "csv", "svg", "jfif", "webm", "mp4", "mp3"]
@@ -657,6 +705,22 @@ def click_calendar(page):
                 page.get_by_role("gridcell", name="1", exact=True).click() 
                 page.wait_for_timeout(500)
 
+# async Function to click on calendar and its items
+async def click_calendar_async(page):
+    tomorrow = datetime.today() + timedelta(days=1)
+    day_str = tomorrow.strftime('%d')
+    await page.wait_for_timeout(1000) 
+    try:
+        await page.get_by_role("gridcell", name=day_str, exact=True).click(timeout=2000)
+    except:
+            try:
+                await page.get_by_role("gridcell", name=day_str).click(timeout=2000)
+            except:
+                await page.get_by_label("Next month").click()
+                await page.wait_for_timeout(500)
+                await page.get_by_role("gridcell", name="1", exact=True).click() 
+                await page.wait_for_timeout(500)
+
 # Phone Number
 def phone_number():
     random_digits = ''.join(random.choices(string.digits, k=10))
@@ -667,8 +731,17 @@ def phone_number():
 def coin_toss():
     return random.choice(["Heads", "Tails"])
 
+# Coin Toss Random Yes/No async
+async def coin_toss_async():
+    return random.choice(["Heads", "Tails"])
+
 # Random Priority
 def priority_random(): 
+    choices = ["Low", "Medium", "High"]
+    a = random.choice(choices)  
+    return a
+# Async Random Priority
+async def priority_random_async(): 
     choices = ["Low", "Medium", "High"]
     a = random.choice(choices)  
     return a
