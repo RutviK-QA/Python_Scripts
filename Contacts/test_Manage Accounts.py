@@ -33,38 +33,42 @@ def Contacts(page: Page) -> None:
     page.get_by_label("Manage communication accounts").click()
     page.wait_for_timeout(1000)
 
-    o15=r"^rutvik@bluemind\.appPrimarySign Out$"
-    if page.locator("div").filter(has_text=re.compile(fr"{o15}")).get_by_role("button").is_visible():
-        page.locator("div").filter(has_text=re.compile(fr"{o15}")).get_by_role("button").click()
+    # If rutvik@bluemind is found and is not primary, sign out
+    o14=r"^Make Primaryrutvik@bluemind\.app$"
+    if page.locator("div").filter(has_text=re.compile(fr"{o14}")).get_by_label("Sign out").is_visible():
+        page.locator("div").filter(has_text=re.compile(fr"{o14}")).get_by_label("Sign out").click()
         page.wait_for_timeout(1000)
         page.get_by_role("button", name="Sign Out").click()
+        logging.info("Signed out of Google (non primary)")
     else:
-        logging.info("No Primary Google account found")
-    
-    o14=r"^rutvik@bluemind\.appMake it primarySign Out$"
-    if page.locator("div").filter(has_text=re.compile(fr"{o14}")).get_by_role("button").is_visible():
-        page.locator("div").filter(has_text=re.compile(fr"{o14}")).get_by_role("button").click()
-        page.wait_for_timeout(1000)
-        page.get_by_role("button", name="Sign Out").click()
-    else:
-        logging.info("No non primary Google account found")
+        # If rutvik@bluemind is found and is primary, then sign out
+        o15=r"^rutvik@bluemind\.appPrimarySign Out$"
+        if page.locator("div").filter(has_text=re.compile(fr"{o15}")).get_by_role("button").is_visible():
+            page.locator("div").filter(has_text=re.compile(fr"{o15}")).get_by_role("button").click()
+            page.wait_for_timeout(1000)
+            page.get_by_role("button", name="Sign Out").click()
+            logging.info("Signed out of Google (primary)")
+        else:
+            pass
+            # logging.info("No Primary Google account found"
 
-    o13=r"^rutvikqatest@outlook\.comPrimarySign Out$"
-    if page.locator("div").filter(has_text=re.compile(fr"{o13}")).get_by_role("button").is_visible():
-        page.locator("div").filter(has_text=re.compile(fr"{o13}")).get_by_role("button").click() 
-        page.wait_for_timeout(1000)
-        page.get_by_role("button", name="Sign Out").click()
-    else:    
-        logging.info("No Primary Outlook account found")
-    
-    o12=r"^rutvikqatest@outlook\.comMake it primarySign Out$"
-    if page.locator("div").filter(has_text=re.compile(fr"{o12}")).get_by_role("button").is_visible(): 
-        page.locator("div").filter(has_text=re.compile(fr"{o12}")).get_by_role("button").click()
+    # If rutvikqatest@outlook is found and is not primary, sign out
+    o12=r"^Make Primaryrutvikqatest@outlook\.com$"
+    if page.locator("div").filter(has_text=re.compile(fr"{o12}")).get_by_label("Sign out").is_visible(): 
+        page.locator("div").filter(has_text=re.compile(fr"{o12}")).get_by_label("Sign out").click()
         page.wait_for_timeout(1000)
         page.get_by_role("button", name="Sign Out").click()
     else:        
-        logging.info("No non primary Outlook account found")
+        # If rutvikqatest@outlook is found and is primary, sign out
+        o13=r"^rutvikqatest@outlook\.comPrimarySign Out$"
+        if page.locator("div").filter(has_text=re.compile(fr"{o13}")).get_by_role("button").is_visible():
+            page.locator("div").filter(has_text=re.compile(fr"{o13}")).get_by_role("button").click() 
+            page.wait_for_timeout(1000)
+            page.get_by_role("button", name="Sign Out").click()
+        else:
+            pass
 
+    # Once dealing with the above code that deals with only 1 account, now deal with 2nd account no matter what account it is
     try:
         page.wait_for_timeout(1000)
         page.get_by_role("button", name="Sign Out").click()
@@ -75,62 +79,45 @@ def Contacts(page: Page) -> None:
     except:
         pass
 
+    # # Random choice to either remove or keep one of the reconnect accounts
+    # random_n= random.choice([4,2])
+    # reconnect_decision = random.choice([True, False])
+    # if reconnect_decision == False:
+    #     try:
+    #         page.get_by_role("button").nth(random_n).click()
+    #         page.wait_for_timeout(1000)
+    #         page.get_by_role("button", name="Sign Out").click()
+    #     except Exception as e: 
+    #         logging.error(f"By tapping n={random_n}, error occured: {str(e)}")
 
-    if  page.get_by_text("rutvik@bluemind.appReconnect").is_visible():   
+    # if rutvik@bluemind is in reconnect, then reconnect
+    if  page.locator("div").filter(has_text=re.compile(r"^rutvik@bluemind\.app$")).get_by_label("Reconnect").is_visible():   
         with page.expect_popup() as popup:
-            page.get_by_role("button", name="Reconnect").click()
+            page.locator("div").filter(has_text=re.compile(r"^rutvik@bluemind\.app$")).get_by_label("Reconnect").click()
         popup = popup.value
         utils.google(popup, google_account, google_password)
         logging.info("Reconnected to Google")
-
-    elif  page.get_by_text("rutvik@bluemind.appReconnect").first.is_visible():   
+    else:
         with page.expect_popup() as popup:
-            page.get_by_role("button", name="Reconnect").first.click()
+            page.get_by_label("Reconnect").click()
         popup = popup.value
         utils.google(popup, google_account, google_password)
         logging.info("Reconnected to Google")
-
-    elif  page.get_by_text("rutvik@bluemind.appReconnect").nth(1).is_visible():   
-        with page.expect_popup() as popup:
-            page.get_by_role("button", name="Reconnect").nth(1).click()
-        popup = popup.value
-        utils.google(popup, google_account, google_password)
-        logging.info("Reconnected to Google")
-    
-    random_n= random.choice([4,2])
-    reconnect_decision = random.choice([True, False])
-    if reconnect_decision: 
-        try:
-            page.get_by_role("button").nth(random_n).click()
-            page.wait_for_timeout(1000)
-            page.get_by_role("button", name="Sign Out").click()
-        except Exception as e: 
-            logging.error(f"By tapping n={random_n}, error occured: {str(e)}")
    
-    if page.get_by_text("rutvikqatest@outlook.comReconnect").is_visible():
-        try:
-            page.get_by_role("button", name="Reconnect").click()
-            utils.outlook(page, outlook_account, outlook_password)
-            logging.info("Reconnected to Outlook")
-        except Exception as e:
-            logging.error(f"By tapping G Reconnect, error occured: {str(e)}")
-    elif page.get_by_text("rutvikqatest@outlook.comReconnect").first.is_visible():
-        try:
-            page.get_by_role("button", name="Reconnect").first.click()
-            utils.outlook(page, outlook_account, outlook_password)
-            logging.info("Reconnected to Outlook")
-        except: 
-            pass
-            
-    elif page.get_by_text("rutvikqatest@outlook.comReconnect").nth(1).is_visible():
-        try:
-            page.get_by_role("button", name="Reconnect").nth(1).click()
-            utils.outlook(page, outlook_account, outlook_password)
-            logging.info("Reconnected to Outlook")
-        except Exception as e:  
-            logging.error(f"By tapping O Reconnect, error occured: {str(e)}")
+   # If outlook is still in reconnect, then reconnect
+    if page.locator("div").filter(has_text=re.compile(r"^rutvikqatest@outlook\.com$")).get_by_label("Reconnect").is_visible(): 
+        page.locator("div").filter(has_text=re.compile(r"^rutvikqatest@outlook\.com$")).get_by_label("Reconnect").click()
+        utils.outlook(page, outlook_account, outlook_password)
+        logging.info("Reconnected to Outlook")
+
+    else:
+        with page.expect_popup() as popup:
+            page.get_by_label("Reconnect").click()
+        popup = popup.value
+        utils.outlook(page, outlook_account, outlook_password)
+        logging.info("Reconnected to Outlook")
     
-        
+    # If gmail is not connected, then connect gmail
     if page.get_by_role("button", name="Connect Gmail").is_visible():   
         with page.expect_popup() as popup_info:
             page.get_by_role("button", name="Connect Gmail").click()
@@ -141,6 +128,7 @@ def Contacts(page: Page) -> None:
     else:
         pass
     
+    # If outlook is not connected, then connect outlook
     if page.get_by_role("button", name="Connect Outlook").is_visible():
         utils.outlook(page, outlook_account, outlook_password)
         logging.info("Connected to Outlook")
@@ -149,6 +137,8 @@ def Contacts(page: Page) -> None:
         pass
 
     page.wait_for_timeout(2000)
+
+    # Change primary account
     page.locator('div.account-email:has(p.select-primary-pill:has-text("Make it primary")) h4').hover()
     try:
         page.locator('p.select-primary-pill:has-text("Make it primary")').click()
@@ -157,10 +147,13 @@ def Contacts(page: Page) -> None:
         logging.error(f"Error occured in switching primary account: {str(e)}")
 
     page.wait_for_timeout(2000)
+
+    # After all these, decide to log out or not for both accounts
     decision = random.choice([True, False])
     logging.info(f"Decision to log out: {decision}")
 
     if decision:
+        #Try to find the primary and sign out of it
         try:
             page.locator("div").filter(has_text=re.compile(r"^rutvikqatest@outlook\.comPrimarySign Out$")).get_by_role("button").click()
         except Exception as e:
@@ -173,6 +166,7 @@ def Contacts(page: Page) -> None:
         second_decision = random.choice([True, False])
         logging.info(f"Decision to log out of 2nd account: {second_decision}")
 
+        # Signs out of the 2nd account if the decision is True
         if second_decision:
             page.get_by_role("button", name="Sign Out").click()
             page.wait_for_timeout(1000)
