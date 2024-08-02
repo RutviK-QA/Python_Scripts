@@ -11,6 +11,7 @@ import re
 import requests
 from collections import defaultdict
 import time
+import subprocess
 import asyncio
 import re
 from bs4 import BeautifulSoup
@@ -129,6 +130,7 @@ def logging_setup(script_name):
         os.makedirs(logs_folder)
     log_file_path = os.path.join(logs_folder, f'{script_name}.log')
     logging.basicConfig(filename=log_file_path, level=logging.INFO, format='%(asctime)s - %(message)s')
+
 
 # Function to check if the login state file is recent
 def is_recent_state(path=STATE_PATH, hours=8):
@@ -543,12 +545,20 @@ async def handle_request_async(request, api_urls):
     api_pattern = re.compile(fr'^{re.escape(api_url)}')
     
     if request.method in ["PUT", "POST", "GET", "DELETE"] and request.resource_type in ["fetch", "xhr"] and api_pattern.match(request.url):
-        payload = await request.post_data() if request.method in ["PUT", "POST"] else None
+        payload = request.post_data if request.method in ["PUT", "POST"] else None
         request_key = (request.url, request.method, payload)
         
         if request_key not in api_urls:
             api_urls[request_key] = {'response': None, 'payload': payload}
         # logging.info(f"Handled request: {request_key}")
+    # api_url = os.getenv('URL_API')
+    # api_pattern = re.compile(fr'^{re.escape(api_url)}')
+    # if request.method in ["PUT", "POST", "GET", "DELETE"] and request.resource_type in ["fetch", "xhr"] and api_pattern.match(request.url):
+    #     payload = request.post_data if request.method in ["PUT", "POST"] else None
+    #     request_key = (request.url, request.method, payload)
+    #     if request_key not in api_urls:
+    #         api_urls[request_key] = {'response': None, 'payload': payload}
+
 
 async def handle_response_async(response, api_urls):
     api_url = os.getenv('URL_API')
@@ -796,6 +806,31 @@ def traceback_error_logging(script_name, e):
             logging.info(f"File '{filename}', line {lineno}, in {funcname}: {line.strip()}")
 
 
+def traceback_error_logging_exp(script_name, exceptions):
+    path = r'c:\Users\Rutvik\Python PlaywrightScripts'
+    
+    logging.info(f"Errors in function named {script_name}:")
+    
+    if not isinstance(exceptions, list):
+        exceptions = [exceptions]  # Ensure we're dealing with a list of exceptions
+
+    for e in exceptions:
+        tb = e.__traceback__
+        full_traceback = traceback.extract_tb(tb) if tb else []
+
+        logging.info(f"\nError: {e}")
+
+        if not full_traceback:
+            logging.info("No traceback available.")
+            continue
+
+        for filename, lineno, funcname, line in full_traceback:
+            if filename.startswith(path):  # Check if the filename starts with the static path
+                logging.info(f"File '{filename}', line {lineno}, in {funcname}: {line.strip()}")
+            else:
+                # Optionally log paths that do not match
+                logging.debug(f"File '{filename}' does not match the expected path.")
+
 # Report FAIL
 def end_report(test_results, script_name):
     # Append script result with current timestamp
@@ -812,8 +847,6 @@ def end_report(test_results, script_name):
     # Writing report content to the log file
     with open(report_file, "a") as f:
         f.write(report_content + "\n")
-
-
 
 # Fetch OTP from mailinator
 def fetch_otp(mailinator, token):
@@ -1003,32 +1036,27 @@ async def fetch_and_click_verification_link(mailinator_url, token):
         logging.info(f"Failed to fetch message summaries: {response.status_code}")
 
 #outlook singin
-def outlook(page, outlook_account, outlook_password):
-    page.wait_for_timeout(1000)
-    page.get_by_label("Enter your email, phone, or").fill(outlook_account)
-    page.wait_for_timeout(1000)
-    page.get_by_label("Enter your email, phone, or").press("Enter")
-    page.wait_for_timeout(1000)
-    page.get_by_test_id("i0118").fill(outlook_password)
-    page.wait_for_timeout(1000)
-    page.get_by_test_id("i0118").press("Enter")
-    page.wait_for_timeout(1000)
-    page.get_by_label("Stay signed in?").click()
-    page.wait_for_timeout(5000)
-
+async def outlook(page, outlook_account, outlook_password):
+    await page.get_by_label("Enter your email, phone, or").fill(outlook_account)
+    await page.get_by_label("Enter your email, phone, or").press("Enter")
+    await page.get_by_test_id("i0118").fill(outlook_password)
+    await page.get_by_test_id("i0118").press("Enter")
+    await page.get_by_label("Stay signed in?").click()
+    
 # Google singin
-def google(popup, google_account, google_password):
-    popup.fill('input[type="email"]', google_account)  
-    popup.locator('#identifierNext >> button').click()
-    popup.fill('#password >> input[type="password"]', google_password)
-    popup.locator('button >> nth=1').click()
-    popup.get_by_role("button", name="Continue").click()
+async def google(popup, google_account , google_password):
+    # await popup.wait_for_selector('input[type="email"]')
+    await popup.fill('input[type="email"]', google_account)  
+    await popup.locator('#identifierNext >> button').click()
+    await popup.fill('#password >> input[type="password"]', google_password)
+    await popup.locator('button >> nth=1').click()
+    await popup.get_by_role("button", name="Continue").click()
     try:
-        popup.get_by_role("button", name="Continue").click()
+        await popup.get_by_role("button", name="Continue").click()
     except:
-        popup.get_by_text("Select all").click()
-        popup.wait_for_timeout(1000)
-        popup.get_by_role("button", name="Continue").click()
+        await popup.get_by_text("Select all").click()
+        await popup.wait_for_timeout(1000)
+        await popup.get_by_role("button", name="Continue").click()
 
 # Intercept API and replace requests
 #intercepted_request = None

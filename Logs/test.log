@@ -1,0 +1,16 @@
+2024-08-02 20:04:59,264 - Signed out of Google
+2024-08-02 20:05:02,797 - Signed out of Outlook (primary)
+2024-08-02 20:05:02,871 - skipped google reconnect
+2024-08-02 20:05:02,945 - skipped outlook reconnect
+2024-08-02 20:05:12,195 - Connected to Google
+2024-08-02 20:05:29,211 - Connected to Outlook
+2024-08-02 20:05:39,925 - Switched primary account
+2024-08-02 20:05:41,902 - Decision to log out: False
+2024-08-02 20:05:49,929 - URL: https://staging-api.bluemind.app/api/user-permission, Method: GET, Status: 200
+2024-08-02 20:05:49,934 - URL: https://staging-api.bluemind.app/api/contact_additional_info/get, Method: GET, Status: 200
+2024-08-02 20:05:49,939 - URL: https://staging-api.bluemind.app/api/client_email_token/communication/get_all, Method: GET, Status: 200
+2024-08-02 20:05:49,948 - URL: https://staging-api.bluemind.app/api/client_email_token/signout, Method: POST, Status: 200
+2024-08-02 20:05:49,952 - URL: https://staging-api.bluemind.app/api/client_email_token/signout, Method: POST, Status: 200
+2024-08-02 20:05:49,960 - URL: https://staging-api.bluemind.app/api/client_email_token/google/signin, Method: POST, Status: 200
+2024-08-02 20:05:49,964 - URL: https://staging-api.bluemind.app/api/user/info, Method: GET, Status: 200
+2024-08-02 20:05:49,969 - URL: https://staging-api.bluemind.app/api/client_email_token/convert_primary, Method: PUT, Status: 200
