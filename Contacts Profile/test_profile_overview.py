@@ -84,7 +84,7 @@ async def assert_overview_fields(page):
     await expect(page.get_by_role("heading", name="Networth", exact=True)).to_be_visible()
 
 
-async def click_dynamic_text(page):
+async def overview(page):
     await page.goto("https://staging.bluemind.app/contacts")
     await page.get_by_text("All Contacts").click()
     
@@ -145,6 +145,10 @@ async def click_dynamic_text(page):
     locator = await utils.get_random_locator(page.get_by_label("Edit Note"))
     await locator.click()
     
+    x= await page.locator('p[aria-label="this-week-count"]').inner_text()
+    xx= await page.locator('p[aria-label="next-week-count"]').inner_text()
+    y= int(x)
+
     #   New Task
     await page.get_by_label("New Task").click()
     a=await utils.priority_random_async()
@@ -177,6 +181,20 @@ async def click_dynamic_text(page):
                     await expect(page.get_by_text("Birthday").first).to_be_visible(timeout=1000)
                 except:
                     await expect(page.get_by_text("Anniversary").first).to_be_visible(timeout=1000)
+
+    xy= await page.locator('p[aria-label="this-week-count"]').inner_text()
+    xxx= await page.locator('p[aria-label="next-week-count"]').inner_text()
+    yy= int(xy)
+
+    if yy == y+1 and xxx == xx:
+        logging.info("New task added successfully for this week")
+    elif yy==y and xxx == xx:
+        logging.info("Task count remained same")
+    elif yy== y and xxx== xx+1:
+        logging.info("Task count increased but for next week")
+    else:
+        logging.info("Failure in task count increase")
+
 
     div_locator = page.locator('div.checkbox-item.text-blue')
     
@@ -219,44 +237,67 @@ async def click_dynamic_text(page):
         await get_percentage(element1, abc)
 
     await assert_overview_fields(page)
+    async def download(page):
+        await page.get_by_text("Download SVG").click() 
+        await page.get_by_text("Download PNG").click()
+        await page.get_by_text("Download CSV").click()
+    
+    async def download1(page):
+        await page.locator("div").filter(has_text=re.compile(r"^Download SVGDownload PNGDownload CSV$")).first.click()
+    async def download2(page):
+        await page.locator("div").filter(has_text=re.compile(r"^Download SVGDownload PNGDownload CSV$")).nth(2).click()
+
+    download1(page)
+    download(page)
+    download2(page)
+    download(page)
 
 
 async def run() -> None:
     async with async_playwright() as p:
-        browser1 = await p.chromium.launch(headless=True)
+        browser1 = await p.chromium.launch(headless=False)
         context1 = await browser1.new_context(storage_state="variables/playwright/.auth/state.json")
         await context1.grant_permissions(["microphone"], origin="https://staging.bluemind.app")
+        context1.set_default_timeout(10000)
         contexts = [context1]
 
         await utils.start_trace(contexts)
         try: 
             page1 = await context1.new_page()
             await page1.set_viewport_size({"width": 1920, "height": 1080})
+            await page1.goto("https://staging.bluemind.app/social-accounts")
             response_handler, request_handler = await utils.start_handler_async(page1, api_urls)
-            asyncio.gather(
-                click_dynamic_text(page1)
+            await asyncio.gather(
+                overview(page1)
             )
             await utils.stop_handler_async(page1, api_urls, response_handler, request_handler)
         
-        except: # Save trace if failure
+        except Exception as e:  # Save trace if failure
+            exceptions.append(e)
             await utils.stop_trace(script_name, contexts)
         
         finally:
-            # Stop tracing without saving if no failure
-            if not context1.tracing.stopped:
-                await context1.tracing.stop()
-                await context1.close()
-                await browser1.close()
+            try:
+                await context1.tracing.stop()  # Stop tracing
+            except Exception as e:
+                exceptions.append(e)
+            await context1.close() 
+            await browser1.close()  
+    return exceptions
 
 if __name__ == '__main__':
+    exceptions = []
     # Ensure the states are recent by running the login scripts if necessary
     if not utils.is_recent_state(state_path):
         subprocess.run(['python', script_path], check=True)
     try:
-        asyncio.run(run())
+        exceptions.extend(asyncio.run(run()))
         utils.start_report(test_results, script_name)
     except Exception as e:
-        utils.traceback_error_logging(script_name, e)
+        exceptions.append(e)  # Collect exceptions
+    finally:
+        if exceptions:
+            utils.traceback_error_logging_exp(script_name, exceptions)
         utils.end_report(test_results, script_name)
-        pass
+        
 
