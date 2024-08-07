@@ -1,208 +1,62 @@
-2024-07-26 17:29:12 - test1: PASS
-2024-07-26 17:31:07 - test_login: PASS
-2024-07-26 17:33:11 - test1: PASS
-2024-07-26 17:39:14 - test1: PASS
-2024-07-26 17:40:17 - test1: PASS
-2024-07-26 17:40:44 - test1: PASS
-2024-07-26 17:41:05 - test1: PASS
-2024-07-26 17:47:06 - test1: PASS
-2024-07-26 17:49:03 - test1: PASS
-2024-07-26 17:50:50 - test1: PASS
-2024-07-26 17:51:53 - test1: PASS
-2024-07-26 17:53:17 - test1: PASS
-2024-07-26 17:57:26 - test1: PASS
-2024-07-26 17:59:31 - test1: PASS
-2024-07-26 18:02:22 - test1: PASS
-2024-07-26 19:53:09 - test1: PASS
-2024-08-01 15:45:18 - test_Manage Accounts: FAIL
-2024-08-01 15:46:41 - test_Manage Accounts: FAIL
-2024-08-01 15:50:58 - test_Manage Accounts: FAIL
-2024-08-01 15:50:58 - test_Manage Accounts: FAIL
-2024-08-01 15:50:58 - test_Manage Accounts: PASS
-2024-08-01 16:19:39 - test_Manage Accounts: FAIL
-2024-08-01 17:07:54 - test_Manage Accounts: FAIL
-2024-08-01 17:08:54 - test_Manage Accounts: FAIL
-2024-08-01 17:10:19 - test_Manage Accounts: FAIL
-2024-08-01 17:13:24 - test_Manage Accounts: FAIL
-2024-08-01 17:17:22 - test_Manage Accounts: PASS
-2024-08-01 17:18:18 - test_Manage Accounts: PASS
-2024-08-01 17:20:30 - test_Manage Accounts: PASS
-2024-08-01 17:21:09 - test_Manage Accounts: PASS
-2024-08-01 17:22:43 - test_Manage Accounts: PASS
-2024-08-01 17:23:57 - test_Manage Accounts: PASS
-2024-08-01 17:24:19 - test_Manage Accounts: PASS
-2024-08-01 17:25:38 - test_Manage Accounts: PASS
-2024-08-01 17:27:03 - test_Manage Accounts: PASS
-2024-08-01 17:30:17 - test_Manage Accounts: PASS
-2024-08-01 17:33:01 - test_Manage Accounts: PASS
-2024-08-01 17:34:48 - test_Manage Accounts: PASS
-2024-08-01 18:59:53 - test_Manage Accounts: PASS
-2024-08-01 19:00:12 - test_Manage Accounts: PASS
-2024-08-01 19:00:30 - test_Manage Accounts: PASS
-2024-08-01 19:06:50 - test_Manage Accounts: PASS
-2024-08-01 19:08:51 - test_Manage Accounts: PASS
-2024-08-01 19:09:37 - test_Manage Accounts: PASS
-2024-08-01 19:16:59 - test_Manage Accounts: PASS
-2024-08-01 19:17:48 - test_Manage Accounts: FAIL
-2024-08-01 19:18:25 - test_Manage Accounts: PASS
-2024-08-01 19:57:35 - test_Manage Accounts: PASS
-2024-08-01 19:59:35 - test_Manage Accounts: PASS
-2024-08-01 20:09:38 - test_Manage Accounts: PASS
-2024-08-01 20:11:18 - test_Manage Accounts: PASS
-2024-08-01 20:14:12 - test_Manage Accounts: PASS
-2024-08-01 20:16:42 - test_Manage Accounts: PASS
-2024-08-01 20:18:25 - test_Manage Accounts: PASS
-2024-08-02 10:54:32 - test_Manage Accounts: PASS
-2024-08-02 10:55:29 - test_Manage Accounts: PASS
-2024-08-02 10:57:11 - test_Manage Accounts: PASS
-2024-08-02 10:57:47 - test_Manage Accounts: PASS
-2024-08-02 11:02:33 - test_Manage Accounts: PASS
-2024-08-02 11:04:03 - test_Manage Accounts: PASS
-2024-08-02 11:05:50 - test_Manage Accounts: PASS
-2024-08-02 11:06:49 - test_Manage Accounts: PASS
-2024-08-02 11:09:56 - test: PASS
-2024-08-02 11:11:10 - test: PASS
-2024-08-02 11:19:11 - test: PASS
-2024-08-02 11:19:31 - test: PASS
-2024-08-02 11:20:39 - test: PASS
-2024-08-02 11:24:50 - test: PASS
-2024-08-02 11:26:17 - test: PASS
-2024-08-02 11:27:29 - test: PASS
-2024-08-02 11:28:54 - test: PASS
-2024-08-02 11:31:30 - test: PASS
-2024-08-02 11:32:42 - test: PASS
-2024-08-02 11:33:32 - test: PASS
-2024-08-02 11:34:20 - test: PASS
-2024-08-02 11:34:38 - test: PASS
-2024-08-02 11:35:31 - test: PASS
-2024-08-02 11:36:38 - test: PASS
-2024-08-02 11:39:07 - test: PASS
-2024-08-02 11:40:59 - test: PASS
-2024-08-02 11:43:17 - test: PASS
-2024-08-02 11:44:37 - test: PASS
-2024-08-02 11:47:32 - test: PASS
-2024-08-02 11:49:34 - test: PASS
-2024-08-02 11:53:36 - test: PASS
-2024-08-02 11:53:53 - test: PASS
-2024-08-02 11:58:57 - test: PASS
-2024-08-02 11:59:25 - test: PASS
-2024-08-02 12:01:43 - test: PASS
-2024-08-02 12:02:21 - test: PASS
-2024-08-02 12:04:23 - test: PASS
-2024-08-02 12:04:53 - test: PASS
-2024-08-02 12:06:09 - test: PASS
-2024-08-02 12:06:41 - test: PASS
-2024-08-02 12:07:02 - test: PASS
-2024-08-02 12:07:45 - test: PASS
-2024-08-02 12:09:07 - test: PASS
-2024-08-02 12:09:41 - test: PASS
-2024-08-02 12:10:12 - test: PASS
-2024-08-02 12:10:35 - test: PASS
-2024-08-02 12:11:37 - test: PASS
-2024-08-02 12:18:01 - test: PASS
-2024-08-02 12:18:29 - test: PASS
-2024-08-02 13:07:37 - test: PASS
-2024-08-02 13:41:18 - test: PASS
-2024-08-02 13:44:20 - test: PASS
-2024-08-02 13:45:17 - test: PASS
-2024-08-02 13:45:41 - test: PASS
-2024-08-02 13:46:02 - test: PASS
-2024-08-02 13:46:46 - test: PASS
-2024-08-02 13:47:20 - test: PASS
-2024-08-02 13:48:49 - test: PASS
-2024-08-02 13:49:12 - test: PASS
-2024-08-02 13:59:30 - test_Manage Accounts: PASS
-2024-08-02 14:04:56 - test_Manage Accounts: PASS
-2024-08-02 14:05:17 - test_Manage Accounts: PASS
-2024-08-02 14:06:02 - test_Manage Accounts: PASS
-2024-08-02 14:06:39 - test_Manage Accounts: PASS
-2024-08-02 14:08:06 - test_Manage Accounts: PASS
-2024-08-02 14:09:14 - test_Manage Accounts: PASS
-2024-08-02 14:10:50 - test_Manage Accounts: PASS
-2024-08-02 14:11:55 - test_Manage Accounts: PASS
-2024-08-02 14:13:44 - test_Manage Accounts: PASS
-2024-08-02 14:33:42 - test_Manage Accounts: PASS
-2024-08-02 14:36:37 - test_Manage Accounts: PASS
-2024-08-02 15:16:41 - test_Manage Accounts: PASS
-2024-08-02 15:17:35 - test_Manage Accounts: PASS
-2024-08-02 15:21:33 - test_Manage Accounts: PASS
-2024-08-02 15:22:21 - test_Manage Accounts: PASS
-2024-08-02 15:22:53 - test_Manage Accounts: PASS
-2024-08-02 15:23:33 - test_Manage Accounts: PASS
-2024-08-02 15:24:00 - test_Manage Accounts: PASS
-2024-08-02 15:24:32 - test_Manage Accounts: PASS
-2024-08-02 15:25:14 - test_Manage Accounts: PASS
-2024-08-02 15:30:10 - test_Manage Accounts: PASS
-2024-08-02 15:31:49 - test_Manage Accounts: PASS
-2024-08-02 15:33:06 - test_Manage Accounts: PASS
-2024-08-02 15:33:19 - test_Manage Accounts: PASS
-2024-08-02 15:34:41 - test_Manage Accounts: PASS
-2024-08-02 15:48:48 - test_Manage Accounts: PASS
-2024-08-02 15:54:43 - test_Manage Accounts: PASS
-2024-08-02 15:55:05 - test_Manage Accounts: PASS
-2024-08-02 16:00:05 - test_Manage Accounts: PASS
-2024-08-02 16:01:22 - test_Manage Accounts: PASS
-2024-08-02 16:03:04 - test_Manage Accounts: PASS
-2024-08-02 16:13:06 - test_Manage Accounts: PASS
-2024-08-02 16:16:31 - test_Manage Accounts: PASS
-2024-08-02 16:22:09 - test_Manage Accounts: PASS
-2024-08-02 16:27:06 - test_Manage Accounts: PASS
-2024-08-02 16:29:07 - test: PASS
-2024-08-02 16:32:07 - test: PASS
-2024-08-02 17:07:02 - test: PASS
-2024-08-02 17:08:03 - test: PASS
-2024-08-02 17:09:56 - test: PASS
-2024-08-02 17:10:58 - test: PASS
-2024-08-02 17:11:55 - test: PASS
-2024-08-02 17:12:40 - test: PASS
-2024-08-02 17:13:24 - test: PASS
-2024-08-02 17:15:26 - test_Manage Accounts: PASS
-2024-08-02 17:16:12 - test_Manage Accounts: PASS
-2024-08-02 17:16:31 - test_Manage Accounts: PASS
-2024-08-02 17:18:18 - test_Manage Accounts: PASS
-2024-08-02 17:21:36 - test_Manage Accounts: PASS
-2024-08-02 17:24:07 - test_Manage Accounts: PASS
-2024-08-02 17:24:27 - test_Manage Accounts: PASS
-2024-08-02 17:24:58 - test_Manage Accounts: PASS
-2024-08-02 17:27:12 - test_Manage Accounts: PASS
-2024-08-02 17:27:32 - test_Manage Accounts: PASS
-2024-08-02 17:28:04 - test_Manage Accounts: PASS
-2024-08-02 17:28:27 - test_Manage Accounts: PASS
-2024-08-02 17:29:00 - test_Manage Accounts: PASS
-2024-08-02 17:29:34 - test_Manage Accounts: PASS
-2024-08-02 17:33:10 - test_Manage Accounts: PASS
-2024-08-02 17:40:12 - test_Manage Accounts: PASS
-2024-08-02 17:43:08 - test_Manage Accounts: PASS
-2024-08-02 17:44:15 - test_Manage Accounts: PASS
-2024-08-02 17:44:48 - test_Manage Accounts: PASS
-2024-08-02 17:50:03 - test_Manage Accounts: PASS
-2024-08-02 17:50:52 - test_Manage Accounts: PASS
-2024-08-02 17:52:03 - test_Manage Accounts: PASS
-2024-08-02 17:52:28 - test_Manage Accounts: PASS
-2024-08-02 17:52:54 - test_Manage Accounts: PASS
-2024-08-02 18:05:17 - test_Manage Accounts: PASS
-2024-08-02 18:05:50 - test_Manage Accounts: PASS
-2024-08-02 18:08:10 - test_Manage Accounts: PASS
-2024-08-02 18:08:34 - test_Manage Accounts: PASS
-2024-08-02 18:08:44 - test_Manage Accounts: PASS
-2024-08-02 18:09:58 - test_Manage Accounts: PASS
-2024-08-02 18:11:11 - test_Manage Accounts: PASS
-2024-08-02 18:12:26 - test_Manage Accounts: PASS
-2024-08-02 18:14:25 - test_Manage Accounts: PASS
-2024-08-02 18:17:00 - test_Manage Accounts: PASS
-2024-08-02 19:09:22 - test: PASS
-2024-08-02 19:15:06 - test: PASS
-2024-08-02 19:15:06 - test: PASS
-2024-08-02 19:15:06 - test: FAIL
-2024-08-02 19:52:59 - test: PASS
-2024-08-02 19:52:59 - test: PASS
-2024-08-02 19:52:59 - test: FAIL
-2024-08-02 19:54:33 - test: PASS
-2024-08-02 19:54:33 - test: PASS
-2024-08-02 19:54:33 - test: FAIL
-2024-08-02 20:02:31 - test: PASS
-2024-08-02 20:02:31 - test: PASS
-2024-08-02 20:02:31 - test: FAIL
-2024-08-02 20:05:50 - test: PASS
-2024-08-02 20:05:50 - test: PASS
-2024-08-02 20:05:50 - test: FAIL
+2024-08-06 17:41:09 - test: PASS
+2024-08-06 17:42:30 - test: PASS
+2024-08-06 17:51:11 - test: PASS
+2024-08-06 17:52:25 - test: FAIL
+2024-08-06 17:53:52 - test: FAIL
+2024-08-06 17:54:30 - test: FAIL
+2024-08-06 17:55:56 - test: FAIL
+2024-08-06 18:19:51 - test: PASS
+2024-08-06 18:52:22 - test: FAIL
+2024-08-06 19:43:43 - test: PASS
+2024-08-06 19:46:42 - test: PASS
+2024-08-06 19:52:34 - test: PASS
+2024-08-06 19:54:34 - test: PASS
+2024-08-06 19:55:13 - test: PASS
+2024-08-06 19:56:08 - test: PASS
+2024-08-06 19:56:49 - test: PASS
+2024-08-06 20:01:48 - test: PASS
+2024-08-06 20:02:54 - test: PASS
+2024-08-06 20:03:55 - test: PASS
+2024-08-07 09:49:22 - test: FAIL
+2024-08-07 09:52:46 - test: FAIL
+2024-08-07 09:53:09 - test: FAIL
+2024-08-07 09:54:06 - test: FAIL
+2024-08-07 09:54:54 - test: FAIL
+2024-08-07 09:55:47 - test: FAIL
+2024-08-07 09:57:55 - test: PASS
+2024-08-07 10:01:33 - test: PASS
+2024-08-07 10:05:46 - test: PASS
+2024-08-07 10:08:03 - test: FAIL
+2024-08-07 10:09:59 - test: FAIL
+2024-08-07 10:12:44 - test: PASS
+2024-08-07 10:13:33 - test: PASS
+2024-08-07 10:50:27 - test: FAIL
+2024-08-07 10:52:43 - test: FAIL
+2024-08-07 10:57:07 - test: PASS
+2024-08-07 11:05:19 - test: PASS
+2024-08-07 11:06:13 - test: FAIL
+2024-08-07 11:07:04 - test: FAIL
+2024-08-07 11:10:41 - test: FAIL
+2024-08-07 11:24:30 - test: PASS
+2024-08-07 17:42:27 - test: PASS
+2024-08-07 17:43:23 - test: FAIL
+2024-08-07 17:43:45 - test: FAIL
+2024-08-07 17:44:18 - test: FAIL
+2024-08-07 17:45:14 - test: FAIL
+2024-08-07 17:51:45 - test: PASS
+2024-08-07 17:54:00 - test: PASS
+2024-08-07 17:55:33 - test: PASS
+2024-08-07 17:56:25 - test: PASS
+2024-08-07 17:58:11 - test: PASS
+2024-08-07 17:58:50 - test: PASS
+2024-08-07 17:59:06 - test: FAIL
+2024-08-07 18:00:55 - test: FAIL
+2024-08-07 18:01:26 - test: FAIL
+2024-08-07 18:01:35 - test: FAIL
+2024-08-07 18:02:10 - test: FAIL
+2024-08-07 18:03:16 - test: FAIL
+2024-08-07 18:03:43 - test: FAIL
+2024-08-07 18:04:10 - test: FAIL
+2024-08-07 18:04:43 - test: FAIL
+2024-08-07 18:05:25 - test: FAIL
+2024-08-07 18:06:42 - test: FAIL

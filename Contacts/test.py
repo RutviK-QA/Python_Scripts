@@ -1,12 +1,12 @@
 from dotenv import load_dotenv
 import logging
-import random
-from playwright.async_api import Page, async_playwright, expect
-import os
-from datetime import datetime, timedelta
-import re
+from playwright.async_api import Page, async_playwright, expect, Playwright
 import asyncio
-import tracemalloc
+import os
+import random
+from datetime import datetime
+import re
+import time
 import subprocess
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -16,11 +16,12 @@ from collections import defaultdict
 # Load environment variables
 utils.load_env_files()
 script_path, state_path = utils.paths()
+script_path_google, state_path_google = utils.paths_google()
 
 # Retrieve environment variables
 (password, loginurl, username, logs_folder, auth, google_account, 
  google_password, outlook_account, outlook_password, outlook_account2, 
- api_url, url_contacts, login_api, mailinator, token, signup) = utils.get_env_variables()
+ api_url, url_contacts, login_api, mailinator, token, signup, origin_url) = utils.get_env_variables()
 
 script_name = os.path.basename(__file__).split('.')[0]
 utils.logging_setup(script_name)
@@ -30,269 +31,185 @@ api_urls = defaultdict(dict)
 test_results = []
 exceptions = []
 
-async def verify_signed_out(page: Page) -> None:
-    await expect(page.get_by_text("Signed out successfully!")).to_be_visible()
+async def assert_overview_fields(page):
+    await expect(page.get_by_role("heading", name="Protection", exact=True)).to_be_visible()
+    await expect(page.get_by_role("heading", name="Total Coverage")).to_be_visible()
+    await expect(page.locator("li").filter(has_text="Total Coverage$").get_by_role("paragraph")).to_be_visible()
+    await expect(page.get_by_role("heading", name="Total Monthly Payment").first).to_be_visible()
+    await expect(page.locator("ul").filter(has_text="Total Coverage$0Total Monthly").get_by_role("paragraph").nth(1)).to_be_visible()
+    await expect(page.get_by_role("heading", name="TFSA")).to_be_visible()
+    await expect(page.locator("li").filter(has_text="TFSA$").get_by_role("paragraph")).to_be_visible()
+    await expect(page.get_by_role("heading", name="RRSP")).to_be_visible()
+    await expect(page.locator("li").filter(has_text="RRSP$").get_by_role("paragraph")).to_be_visible()
+    await expect(page.get_by_role("heading", name="RESP")).to_be_visible()
+    await expect(page.locator("li").filter(has_text="RESP$").get_by_role("paragraph")).to_be_visible()
+    await expect(page.get_by_role("heading", name="Total Market Value")).to_be_visible()
+    await expect(page.locator("li").filter(has_text="Total Market Value$").get_by_role("paragraph")).to_be_visible()
+    await expect(page.get_by_role("heading", name="Total PAC Monthly")).to_be_visible()
+    await expect(page.locator("li").filter(has_text="Total PAC Monthly$").get_by_role("paragraph")).to_be_visible()
+    await expect(page.get_by_role("heading", name="Total Protection")).to_be_visible()
+    await expect(page.locator("li").filter(has_text="Total Protection$").get_by_role("paragraph")).to_be_visible()
+    await expect(page.get_by_role("heading", name="Total Monthly Payment").nth(1)).to_be_visible()
+    await expect(page.locator("ul").filter(has_text="Total Protection$0Total").get_by_role("paragraph").nth(1)).to_be_visible()
+    await expect(page.get_by_role("heading", name="Total Investments")).to_be_visible()
+    await expect(page.locator("li").filter(has_text="Total Investments$").get_by_role("paragraph")).to_be_visible()
+    await expect(page.get_by_role("heading", name="Annual Income")).to_be_visible()
+    await expect(page.locator("li").filter(has_text="Annual Income$").get_by_role("paragraph")).to_be_visible()
+    await expect(page.get_by_role("heading", name="Expenses")).to_be_visible()
+    await expect(page.locator("li").filter(has_text="Expenses$").get_by_role("paragraph")).to_be_visible()
+    await expect(page.get_by_role("heading", name="Other Income")).to_be_visible()
+    await expect(page.locator("li").filter(has_text="Other Income$").get_by_role("paragraph")).to_be_visible()
+    await expect(page.get_by_role("heading", name="Net Cashflow")).to_be_visible()
+    await expect(page.locator("li").filter(has_text="Net Cashflow$").get_by_role("paragraph")).to_be_visible()
+    await expect(page.get_by_role("heading", name="Rental Income")).to_be_visible()
+    await expect(page.locator("li").filter(has_text="Rental Income $").get_by_role("paragraph")).to_be_visible()
+    await expect(page.get_by_role("heading", name="Liquid Assets")).to_be_visible()
+    await expect(page.get_by_role("heading", name="Fixed Assets")).to_be_visible()
+    await expect(page.locator("li").filter(has_text="Liquid Assets$").get_by_role("paragraph")).to_be_visible()
+    await expect(page.locator("li").filter(has_text="Fixed Assets$").get_by_role("paragraph")).to_be_visible()
+    await expect(page.get_by_role("heading", name="Liabilities")).to_be_visible()
+    await expect(page.get_by_role("heading", name="Net Networth")).to_be_visible()
+    await expect(page.locator("li").filter(has_text="Net Networth$").get_by_role("paragraph")).to_be_visible()
+    await expect(page.locator("li").filter(has_text="Liabilities$").get_by_role("paragraph")).to_be_visible()
+    await expect(page.get_by_role("heading", name="Protection", exact=True)).to_be_visible()
+    await expect(page.get_by_text("Current Active Policies")).to_be_visible()
+    await expect(page.get_by_role("heading", name="Wealth")).to_be_visible()
+    await expect(page.get_by_text("Current Investments/Savings")).to_be_visible()
+    await expect(page.get_by_role("heading", name="Monthly Contribution Summary")).to_be_visible()
+    await expect(page.get_by_role("heading", name="Cashflow", exact=True)).to_be_visible()
+    await expect(page.get_by_role("heading", name="Networth", exact=True)).to_be_visible()
 
-async def accounts(page: Page) -> None:
-    try:
-        try:
-            await page.wait_for_load_state("networkidle", timeout=8000)
-        except:
-            pass
-        await page.wait_for_timeout(5000)
-        # if await page.locator("div").filter(has_text=re.compile(r"^rutvik@bluemind\.app$")).locator("div").first.is_visible():
-        #     await page.locator("div").filter(has_text=re.compile(r"^rutvik@bluemind\.app$")).locator("div").first.hover()
-        # elif await page.locator("div").filter(has_text=re.compile(r"^Primary$")).first.is_visible():
-        #     await page.locator("div").filter(has_text=re.compile(r"^Primary$")).first.hover()
-        # elif await page.locator("div").filter(has_text=re.compile(r"^Make Primary$")).first.is_visible():
-        #     await page.locator("div").filter(has_text=re.compile(r"^Make Primary$")).first.hover()
-            
-        o14=r"^Make Primaryrutvik@bluemind\.app$"
-        o15=r"^Primaryrutvik@bluemind\.app$"
-        o22=r"^rutvik@bluemind\.app$"
-        # If rutvik@bluemind is found and is not primary, sign out
-        if await page.locator("div").filter(has_text=re.compile(fr"{o14}")).get_by_label("Sign out").is_visible():
-            await page.locator("div").filter(has_text=re.compile(fr"{o14}")).get_by_label("Sign out").click()
-            await page.get_by_role("button", name="Sign Out").click()
-            logging.info("Signed out of Google (non primary)")
-            try:
-                await verify_signed_out(page)
-            except Exception as e:
-                exceptions.append(e)
-        # If rutvik@bluemind is found and is primary, then sign out    
-        elif await page.locator("div").filter(has_text=re.compile(fr"{o15}")).get_by_label("Sign out").is_visible():
-            await page.locator("div").filter(has_text=re.compile(fr"{o15}")).get_by_label("Sign out").click()
-            await page.get_by_role("button", name="Sign Out").click()
-            logging.info("Signed out of Google (primary)")
-            try:
-                await verify_signed_out(page)
-            except Exception as e:
-                exceptions.append(e)
-        elif await page.locator("div").filter(has_text=re.compile(fr"{o22}")).get_by_label("Sign out").is_visible():
-            await page.locator("div").filter(has_text=re.compile(fr"{o22}")).get_by_label("Sign out").click()
-            await page.get_by_role("button", name="Sign Out").click()
-            try:
-                await verify_signed_out(page)
-            except Exception as e:
-                exceptions.append(e)
-            logging.info("Signed out of Google")            
-        # Try forced signout when only 1 is properly connected
-        elif await page.get_by_label("Sign out").is_visible():
-            await page.get_by_label("Sign out").click()
-            await page.get_by_role("button", name="Sign Out").click()
-            try:
-                await verify_signed_out(page)
-            except Exception as e:
-                exceptions.append(e)
-            logging.info("Signed out of Google")
-        else:
-            logging.info("skipped google signout")
 
-        # if await page.locator("div").filter(has_text=re.compile(r"^rutvikqatest@outlook\.com$")).locator("div").first.is_visible(): 
-        #     await page.locator("div").filter(has_text=re.compile(r"^rutvikqatest@outlook\.com$")).locator("div").first.hover()
-        # elif await page.locator("div").filter(has_text=re.compile(r"^Primary$")).first.is_visible():
-        #     await page.locator("div").filter(has_text=re.compile(r"^Primary$")).first.hover()
-        # elif await page.locator("div").filter(has_text=re.compile(r"^Make Primary$")).first.is_visible():
-        #     await page.locator("div").filter(has_text=re.compile(r"^Make Primary$")).first.hover()
+async def get_percentage(element1, abc):
+    text_content = await element1.inner_text()
+    percentage = text_content.split()[0] 
+    logging.info(f"Progress Area: {abc}, Percentage: {percentage}")
 
-        o12=r"^Make Primaryrutvikqatest@outlook\.com$"
-        o13=r"^Primaryrutvikqatest@outlook\.com$"
-        o21=r"^rutvikqatest@outlook\.com$"
-        # If rutvikqatest@outlook is found and is not primary, sign out
-        if await page.locator("div").filter(has_text=re.compile(fr"{o12}")).get_by_label("Sign out").is_visible(): 
-            await page.locator("div").filter(has_text=re.compile(fr"{o12}")).get_by_label("Sign out").click()
-            await page.get_by_role("button", name="Sign Out").click()
-            logging.info("Signed out of Outlook (non primary)") 
-            try:
-                await verify_signed_out(page)
-            except Exception as e:
-                exceptions.append(e)
-
-        # If rutvikqatest@outlook is found and is primary, sign out 
-        elif await page.locator("div").filter(has_text=re.compile(fr"{o13}")).get_by_label("Sign out").is_visible():
-                await page.locator("div").filter(has_text=re.compile(fr"{o13}")).get_by_label("Sign out").click() 
-                await page.get_by_role("button", name="Sign Out").click()
-                try:
-                    await verify_signed_out(page)
-                except Exception as e:
-                    exceptions.append(e)
-                logging.info("Signed out of Outlook (primary)")
-        # Try forced signout when only 1 is properly connected
-        elif await page.get_by_label("Sign out").is_visible():
-                await page.get_by_label("Sign out").click()
-                await page.get_by_role("button", name="Sign Out").click()
-                try:
-                    await verify_signed_out(page)
-                except Exception as e:
-                    exceptions.append(e)
-                logging.info("Signed out of Outlook")
-        elif await page.locator("div").filter(has_text=re.compile(fr"{o21}")).get_by_label("Sign out").is_visible():
-            await page.locator("div").filter(has_text=re.compile(fr"{o21}")).get_by_label("Sign out").click()
-            await page.get_by_role("button", name="Sign Out").click()
-            try:
-                await verify_signed_out(page)
-            except Exception as e:
-                exceptions.append(e)
-            logging.info("Signed out of Outlook")
-        else:
-            logging.info("skipped outlook signout")
-        
-        
-
-        # # Random choice to either remove or keep one of the reconnect accounts
-        # random_n= random.choice([4,2])
-        # reconnect_decision = random.choice([True, False])
-        # if reconnect_decision == False:
-        #     try:
-        #         page.get_by_role("button").nth(random_n).click()
-        #         page.get_by_role("button", name="Sign Out").click()
-        #     except Exception as e: 
-        #         logging.error(f"By tapping n={random_n}, error occured: {str(e)}")
-
-        # if rutvik@bluemind is in reconnect, then reconnect
-        if await page.locator("div").filter(has_text=re.compile(r"^rutvik@bluemind\.app$")).get_by_label("Reconnect").is_visible():   
-            async with page.expect_popup() as popup:
-                await page.locator("div").filter(has_text=re.compile(r"^rutvik@bluemind\.app$")).get_by_label("Reconnect").click()
-            popup = await popup.value
-            await utils.google(popup, google_account, google_password)
-            logging.info("Reconnected to Google")
-            await expect(page.get_by_text("Gmail account connected")).to_be_visible()
-
-        elif await page.get_by_label("Reconnect").is_visible():
-            async with page.expect_popup() as popup:
-                await page.get_by_label("Reconnect").click()
-            popup = await popup.value
-            await utils.google(popup, google_account, google_password)
-            logging.info("Reconnected to Google")
-            await expect(page.get_by_text("Gmail account connected")).to_be_visible()
-        else:
-            logging.info("skipped google reconnect")
-
-    # If outlook is still in reconnect, then reconnect
-        if await page.locator("div").filter(has_text=re.compile(r"^rutvikqatest@outlook\.com$")).get_by_label("Reconnect").is_visible(): 
-            await page.locator("div").filter(has_text=re.compile(r"^rutvikqatest@outlook\.com$")).get_by_label("Reconnect").click()
-            await utils.outlook(page, outlook_account, outlook_password)
-            logging.info("Reconnected to Outlook")
-            # await expect(page.get_by_text("Outlook account connected")).to_be_visible()
-
-        elif await page.get_by_label("Reconnect").is_visible():
-            async with page.expect_popup() as popup:
-                await page.get_by_label("Reconnect").click()
-            popup = await popup.value
-            await utils.outlook(page, outlook_account, outlook_password)
-            logging.info("Reconnected to Outlook")
-            # await expect(page.get_by_text("Outlook account connected")).to_be_visible()
-        else:
-            logging.info("skipped outlook reconnect")
+async def overview(page):
+    await asyncio.sleep(6)
+    # await page.wait_for_selector('text="All Contacts"', state='visible', timeout=15000) 
+    await page.get_by_text("All Contacts").click(timeout=15000)    
+    # Use a locator to find elements
+    locator = page.locator('div.d-flex.align-items-center.profile-details b.text-blue.text-underline')
     
-        # If gmail is not connected, then connect gmail
-        if await page.locator("div").filter(has_text=re.compile(r"^Add Google Account$")).get_by_role("img").is_visible():   
-            async with page.expect_popup() as popup_info:
-                await page.locator("div").filter(has_text=re.compile(r"^Add Google Account$")).get_by_role("img").click()
-            popup = await popup_info.value
-            await utils.google(popup, google_account, google_password)
-            logging.info("Connected to Google")
-            await expect(page.get_by_text("Gmail account connected")).to_be_visible()
-        else:
-            logging.info("skipped google connection")
-        await page.wait_for_timeout(3000)
-        # If outlook is not connected, then connect outlook
-        if await page.locator("div").filter(has_text=re.compile(r"^Add Microsoft Account$")).get_by_role("img").is_visible():
-            await page.locator("div").filter(has_text=re.compile(r"^Add Microsoft Account$")).get_by_role("img").click()
-            await utils.outlook(page, outlook_account, outlook_password)
-            # await expect(page.get_by_text("Outlook account connected")).to_be_visible()
-            logging.info("Connected to Outlook")
-        else:
-            logging.info("skipped outlook connection")
+    # Wait for at least one element to be visible
+    await asyncio.sleep(5)
 
-        # Change primary account
-        try:
-            await page.locator("div").filter(has_text=re.compile(r"^rutvik@bluemind\.app$")).locator("div").first.hover()
-        except:
-            await page.locator("div").filter(has_text=re.compile(r"^rutvikqatest@outlook\.com$")).locator("div").first.hover()
+    # Get the count of elements
+    count = await locator.count()
+    if count == 0:
+        logging.info("No elements found with the specified class.")
+        return None
 
-        try:
-            await page.locator("div").filter(has_text=re.compile(r"^Make Primary$")).nth(1).click()
-            await page.get_by_role("button", name="Yes").click()
-            logging.info("Switched primary account")
-            await expect(page.get_by_text("Primary account updated")).to_be_visible()
-        except:
-            pass    
+    
+    # Choose a random element
+    index = random.randint(0, count - 1)
+    chosen_element = locator.nth(index)
+    element_content = await chosen_element.text_content()
+    logging.info(f"Clicked on name: {element_content}")
+    
+    # Perform any action needed on the chosen element, e.g., click
+    await chosen_element.click()
 
-        # After all these, decide to log out or not for both accounts
-        decision = random.choice([True, False])
-        logging.info(f"Decision to log out: {decision}")
+    await page.locator("div").filter(has_text=re.compile(r"^Overview$")).click()
+    await asyncio.sleep(6)
+    # Find all divs with both checkbox-item and text-blue classes
+    divs = await page.query_selector_all('div.checkbox-item.text-blue')
 
-        if decision:
-            #Try to find the primary and sign out of it
-            try:
-                await page.locator("div").filter(has_text=re.compile(fr"{o13}")).get_by_label("Sign out").click() 
-                logging.info("trying sign out of Outlook")
-            except:
-                await page.locator("div").filter(has_text=re.compile(fr"{o15}")).get_by_label("Sign out").click()
-                logging.info("trying sign out of Google")
+    # Get the number of matching elements
+    count2 = len(divs)
+    logging.info(f"Count of divs with checkbox-item and text-blue: {count}")
 
-            await page.get_by_role("button", name="Sign Out").click()
-            await verify_signed_out(page) 
-            
-            second_decision = random.choice([True, False])
-            # logging.info(f"Decision to log out of 2nd account: {second_decision}")
+    div_locator = page.locator('div.MuiTypography-root.MuiTypography-caption.css-157rtdk')
+    
+    # Get the text content of the div
+    text_content = await div_locator.inner_text()
+    
+    # Extract the numeric part from the text (assuming the text is in the format '25%')
+    percentage = ''.join(filter(str.isdigit, text_content))
 
-            # Signs out of the 2nd account if the decision is True
-            if second_decision:
-                await page.get_by_label("Sign Out").click()
-                await page.get_by_role("button", name="Sign Out").click()
-                logging.info("signed out of 2nd account aswell")
-                await verify_signed_out(page)
-    except Exception as e:
-        exceptions.append(e)
-    # return exceptions    
+    if percentage == "25" and count2 == 1:
+        pass
+    elif percentage == "50" and count2 == 2:
+        pass
+    elif percentage == "75" and count2 == 3:
+        pass
+    elif percentage == "100" and count2 == 4:
+        pass
+    else:
+        logging.info(f"Failure in Compliance Progress: Percentage: {percentage}, Count: {count}")
+    abc = ["personal", "financial", "legal"]   
+    for x in abc:
+        element1 = page.locator(f'span.font-600.text-blue[aria-label="{x}-progress-count"]')
+        await get_percentage(element1, x)
+
+    await assert_overview_fields(page)
+    logging.info("Overview fields verified")
+
+    async def download_1st(page):
+        await download1(page)    
+        await page.locator("div.apexcharts-menu-item.exportSVG").first.click() 
+        await download1(page)
+        await page.locator("div.apexcharts-menu-item.exportPNG").first.click()
+        await download1(page)
+        await page.locator("div.apexcharts-menu-item.exportCSV").first.click()
+    
+    async def download_2nd(page):
+        await download2(page)
+        await page.locator("div.apexcharts-menu-item.exportSVG").nth(1).click() 
+        await download2(page)
+        await page.locator("div.apexcharts-menu-item.exportPNG").nth(1).click()
+        await download2(page)
+        await page.locator("div.apexcharts-menu-item.exportCSV").nth(1).click()
+    
+    async def download1(page):
+        await page.locator("div").filter(has_text=re.compile(r"^Download SVGDownload PNGDownload CSV$")).first.click()
+    async def download2(page):
+        await page.locator("div").filter(has_text=re.compile(r"^Download SVGDownload PNGDownload CSV$")).nth(2).click()
+
+    await download_1st(page)
+    await download_2nd(page)
+    logging.info("Downloads completed")
 
 async def run() -> None:
     async with async_playwright() as p:
         browser1 = await p.chromium.launch(headless=False)
         context1 = await browser1.new_context(storage_state="variables/playwright/.auth/state.json")
-        await context1.grant_permissions(["microphone"], origin="https://staging.bluemind.app")
+        await utils.grant_permissions(context1, origin_url)
         context1.set_default_timeout(10000)
         contexts = [context1]
 
         await utils.start_trace(contexts)
-        try: 
-            page1 = await context1.new_page()
-            await page1.set_viewport_size({"width": 1920, "height": 1080})
-            await page1.goto("https://staging.bluemind.app/social-accounts")
-            response_handler, request_handler = await utils.start_handler_async(page1, api_urls)
+        page1 = await context1.new_page()
+        await page1.set_viewport_size({"width": 1920, "height": 1080})
+        await page1.goto("https://staging.bluemind.app/contacts")
+        response_handler, request_handler = await utils.start_handler_async(page1, api_urls)
+       
+        try:
             await asyncio.gather(
-                accounts(page1)
+                overview(page1)
             )
-            await utils.stop_handler_async(page1, api_urls, response_handler, request_handler)
-        
-        except Exception as e:  # Save trace if failure
+        except Exception as e:
             exceptions.append(e)
             await utils.stop_trace(script_name, contexts)
-        
-        finally:
-            try:
-                await context1.tracing.stop()  # Stop tracing
-            except Exception as e:
-                exceptions.append(e)
-            await context1.close() 
-            await browser1.close()  
+
+        await utils.stop_handler_async(page1, api_urls, response_handler, request_handler)
+        await context1.tracing.stop()
+        await context1.close() 
+        await browser1.close()  
     return exceptions
 
 if __name__ == '__main__':
-    exceptions = []
-    # Ensure the states are recent by running the login scripts if necessary
     if not utils.is_recent_state(state_path):
         subprocess.run(['python', script_path], check=True)
     try:
-        exceptions.extend(asyncio.run(run()))
-        utils.start_report(test_results, script_name)
+        asyncio.run(run())
     except Exception as e:
-        exceptions.append(e)  # Collect exceptions
+        exceptions.append(e)  
     finally:
         if exceptions:
             utils.traceback_error_logging_exp(script_name, exceptions)
-        utils.end_report(test_results, script_name)
-        
+            utils.end_report(test_results, script_name)
+        else:
+            utils.start_report(test_results, script_name)
 

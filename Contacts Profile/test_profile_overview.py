@@ -29,9 +29,10 @@ utils.logging_setup(script_name)
 api_pattern = re.compile(fr'^{re.escape(api_url)}')
 api_urls = defaultdict(dict)
 test_results = []
+exceptions = []
 
 async def get_percentage(element1, abc):
-    text_content = element1.inner_text()
+    text_content = await element1.inner_text()
     percentage = text_content.split()[0] 
     logging.info(f"Progress Area: {abc}, Percentage: {percentage}")
 
@@ -85,7 +86,7 @@ async def assert_overview_fields(page):
 
 
 async def overview(page):
-    await page.goto("https://staging.bluemind.app/contacts")
+    
     await page.get_by_text("All Contacts").click()
     
     # Use a locator to find elements
@@ -122,10 +123,10 @@ async def overview(page):
         await page.get_by_role("combobox").fill(utils.generate_random_string(10))
         await page.keyboard.press("Enter")
 
-    selected_files = utils.upload_random_files(m=1)
+    selected_files = utils.upload_random_files(max_files=1)
     
     for file in selected_files:
-        page.locator("input[type=\"file\"]").set_input_files(file)
+        await page.locator("input[type=\"file\"]").set_input_files(file)
     
     await utils.Voice_to_text_async(page)
 
@@ -138,12 +139,13 @@ async def overview(page):
         await element.click()
     else:
         pass
-
-    await page.wait_for_load_state('networkidle')
-    await page.get_by_label("close").click()
+    await page.wait_for_timeout(5000)
+    await page.get_by_label("close").first.click()
     
     locator = await utils.get_random_locator(page.get_by_label("Edit Note"))
     await locator.click()
+    await page.wait_for_timeout(2000)
+    await page.get_by_role("button", name="Update").click()
     
     x= await page.locator('p[aria-label="this-week-count"]').inner_text()
     xx= await page.locator('p[aria-label="next-week-count"]').inner_text()
@@ -156,13 +158,13 @@ async def overview(page):
     await page.get_by_label(f"{a} *").check()
 
     await page.locator("input[name=\"title\"]").click()
-    await utils.for_x_y_async
+    await utils.for_x_y_async(page, 1,20)
 
     await page.get_by_role("textbox").first.click()
-    await utils.click_calendar_async
+    await utils.click_calendar_async(page)
 
     await page.get_by_role("combobox").nth(1).click()
-    await utils.for_x_y_async
+    await utils.for_x_y_async(page, 1,20)
 
     await utils.add_reminder_async(page)
     await utils.Voice_to_text_async(page)
@@ -265,7 +267,7 @@ async def run() -> None:
         try: 
             page1 = await context1.new_page()
             await page1.set_viewport_size({"width": 1920, "height": 1080})
-            await page1.goto("https://staging.bluemind.app/social-accounts")
+            await page1.goto("https://staging.bluemind.app/contacts")
             response_handler, request_handler = await utils.start_handler_async(page1, api_urls)
             await asyncio.gather(
                 overview(page1)

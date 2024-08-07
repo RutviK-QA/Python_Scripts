@@ -1,16 +1,66 @@
-2024-08-02 20:04:59,264 - Signed out of Google
-2024-08-02 20:05:02,797 - Signed out of Outlook (primary)
-2024-08-02 20:05:02,871 - skipped google reconnect
-2024-08-02 20:05:02,945 - skipped outlook reconnect
-2024-08-02 20:05:12,195 - Connected to Google
-2024-08-02 20:05:29,211 - Connected to Outlook
-2024-08-02 20:05:39,925 - Switched primary account
-2024-08-02 20:05:41,902 - Decision to log out: False
-2024-08-02 20:05:49,929 - URL: https://staging-api.bluemind.app/api/user-permission, Method: GET, Status: 200
-2024-08-02 20:05:49,934 - URL: https://staging-api.bluemind.app/api/contact_additional_info/get, Method: GET, Status: 200
-2024-08-02 20:05:49,939 - URL: https://staging-api.bluemind.app/api/client_email_token/communication/get_all, Method: GET, Status: 200
-2024-08-02 20:05:49,948 - URL: https://staging-api.bluemind.app/api/client_email_token/signout, Method: POST, Status: 200
-2024-08-02 20:05:49,952 - URL: https://staging-api.bluemind.app/api/client_email_token/signout, Method: POST, Status: 200
-2024-08-02 20:05:49,960 - URL: https://staging-api.bluemind.app/api/client_email_token/google/signin, Method: POST, Status: 200
-2024-08-02 20:05:49,964 - URL: https://staging-api.bluemind.app/api/user/info, Method: GET, Status: 200
-2024-08-02 20:05:49,969 - URL: https://staging-api.bluemind.app/api/client_email_token/convert_primary, Method: PUT, Status: 200
+2024-08-07 18:03:16,772 - Errors in function named test:
+2024-08-07 18:03:16,774 - ERROR: Locator.click: Target page, context or browser has been closed
+Call log:
+waiting for get_by_text("All Contacts")
+
+2024-08-07 18:03:16,774 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test.py', line 189, in run: await asyncio.gather(
+2024-08-07 18:03:16,774 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test.py', line 91, in overview: await page.get_by_text("All Contacts").click(timeout=15000)
+2024-08-07 18:03:16,775 - ERROR: Response.json: Target page, context or browser has been closed
+2024-08-07 18:03:16,775 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test.py', line 206, in <module>: asyncio.run(run())
+2024-08-07 18:03:16,775 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test.py', line 196, in run: await utils.stop_handler_async(page1, api_urls, response_handler, request_handler)
+2024-08-07 18:03:16,776 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Variables\utils.py', line 540, in stop_handler_async: await show_api_response_async(api_urls)
+2024-08-07 18:03:16,776 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Variables\utils.py', line 577, in show_api_response_async: response_data = await (response.json() if 'application/json' in response.headers['content-type'] else response.text())
+2024-08-07 18:03:43,120 - Errors in function named test:
+2024-08-07 18:03:43,121 - ERROR: Locator.click: Target page, context or browser has been closed
+Call log:
+waiting for get_by_text("All Contacts")
+
+2024-08-07 18:03:43,121 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test.py', line 189, in run: await asyncio.gather(
+2024-08-07 18:03:43,121 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test.py', line 91, in overview: await page.get_by_text("All Contacts").click(timeout=15000)
+2024-08-07 18:04:10,814 - Errors in function named test:
+2024-08-07 18:04:10,815 - ERROR: Page.goto: Timeout 10000ms exceeded.
+Call log:
+navigating to "https://staging.bluemind.app/contacts", waiting until "load"
+
+2024-08-07 18:04:10,815 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test.py', line 206, in <module>: asyncio.run(run())
+2024-08-07 18:04:10,815 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test.py', line 185, in run: await page1.goto("https://staging.bluemind.app/contacts")
+2024-08-07 18:04:43,987 - Errors in function named test:
+2024-08-07 18:04:43,988 - ERROR: Locator.click: Target page, context or browser has been closed
+Call log:
+waiting for get_by_text("All Contacts")
+
+2024-08-07 18:04:43,988 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test.py', line 189, in run: await asyncio.gather(
+2024-08-07 18:04:43,988 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test.py', line 91, in overview: await page.get_by_text("All Contacts").click(timeout=15000)
+2024-08-07 18:04:43,988 - ERROR: Response.json: Target page, context or browser has been closed
+2024-08-07 18:04:43,989 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test.py', line 206, in <module>: asyncio.run(run())
+2024-08-07 18:04:43,989 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test.py', line 196, in run: await utils.stop_handler_async(page1, api_urls, response_handler, request_handler)
+2024-08-07 18:04:43,989 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Variables\utils.py', line 540, in stop_handler_async: await show_api_response_async(api_urls)
+2024-08-07 18:04:43,989 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Variables\utils.py', line 577, in show_api_response_async: response_data = await (response.json() if 'application/json' in response.headers['content-type'] else response.text())
+2024-08-07 18:05:25,478 - Errors in function named test:
+2024-08-07 18:05:25,478 - ERROR: Locator.click: Target page, context or browser has been closed
+Call log:
+waiting for get_by_text("All Contacts")
+
+2024-08-07 18:05:25,479 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test.py', line 189, in run: await asyncio.gather(
+2024-08-07 18:05:25,479 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test.py', line 91, in overview: await page.get_by_text("All Contacts").click(timeout=15000)
+2024-08-07 18:05:25,479 - ERROR: Response.json: Target page, context or browser has been closed
+2024-08-07 18:05:25,479 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test.py', line 206, in <module>: asyncio.run(run())
+2024-08-07 18:05:25,479 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test.py', line 196, in run: await utils.stop_handler_async(page1, api_urls, response_handler, request_handler)
+2024-08-07 18:05:25,479 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Variables\utils.py', line 540, in stop_handler_async: await show_api_response_async(api_urls)
+2024-08-07 18:05:25,479 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Variables\utils.py', line 577, in show_api_response_async: response_data = await (response.json() if 'application/json' in response.headers['content-type'] else response.text())
+2024-08-07 18:06:42,564 - URL: https://staging-api.bluemind.app/api/user-permission, Method: GET, Status: 200
+2024-08-07 18:06:42,568 - URL: https://staging-api.bluemind.app/api/contact_additional_info/get, Method: GET, Status: 200
+2024-08-07 18:06:42,572 - URL: https://staging-api.bluemind.app/api/client/get_all?page=0&pageSize=10&client_type=Lead&sortBy=client_id&sortType=DESC, Method: GET, Status: 200
+2024-08-07 18:06:42,574 - URL: https://staging-api.bluemind.app/api/client/count?client_type=Lead&search=&appVersion=canada, Method: GET, Status: 200
+2024-08-07 18:06:42,870 - Errors in function named test:
+2024-08-07 18:06:42,871 - ERROR: Locator.click: Timeout 15000ms exceeded.
+Call log:
+waiting for get_by_text("All Contacts")
+
+2024-08-07 18:06:42,871 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test.py', line 189, in run: await asyncio.gather(
+2024-08-07 18:06:42,871 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test.py', line 91, in overview: await page.get_by_text("All Contacts").click(timeout=15000)
+2024-08-07 18:06:42,871 - ERROR: Response.json: Protocol error (Network.getResponseBody): No resource with given identifier found
+2024-08-07 18:06:42,871 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test.py', line 206, in <module>: asyncio.run(run())
+2024-08-07 18:06:42,871 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Contacts\test.py', line 196, in run: await utils.stop_handler_async(page1, api_urls, response_handler, request_handler)
+2024-08-07 18:06:42,872 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Variables\utils.py', line 540, in stop_handler_async: await show_api_response_async(api_urls)
+2024-08-07 18:06:42,872 - File 'c:\Users\Rutvik\Python PlaywrightScripts\Variables\utils.py', line 577, in show_api_response_async: response_data = await (response.json() if 'application/json' in response.headers['content-type'] else response.text())

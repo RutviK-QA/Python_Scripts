@@ -39,9 +39,9 @@ def get_env_variables():
     mailinator= os.getenv('MAILINATOR')
     token= os.getenv('TOKEN')
     signup = os.getenv('SIGNUP_API')
-
+    origin_url = os.getenv('ORIGIN_URL')
     return (password, url_1, username, logs_folder, auth, google_account, google_password, 
-        outlook_account, outlook_password, outlook_account2, api_url, url_contacts, login_api, mailinator, token, signup)
+        outlook_account, outlook_password, outlook_account2, api_url, url_contacts, login_api, mailinator, token, signup, origin_url)
 
 # Define the path to the login script and the state file
 SCRIPT_PATH = os.path.join(os.path.dirname(__file__), '../Variables/Login session script.py')   
@@ -341,12 +341,12 @@ async def Voice_to_text_async(page):
             await page.get_by_role("button", name="Start").press("Shift+Tab")
             await page.keyboard.type(generate_random_string(10), delay=0)
     try:
-        await page.get_by_role("button", name="Save").click(timeout=1000)
+        await page.get_by_role("button", name="Save").click(timeout=3000)
     except:
         try:
-            await page.get_by_role("button", name="Send").click(timeout=1000)
+            await page.get_by_role("button", name="Send").click(timeout=3000)
         except:
-            await page.get_by_role("button", name="Update").click(timeout=1000)
+            await page.get_by_role("button", name="Update").click(timeout=3000)
     # logging.info(f"Saved after voice to text success - {type}")
 
 # Function to select random priority
@@ -490,9 +490,9 @@ def show_api_response(api_urls):
         if response and response.ok:
             logging.info(f"URL: {url}, Method: {method}, Status: {response_status}\n")
         elif response and not response.ok:
-            logging.info(f"URL: {url}, Method: {method}, Status: {response_status}, \n-------------------> Payload: {payload}, \n-------------------> Data: {response_data}\n") 
+            logging.info(f"URL: {url}, Method: {method}, Status: {response_status}, \n------------------------> Payload: {payload}, \n------------------------> Data: {response_data}\n") 
         else:
-            logging.info(f"URL: {url}, Method: {method}, Status: {response_status}, \n-------------------> Payload: {payload}, \n-------------------> Data: {response_data}\n") 
+            logging.info(f"URL: {url}, Method: {method}, Status: {response_status}, \n------------------------> Payload: {payload}, \n------------------------> Data: {response_data}\n") 
 
 # async def show_api_response_async(api_urls):
 #     async with aiohttp.ClientSession() as session:
@@ -719,12 +719,16 @@ def click_calendar(page):
 async def click_calendar_async(page):
     tomorrow = datetime.today() + timedelta(days=1)
     day_str = tomorrow.strftime('%d')
+
+    if day_str.startswith('0'):
+        day_str = day_str[1:]
+
     await page.wait_for_timeout(1000) 
     try:
-        await page.get_by_role("gridcell", name=day_str, exact=True).click(timeout=2000)
+        await page.get_by_role("gridcell", name=day_str, exact=True).click(timeout=5000)
     except:
             try:
-                await page.get_by_role("gridcell", name=day_str).click(timeout=2000)
+                await page.get_by_role("gridcell", name=day_str).click(timeout=5000)
             except:
                 await page.get_by_label("Next month").click()
                 await page.wait_for_timeout(500)
@@ -786,14 +790,7 @@ def start_report(test_results, script_name):
     with open(report_file, "a") as f:
         f.write(report_content + "\n")
 
-# # Traceback error logging
-# def traceback_error_logging(script_name, e):
-#     tb = e.__traceback__
-#     full_traceback = traceback.extract_tb(tb)
-#     for filename, lineno, funcname, line in full_traceback:
-#         logging.info(f"File '{filename}', line {lineno}, in {funcname}: {line.strip()}")
-#     logging.info(f"Error in function named {script_name}: {e}")
-
+# Traceback error logging with exception non list
 def traceback_error_logging(script_name, e):
     path = r'c:\Users\Rutvik\Python PlaywrightScripts'
     tb = e.__traceback__
@@ -805,7 +802,7 @@ def traceback_error_logging(script_name, e):
         if filename.startswith(path):  # Check if the filename starts with the static path
             logging.info(f"File '{filename}', line {lineno}, in {funcname}: {line.strip()}")
 
-
+# Function to traceback error logging with multiple exceptions list
 def traceback_error_logging_exp(script_name, exceptions):
     path = r'c:\Users\Rutvik\Python PlaywrightScripts'
     
@@ -818,7 +815,7 @@ def traceback_error_logging_exp(script_name, exceptions):
         tb = e.__traceback__
         full_traceback = traceback.extract_tb(tb) if tb else []
 
-        logging.info(f"\nError: {e}")
+        logging.info(f"ERROR: {e}")
 
         if not full_traceback:
             logging.info("No traceback available.")
@@ -1115,3 +1112,6 @@ def move_to_random(page):
     else:
         page.get_by_role("button", name="No").click()
         logging.info(f"Decided not to move contact to {random_option} through toss")
+
+async def grant_permissions(context, origin_url):
+    await context.grant_permissions(["microphone", "camera", "notifications", "geolocation"], origin=origin_url)
