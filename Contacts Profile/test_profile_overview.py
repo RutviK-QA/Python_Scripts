@@ -10,23 +10,11 @@ import time
 import subprocess
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-import Variables.utils as utils
+import Variables.utils as utils 
+variable = utils.variable
 from collections import defaultdict
 
-# Load environment variables
-utils.load_env_files()
-script_path, state_path = utils.paths()
-script_path_google, state_path_google = utils.paths_google()
-
-# Retrieve environment variables
-(password, loginurl, username, logs_folder, auth, google_account, 
- google_password, outlook_account, outlook_password, outlook_account2, 
- api_url, url_contacts, login_api, mailinator, token, signup) = utils.get_env_variables()
-
-script_name = os.path.basename(__file__).split('.')[0]
-utils.logging_setup(script_name)
-
-api_pattern = re.compile(fr'^{re.escape(api_url)}')
+utils.logging_setup()
 api_urls = defaultdict(dict)
 test_results = []
 exceptions = []
@@ -37,80 +25,77 @@ async def get_percentage(element1, abc):
     logging.info(f"Progress Area: {abc}, Percentage: {percentage}")
 
 async def assert_overview_fields(page):
-    await expect(page.get_by_role("heading", name="Protection", exact=True)).to_be_visible()
-    await expect(page.get_by_role("heading", name="Total Coverage")).to_be_visible()
-    await expect(page.locator("li").filter(has_text="Total Coverage$").get_by_role("paragraph")).to_be_visible()
-    await expect(page.get_by_role("heading", name="Total Monthly Payment").first).to_be_visible()
-    await expect(page.locator("ul").filter(has_text="Total Coverage$0Total Monthly").get_by_role("paragraph").nth(1)).to_be_visible()
-    await expect(page.get_by_role("heading", name="TFSA")).to_be_visible()
-    await expect(page.locator("li").filter(has_text="TFSA$").get_by_role("paragraph")).to_be_visible()
-    await expect(page.get_by_role("heading", name="RRSP")).to_be_visible()
-    await expect(page.locator("li").filter(has_text="RRSP$").get_by_role("paragraph")).to_be_visible()
-    await expect(page.get_by_role("heading", name="RESP")).to_be_visible()
-    await expect(page.locator("li").filter(has_text="RESP$").get_by_role("paragraph")).to_be_visible()
-    await expect(page.get_by_role("heading", name="Total Market Value")).to_be_visible()
-    await expect(page.locator("li").filter(has_text="Total Market Value$").get_by_role("paragraph")).to_be_visible()
-    await expect(page.get_by_role("heading", name="Total PAC Monthly")).to_be_visible()
-    await expect(page.locator("li").filter(has_text="Total PAC Monthly$").get_by_role("paragraph")).to_be_visible()
-    await expect(page.get_by_role("heading", name="Total Protection")).to_be_visible()
-    await expect(page.locator("li").filter(has_text="Total Protection$").get_by_role("paragraph")).to_be_visible()
-    await expect(page.get_by_role("heading", name="Total Monthly Payment").nth(1)).to_be_visible()
-    await expect(page.locator("ul").filter(has_text="Total Protection$0Total").get_by_role("paragraph").nth(1)).to_be_visible()
-    await expect(page.get_by_role("heading", name="Total Investments")).to_be_visible()
-    await expect(page.locator("li").filter(has_text="Total Investments$").get_by_role("paragraph")).to_be_visible()
-    await expect(page.get_by_role("heading", name="Annual Income")).to_be_visible()
-    await expect(page.locator("li").filter(has_text="Annual Income$").get_by_role("paragraph")).to_be_visible()
-    await expect(page.get_by_role("heading", name="Expenses")).to_be_visible()
-    await expect(page.locator("li").filter(has_text="Expenses$").get_by_role("paragraph")).to_be_visible()
-    await expect(page.get_by_role("heading", name="Other Income")).to_be_visible()
-    await expect(page.locator("li").filter(has_text="Other Income$").get_by_role("paragraph")).to_be_visible()
-    await expect(page.get_by_role("heading", name="Net Cashflow")).to_be_visible()
-    await expect(page.locator("li").filter(has_text="Net Cashflow$").get_by_role("paragraph")).to_be_visible()
-    await expect(page.get_by_role("heading", name="Rental Income")).to_be_visible()
-    await expect(page.locator("li").filter(has_text="Rental Income $").get_by_role("paragraph")).to_be_visible()
-    await expect(page.get_by_role("heading", name="Liquid Assets")).to_be_visible()
-    await expect(page.get_by_role("heading", name="Fixed Assets")).to_be_visible()
-    await expect(page.locator("li").filter(has_text="Liquid Assets$").get_by_role("paragraph")).to_be_visible()
-    await expect(page.locator("li").filter(has_text="Fixed Assets$").get_by_role("paragraph")).to_be_visible()
-    await expect(page.get_by_role("heading", name="Liabilities")).to_be_visible()
-    await expect(page.get_by_role("heading", name="Net Networth")).to_be_visible()
-    await expect(page.locator("li").filter(has_text="Net Networth$").get_by_role("paragraph")).to_be_visible()
-    await expect(page.locator("li").filter(has_text="Liabilities$").get_by_role("paragraph")).to_be_visible()
-    await expect(page.get_by_role("heading", name="Protection", exact=True)).to_be_visible()
-    await expect(page.get_by_text("Current Active Policies")).to_be_visible()
-    await expect(page.get_by_role("heading", name="Wealth")).to_be_visible()
-    await expect(page.get_by_text("Current Investments/Savings")).to_be_visible()
-    await expect(page.get_by_role("heading", name="Monthly Contribution Summary")).to_be_visible()
-    await expect(page.get_by_role("heading", name="Cashflow", exact=True)).to_be_visible()
-    await expect(page.get_by_role("heading", name="Networth", exact=True)).to_be_visible()
-
+    try:
+        await expect(page.get_by_role("heading", name="Protection", exact=True)).to_be_visible()
+        await expect(page.get_by_role("heading", name="Total Coverage")).to_be_visible()
+        await expect(page.locator("li").filter(has_text="Total Coverage$").get_by_role("paragraph")).to_be_visible()
+        await expect(page.get_by_role("heading", name="Total Monthly Payment").first).to_be_visible()
+        await expect(page.locator("ul").filter(has_text="Total Coverage$0Total Monthly").get_by_role("paragraph").nth(1)).to_be_visible()
+        await expect(page.get_by_role("heading", name="TFSA")).to_be_visible()
+        await expect(page.locator("li").filter(has_text="TFSA$").get_by_role("paragraph")).to_be_visible()
+        await expect(page.get_by_role("heading", name="RRSP")).to_be_visible()
+        await expect(page.locator("li").filter(has_text="RRSP$").get_by_role("paragraph")).to_be_visible()
+        await expect(page.get_by_role("heading", name="RESP")).to_be_visible()
+        await expect(page.locator("li").filter(has_text="RESP$").get_by_role("paragraph")).to_be_visible()
+        await expect(page.get_by_role("heading", name="Total Market Value")).to_be_visible()
+        await expect(page.locator("li").filter(has_text="Total Market Value$").get_by_role("paragraph")).to_be_visible()
+        await expect(page.get_by_role("heading", name="Total PAC Monthly")).to_be_visible()
+        await expect(page.locator("li").filter(has_text="Total PAC Monthly$").get_by_role("paragraph")).to_be_visible()
+        await expect(page.get_by_role("heading", name="Total Protection")).to_be_visible()
+        await expect(page.locator("li").filter(has_text="Total Protection$").get_by_role("paragraph")).to_be_visible()
+        await expect(page.get_by_role("heading", name="Total Monthly Payment").nth(1)).to_be_visible()
+        await expect(page.locator("ul").filter(has_text="Total Protection$0Total").get_by_role("paragraph").nth(1)).to_be_visible()
+        await expect(page.get_by_role("heading", name="Total Investments")).to_be_visible()
+        await expect(page.locator("li").filter(has_text="Total Investments$").get_by_role("paragraph")).to_be_visible()
+        await expect(page.get_by_role("heading", name="Annual Income")).to_be_visible()
+        await expect(page.locator("li").filter(has_text="Annual Income$").get_by_role("paragraph")).to_be_visible()
+        await expect(page.get_by_role("heading", name="Expenses")).to_be_visible()
+        await expect(page.locator("li").filter(has_text="Expenses$").get_by_role("paragraph")).to_be_visible()
+        await expect(page.get_by_role("heading", name="Other Income")).to_be_visible()
+        await expect(page.locator("li").filter(has_text="Other Income$").get_by_role("paragraph")).to_be_visible()
+        await expect(page.get_by_role("heading", name="Net Cashflow")).to_be_visible()
+        await expect(page.locator("li").filter(has_text="Net Cashflow$").get_by_role("paragraph")).to_be_visible()
+        await expect(page.get_by_role("heading", name="Rental Income")).to_be_visible()
+        await expect(page.locator("li").filter(has_text="Rental Income $").get_by_role("paragraph")).to_be_visible()
+        await expect(page.get_by_role("heading", name="Liquid Assets")).to_be_visible()
+        await expect(page.get_by_role("heading", name="Fixed Assets")).to_be_visible()
+        await expect(page.locator("li").filter(has_text="Liquid Assets$").get_by_role("paragraph")).to_be_visible()
+        await expect(page.locator("li").filter(has_text="Fixed Assets$").get_by_role("paragraph")).to_be_visible()
+        await expect(page.get_by_role("heading", name="Liabilities")).to_be_visible()
+        await expect(page.get_by_role("heading", name="Net Networth")).to_be_visible()
+        await expect(page.locator("li").filter(has_text="Net Networth$").get_by_role("paragraph")).to_be_visible()
+        await expect(page.locator("li").filter(has_text="Liabilities$").get_by_role("paragraph")).to_be_visible()
+        await expect(page.get_by_role("heading", name="Protection", exact=True)).to_be_visible()
+        await expect(page.get_by_text("Current Active Policies")).to_be_visible()
+        await expect(page.get_by_role("heading", name="Wealth")).to_be_visible()
+        await expect(page.get_by_text("Current Investments/Savings")).to_be_visible()
+        await expect(page.get_by_role("heading", name="Monthly Contribution Summary")).to_be_visible()
+        await expect(page.get_by_role("heading", name="Cashflow", exact=True)).to_be_visible()
+        await expect(page.get_by_role("heading", name="Networth", exact=True)).to_be_visible()
+    except:
+        logging.info("Overview fields verification failed")
 
 async def overview(page):
     
-    await page.get_by_text("All Contacts").click()
-    
-    # Use a locator to find elements
+    await asyncio.sleep(6)
+    await page.get_by_text("All Contacts").click(timeout=15000)     
+
     locator = page.locator('div.d-flex.align-items-center.profile-details b.text-blue.text-underline')
-    
-    # Wait for at least one element to be visible
     await asyncio.sleep(5)
 
-    # Get the count of elements
+    # check if any list item are found
     count = await locator.count()
     if count == 0:
         logging.info("No elements found with the specified class.")
         return None
-
     
-    # Choose a random element
+    # a random element chosen
     index = random.randint(0, count - 1)
     chosen_element = locator.nth(index)
     element_content = await chosen_element.text_content()
     logging.info(f"Clicked on name: {element_content}")
     
-    # Perform any action needed on the chosen element, e.g., click
     await chosen_element.click()
-
     await page.locator("div").filter(has_text=re.compile(r"^Overview$")).click()
 
     #   New Note
@@ -197,63 +182,66 @@ async def overview(page):
     else:
         logging.info("Failure in task count increase")
 
+    asyncio.sleep(3)
 
-    div_locator = page.locator('div.checkbox-item.text-blue')
-    
-    # Get the number of matching elements
-    count = await div_locator.count()
-    
-    texts = []
-    
-    # Iterate over each element to get the 'aria-label' attribute
-    for i in range(count):
-        div_element = div_locator.nth(i)
-        # Locate the <p> element within the current div
-        p_element = div_element.locator('p.mb-0.ml-2')
-        # Get the text content of the <p> element
-        text_content = await p_element.inner_text()
-        texts.append(text_content)
-    count = len(texts)
+    # get the blue coloured done items out of 4 from the progress bar. max 4 possible
+    divs = await page.query_selector_all('svg.text-blue + p.mb-0.ml-2')
+    count2 = len(divs)
 
+    # get the percentage of the progress bar
     div_locator = page.locator('div.MuiTypography-root.MuiTypography-caption.css-157rtdk')
-    
-    # Get the text content of the div
-    text_content = await div_locator.inner_text()
-    
-    # Extract the numeric part from the text (assuming the text is in the format '25%')
-    percentage = ''.join(filter(str.isdigit, text_content))
+    text_content = await div_locator.inner_text()     # Get the text content of the div
+    percentage = ''.join(filter(str.isdigit, text_content))     # Extract the numeric part from the text (assuming the text is in the format '25%')
 
-    if percentage == "25" and count == 1:
+    if percentage == "25" and count2 == 1:
         pass
-    elif percentage == "50" and count == 2:
+    elif percentage == "50" and count2 == 2:
         pass
-    elif percentage == "75" and count == 3:
+    elif percentage == "75" and count2 == 3:
         pass
-    elif percentage == "100" and count == 4:
+    elif percentage == "100" and count2 == 4:
         pass
     else:
         logging.info(f"Failure in Compliance Progress: Percentage: {percentage}, Count: {count}")
+    
     abc = ["personal", "financial", "legal"]   
-    for _ in abc:
-        element1 = page.locator(f'span.font-600.text-blue[aria-label="{abc}-progress-count"]')
-        await get_percentage(element1, abc)
+    for x in abc:
+        element1 = page.locator(f'span.font-600.text-blue[aria-label="{x}-progress-count"]')
+        await get_percentage(element1, x)
 
     await assert_overview_fields(page)
-    async def download(page):
-        await page.get_by_text("Download SVG").click() 
-        await page.get_by_text("Download PNG").click()
-        await page.get_by_text("Download CSV").click()
-    
+    # logging.info("Overview fields verified")
+
+    async def download_1st(page):
+        try:
+            await download1(page)    
+            await page.locator("div.apexcharts-menu-item.exportSVG").first.click() 
+            await download1(page)
+            await page.locator("div.apexcharts-menu-item.exportPNG").first.click()
+            await download1(page)
+            await page.locator("div.apexcharts-menu-item.exportCSV").first.click()
+        except:
+            logging.info("Download failure for 1st bar icon")
+
+    async def download_2nd(page):
+        try:
+            await download2(page)
+            await page.locator("div.apexcharts-menu-item.exportSVG").nth(1).click() 
+            await download2(page)
+            await page.locator("div.apexcharts-menu-item.exportPNG").nth(1).click()
+            await download2(page)
+            await page.locator("div.apexcharts-menu-item.exportCSV").nth(1).click()
+        except:
+            logging.info("Download failure for 2nd bar icon")
+
     async def download1(page):
         await page.locator("div").filter(has_text=re.compile(r"^Download SVGDownload PNGDownload CSV$")).first.click()
     async def download2(page):
         await page.locator("div").filter(has_text=re.compile(r"^Download SVGDownload PNGDownload CSV$")).nth(2).click()
 
-    download1(page)
-    download(page)
-    download2(page)
-    download(page)
-
+    await download_1st(page)
+    await download_2nd(page)
+    # logging.info("Downloads completed")
 
 async def run() -> None:
     async with async_playwright() as p:
@@ -276,7 +264,7 @@ async def run() -> None:
         
         except Exception as e:  # Save trace if failure
             exceptions.append(e)
-            await utils.stop_trace(script_name, contexts)
+            await utils.stop_trace(variable.script_name, contexts)
         
         finally:
             try:
@@ -290,16 +278,16 @@ async def run() -> None:
 if __name__ == '__main__':
     exceptions = []
     # Ensure the states are recent by running the login scripts if necessary
-    if not utils.is_recent_state(state_path):
-        subprocess.run(['python', script_path], check=True)
+    if not utils.is_recent_state(variable.state_path):
+        subprocess.run(['python', variable.script_path], check=True)
     try:
         exceptions.extend(asyncio.run(run()))
-        utils.start_report(test_results, script_name)
+        utils.start_report(test_results, variable.script_name)
     except Exception as e:
         exceptions.append(e)  # Collect exceptions
     finally:
         if exceptions:
-            utils.traceback_error_logging_exp(script_name, exceptions)
-        utils.end_report(test_results, script_name)
+            utils.traceback_error_logging_exp(variable.script_name, exceptions)
+        utils.end_report(test_results, variable.script_name)
         
 

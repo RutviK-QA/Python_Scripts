@@ -14,14 +14,23 @@ import time
 import subprocess
 import asyncio
 import re
+import inspect
 from bs4 import BeautifulSoup
 import traceback
 from dotenv import load_dotenv
 from playwright.sync_api import sync_playwright, Page
 from playwright.async_api import async_playwright, Page
 
+# Function to load environment variables from .env files
+def load_env_files():
+    """Load environment variables from .env files"""
+    load_dotenv(dotenv_path='variables/Variables.env')
+    load_dotenv(dotenv_path='variables/API_responses.env')
+    load_dotenv(dotenv_path='variables/API.env')
+
 # Function to retrieve environment variables
 def get_env_variables():
+    load_env_files()
     """Retrieve environment variables"""
     password = os.getenv('PASS')
     url_1 = os.getenv('URL')
@@ -40,32 +49,33 @@ def get_env_variables():
     token= os.getenv('TOKEN')
     signup = os.getenv('SIGNUP_API')
     origin_url = os.getenv('ORIGIN_URL')
+    script_path_google = os.path.join(os.path.dirname(__file__), '../Variables/Login session for google.py')
+    state_path_google = os.path.join(os.path.dirname(__file__), 'variables/playwright/.auth/state-google.json')
+    
+    # Define the path to the login script and the state file
+    script_path = os.path.join(os.path.dirname(__file__), '../Variables/Login session script.py')
+    state_path = os.path.join(os.path.dirname(__file__), 'variables/playwright/.auth/state.json')
+
+    api_pattern = re.compile(fr'^{re.escape(api_url)}')
+   
     return (password, url_1, username, logs_folder, auth, google_account, google_password, 
-        outlook_account, outlook_password, outlook_account2, api_url, url_contacts, login_api, mailinator, token, signup, origin_url)
+        outlook_account, outlook_password, outlook_account2, api_url, url_contacts, login_api, mailinator, token, signup, 
+        origin_url, script_path_google, state_path_google, script_path, state_path, api_pattern)
+    
+class Variables():
+    def  __init__(self):
+        (self.password, self.loginurl, self.username, self.logs_folder, self.auth, 
+         self.google_account, self.google_password, self.outlook_account, 
+         self.outlook_password, self.outlook_account2, self.api_url, self.url_contacts, 
+         self.login_api, self.mailinator, self.token, self.signup, self.origin_url, 
+         self.script_path_google, self.state_path_google, self.script_path, self.state_path, self.api_pattern) = get_env_variables()
+
+variable = Variables()
 
 # Define the path to the login script and the state file
 SCRIPT_PATH = os.path.join(os.path.dirname(__file__), '../Variables/Login session script.py')   
 STATE_PATH = os.path.join(os.path.dirname(__file__), 'variables/playwright/.auth/state.json')
 STATE_PATH_GOOGLE = os.path.join(os.path.dirname(__file__), 'variables/playwright/.auth/state-google.json')
-
-# Function to define the path to the login script and the state file
-def paths():
-    # Define the path to the login script and the state file
-    script_path = os.path.join(os.path.dirname(__file__), '../Variables/Login session script.py')
-    state_path = os.path.join(os.path.dirname(__file__), 'variables/playwright/.auth/state.json')
-    return script_path, state_path
-
-def paths_google():
-    script_path_google = os.path.join(os.path.dirname(__file__), '../Variables/Login session for google.py')
-    state_path_google = os.path.join(os.path.dirname(__file__), 'variables/playwright/.auth/state-google.json')
-    return script_path_google, state_path_google
-
-# Function to load environment variables from .env files
-def load_env_files():
-    """Load environment variables from .env files"""
-    load_dotenv(dotenv_path='variables/Variables.env')
-    load_dotenv(dotenv_path='variables/API_responses.env')
-    load_dotenv(dotenv_path='variables/API.env')
 
 # Function to press arrow down for random number of times
 def for_x_y(page, x, y):
@@ -121,7 +131,11 @@ async def stop_trace(script_name, contexts):
 #         os.makedirs(logs_folder)
 #     log_file_path = os.path.join(logs_folder, f'{script_name}.log')
 #     logging.basicConfig(filename=log_file_path, level=logging.INFO, format='%(asctime)s - %(message)s')
-def logging_setup(script_name):
+def logging_setup():
+    frame = inspect.currentframe().f_back
+    # Get the filename of the caller's frame
+    filename = frame.f_code.co_filename
+    script_name = os.path.basename(filename).split('.')[0]
     logger = logging.getLogger()
     if logger.hasHandlers():
         logger.handlers.clear()
